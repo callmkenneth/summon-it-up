@@ -18,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				bungee: ['Bungee', 'sans-serif'],
+				poppins: ['Poppins', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -61,7 +65,25 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Summons Extended Palette
+				'dark-purple': 'hsl(var(--dark-purple))',
+				'purple': 'hsl(var(--purple))',
+				'light-purple': 'hsl(var(--light-purple))',
+				'magenta-2': 'hsl(var(--magenta-2))',
+				'magenta': 'hsl(var(--magenta))',
+				'pink': 'hsl(var(--pink))',
+				'light-pink': 'hsl(var(--light-pink))',
+				'lightest-pink': 'hsl(var(--lightest-pink))'
+			},
+			backgroundImage: {
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-card': 'var(--gradient-card)'
+			},
+			boxShadow: {
+				'primary': 'var(--shadow-primary)',
+				'accent': 'var(--shadow-accent)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

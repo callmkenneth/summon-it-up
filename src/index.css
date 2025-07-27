@@ -1,42 +1,73 @@
+@import '@fontsource/bungee';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/600.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Summons Design System - Brand Colors & Typography */
 
 @layer base {
   :root {
+    /* Summons Brand Palette */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 280 85% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 280 85% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 280 85% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary: Mid Purple #661D98 */
+    --primary: 280 71% 35%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary: Light Pink #FFD5FF */
+    --secondary: 300 100% 91%;
+    --secondary-foreground: 280 71% 35%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted: Grey #BCBCBC */
+    --muted: 0 0% 74%;
+    --muted-foreground: 280 20% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent: Magenta #EF4EB7 */
+    --accent: 320 85% 62%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* UI Elements */
+    --border: 300 20% 90%;
+    --input: 300 20% 95%;
+    --ring: 280 71% 35%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Summons Extended Palette */
+    --dark-purple: 280 85% 15%;
+    --purple: 270 60% 25%;
+    --light-purple: 285 50% 55%;
+    --magenta-2: 325 75% 44%;
+    --magenta: 320 85% 62%;
+    --pink: 315 100% 79%;
+    --light-pink: 300 100% 91%;
+    --lightest-pink: 300 100% 97%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--light-purple)));
+    --gradient-card: linear-gradient(180deg, hsl(var(--lightest-pink)), hsl(var(--light-pink)));
+
+    /* Shadows */
+    --shadow-primary: 0 10px 30px -10px hsl(var(--primary) / 0.3);
+    --shadow-accent: 0 10px 30px -10px hsl(var(--accent) / 0.4);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +131,35 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-poppins;
+  }
+
+  /* Summons Typography */
+  h1 {
+    @apply font-bungee text-6xl leading-tight;
+  }
+
+  h2 {
+    @apply font-bungee text-5xl leading-tight;
+  }
+
+  h3 {
+    @apply font-poppins text-[45px] leading-[52px] font-normal;
+  }
+
+  h4 {
+    @apply font-poppins text-[25px] leading-[38px] font-bold;
+  }
+
+  h5 {
+    @apply font-poppins text-xl font-bold leading-auto;
+  }
+
+  p {
+    @apply font-poppins text-base leading-6 font-normal;
+  }
+
+  .caption {
+    @apply font-poppins text-xs leading-4 font-normal;
   }
 }

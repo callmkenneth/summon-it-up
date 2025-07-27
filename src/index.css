@@ -152,7 +152,7 @@
   }
 
   h5 {
-    @apply font-poppins text-xl font-bold leading-auto;
+    @apply font-poppins text-xl font-bold;
   }
 
   p {

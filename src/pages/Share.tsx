@@ -1,23 +1,34 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Copy, Mail, Check } from "lucide-react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Share = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
   const [email, setEmail] = useState('');
   const [emailSent, setEmailSent] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
 
-  // Mock event ID - in real app this would come from the creation flow
-  const eventId = "sample-event-123";
-  const inviteLink = `${window.location.origin}/invite/${eventId}`;
-  const manageLink = `${window.location.origin}/manage`;
+  const eventId = searchParams.get('id');
+  const inviteLink = eventId ? `${window.location.origin}/invite/${eventId}` : '';
+  const manageLink = eventId ? `${window.location.origin}/manage/${eventId}` : '';
+
+  useEffect(() => {
+    if (!eventId) {
+      toast({
+        title: "No event found",
+        description: "Please create an event first",
+        variant: "destructive",
+      });
+      navigate('/newevent');
+    }
+  }, [eventId, navigate, toast]);
 
   const copyToClipboard = async (text: string, type: string) => {
     try {
@@ -37,13 +48,28 @@ const Share = () => {
     }
   };
 
-  const sendEmail = () => {
-    // TODO: Implement email sending when Supabase is connected
-    setEmailSent(true);
-    toast({
-      title: "Email sent!",
-      description: "Event details have been sent to your inbox",
-    });
+  const sendEmail = async () => {
+    if (!eventId || !email) return;
+
+    try {
+      const { error } = await supabase.functions.invoke('send-event-details', {
+        body: { eventId, email }
+      });
+
+      if (error) throw error;
+
+      setEmailSent(true);
+      toast({
+        title: "Email sent!",
+        description: "Event details have been sent to your inbox",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Failed to send email",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
   };
 
   return (

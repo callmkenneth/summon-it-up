@@ -4,11 +4,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Slider } from "@/components/ui/slider";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const NewEvent = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -19,14 +23,55 @@ const NewEvent = () => {
     location: '',
     guestLimit: '',
     unlimited: false,
+    useRatioControl: false,
+    maleRatio: 50,
     rsvpDeadline: '',
     hostEmail: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Submit to backend when Supabase is connected
-    navigate('/share');
+    
+    try {
+      const eventData = {
+        title: formData.title,
+        description: formData.description,
+        event_date: formData.eventDate,
+        start_time: formData.startTime,
+        end_time: formData.endTime,
+        location: formData.location,
+        guest_limit: formData.unlimited ? null : parseInt(formData.guestLimit),
+        unlimited_guests: formData.unlimited,
+        use_ratio_control: formData.useRatioControl,
+        male_ratio: formData.maleRatio / 100,
+        female_ratio: (100 - formData.maleRatio) / 100,
+        rsvp_deadline: formData.rsvpDeadline ? new Date(formData.rsvpDeadline).toISOString() : null,
+        host_email: formData.hostEmail,
+        status: 'open'
+      };
+
+      const { data, error } = await supabase
+        .from('events')
+        .insert(eventData)
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      toast({
+        title: "Event created successfully!",
+        description: "Your event is ready to be shared.",
+      });
+
+      // Navigate to share page with event ID
+      navigate(`/share?id=${data.id}`);
+    } catch (error: any) {
+      toast({
+        title: "Error creating event",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
   };
 
   const isFormComplete = formData.title && formData.description && formData.eventDate && 
@@ -142,6 +187,54 @@ const NewEvent = () => {
                       className="mt-2"
                       placeholder="Maximum number of guests"
                     />
+                  </div>
+                )}
+
+                {!formData.unlimited && (
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="ratioControl"
+                      checked={formData.useRatioControl}
+                      onCheckedChange={(checked) => setFormData(prev => ({ ...prev, useRatioControl: !!checked }))}
+                    />
+                    <Label htmlFor="ratioControl">Men/Women Ratio Control</Label>
+                  </div>
+                )}
+
+                {!formData.unlimited && formData.useRatioControl && formData.guestLimit && (
+                  <div className="space-y-4">
+                    <div>
+                      <Label className="text-sm font-medium">Gender Ratio</Label>
+                      <div className="mt-3 space-y-4">
+                        <div className="relative">
+                          <Slider
+                            value={[formData.maleRatio]}
+                            onValueChange={([value]) => setFormData(prev => ({ ...prev, maleRatio: value }))}
+                            max={100}
+                            step={1}
+                            className="w-full"
+                          />
+                          <div className="flex justify-between mt-2 text-sm">
+                            <span className="text-blue-600 font-medium">👨 Men</span>
+                            <span className="text-pink-600 font-medium">👩 Women</span>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 text-center">
+                          <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                            <div className="text-sm text-blue-600 font-medium">Male Spots</div>
+                            <div className="text-2xl font-bold text-blue-700">
+                              {Math.round(parseInt(formData.guestLimit) * (formData.maleRatio / 100))}
+                            </div>
+                          </div>
+                          <div className="p-3 bg-pink-50 rounded-lg border border-pink-200">
+                            <div className="text-sm text-pink-600 font-medium">Female Spots</div>
+                            <div className="text-2xl font-bold text-pink-700">
+                              {Math.round(parseInt(formData.guestLimit) * ((100 - formData.maleRatio) / 100))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
 

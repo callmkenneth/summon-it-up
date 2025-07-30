@@ -25,7 +25,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/newevent" element={<NewEvent />} />
           <Route path="/share" element={<Share />} />
-          <Route path="/manage" element={<Manage />} />
+          <Route path="/manage/:id" element={<Manage />} />
           <Route path="/invite/:id" element={<Invite />} />
           <Route path="/name/:id" element={<NameCapture />} />
           <Route path="/details/:id" element={<Details />} />

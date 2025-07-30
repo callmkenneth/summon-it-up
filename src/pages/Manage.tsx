@@ -2,37 +2,125 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, MapPin, Users, AlertTriangle } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { CancelEventDialog } from "@/components/CancelEventDialog";
 
 const Manage = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { toast } = useToast();
+  const [event, setEvent] = useState<any>(null);
+  const [rsvps, setRsvps] = useState<any>({ yes: [], no: [] });
+  const [loading, setLoading] = useState(true);
+  const [showCancelDialog, setShowCancelDialog] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
 
-  // Mock data - in real app this would come from Supabase
-  const event = {
-    title: "Summer Pool Party",
-    description: "Join us for a fun-filled afternoon by the pool! Bring your swimwear and appetite.",
-    date: "2024-08-15",
-    startTime: "14:00",
-    endTime: "18:00",
-    location: "123 Pool Lane, Sunshine City",
-    capacity: 20,
-    rsvpDeadline: "2024-08-13T23:59",
-    status: "open" as const
+  useEffect(() => {
+    if (!id) {
+      toast({
+        title: "No event found",
+        description: "Invalid event link",
+        variant: "destructive",
+      });
+      navigate('/');
+      return;
+    }
+    loadEventData();
+  }, [id]);
+
+  const loadEventData = async () => {
+    try {
+      // Load event data
+      const { data: eventData, error: eventError } = await supabase
+        .from('events')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (eventError) throw eventError;
+
+      // Load RSVPs
+      const { data: rsvpData, error: rsvpError } = await supabase
+        .from('rsvps')
+        .select('*')
+        .eq('event_id', id);
+
+      if (rsvpError) throw rsvpError;
+
+      setEvent(eventData);
+      
+      // Group RSVPs by status
+      const groupedRsvps = {
+        yes: rsvpData?.filter(r => r.status === 'yes') || [],
+        no: rsvpData?.filter(r => r.status === 'no') || []
+      };
+      setRsvps(groupedRsvps);
+      
+    } catch (error: any) {
+      toast({
+        title: "Error loading event",
+        description: error.message,
+        variant: "destructive",
+      });
+      navigate('/');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const rsvps = {
-    yes: [
-      { name: "Alice Johnson", gender: "female" },
-      { name: "Bob Smith", gender: "male" },
-      { name: "Carol Davis", gender: "female" },
-    ],
-    no: [
-      { name: "David Wilson", gender: "male" },
-    ]
+  const handleCancelEvent = async () => {
+    setCancelling(true);
+    try {
+      const { error } = await supabase
+        .from('events')
+        .update({ status: 'cancelled' })
+        .eq('id', id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Event cancelled",
+        description: "Your event has been cancelled successfully.",
+      });
+
+      setShowCancelDialog(false);
+      setEvent({ ...event, status: 'cancelled' });
+    } catch (error: any) {
+      toast({
+        title: "Error cancelling event",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setCancelling(false);
+    }
   };
 
-  const spotsRemaining = event.capacity - rsvps.yes.length;
-  const timeLeft = Math.ceil((new Date(event.rsvpDeadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-card flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+          <p className="mt-4 text-muted-foreground">Loading event data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!event) {
+    return null;
+  }
+
+  const spotsRemaining = event.unlimited_guests 
+    ? '∞' 
+    : Math.max(0, (event.guest_limit || 0) - rsvps.yes.length);
+  
+  const timeLeft = event.rsvp_deadline 
+    ? Math.ceil((new Date(event.rsvp_deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
+    : null;
 
   return (
     <div className="min-h-screen bg-gradient-card">
@@ -55,7 +143,7 @@ const Manage = () => {
                   <Calendar className="h-5 w-5 text-accent" />
                   <div>
                     <p className="font-semibold">Date</p>
-                    <p className="text-muted-foreground">{new Date(event.date).toLocaleDateString()}</p>
+                    <p className="text-muted-foreground">{new Date(event.event_date).toLocaleDateString()}</p>
                   </div>
                 </div>
                 
@@ -63,7 +151,7 @@ const Manage = () => {
                   <Clock className="h-5 w-5 text-accent" />
                   <div>
                     <p className="font-semibold">Time</p>
-                    <p className="text-muted-foreground">{event.startTime} - {event.endTime}</p>
+                    <p className="text-muted-foreground">{event.start_time} - {event.end_time}</p>
                   </div>
                 </div>
                 
@@ -75,13 +163,15 @@ const Manage = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-3">
-                  <Users className="h-5 w-5 text-accent" />
-                  <div>
-                    <p className="font-semibold">Capacity</p>
-                    <p className="text-muted-foreground">{event.capacity} guests</p>
-                  </div>
-                </div>
+                 <div className="flex items-center gap-3">
+                   <Users className="h-5 w-5 text-accent" />
+                   <div>
+                     <p className="font-semibold">Capacity</p>
+                     <p className="text-muted-foreground">
+                       {event.unlimited_guests ? 'Unlimited' : `${event.guest_limit} guests`}
+                     </p>
+                   </div>
+                 </div>
               </div>
               
               <div>
@@ -118,9 +208,15 @@ const Manage = () => {
               <CardContent className="pt-6">
                 <div className="text-center">
                   <AlertTriangle className="h-8 w-8 mx-auto mb-2 text-destructive" />
-                  <Button variant="destructive" size="sm" className="mt-2">
-                    Cancel Event
-                  </Button>
+                   <Button 
+                     variant="destructive" 
+                     size="sm" 
+                     className="mt-2"
+                     onClick={() => setShowCancelDialog(true)}
+                     disabled={event.status === 'cancelled'}
+                   >
+                     {event.status === 'cancelled' ? 'Cancelled' : 'Cancel Event'}
+                   </Button>
                 </div>
               </CardContent>
             </Card>
@@ -181,6 +277,13 @@ const Manage = () => {
           </div>
         </div>
       </div>
+
+      <CancelEventDialog
+        open={showCancelDialog}
+        onOpenChange={setShowCancelDialog}
+        onConfirm={handleCancelEvent}
+        isLoading={cancelling}
+      />
     </div>
   );
 };

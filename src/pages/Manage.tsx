@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { CancelEventDialog } from "@/components/CancelEventDialog";
+import { EditEventDialog } from "@/components/EditEventDialog";
 
 const Manage = () => {
   const navigate = useNavigate();
@@ -16,7 +17,9 @@ const Manage = () => {
   const [rsvps, setRsvps] = useState<any>({ yes: [], no: [] });
   const [loading, setLoading] = useState(true);
   const [showCancelDialog, setShowCancelDialog] = useState(false);
+  const [showEditDialog, setShowEditDialog] = useState(false);
   const [cancelling, setCancelling] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (!id) {
@@ -99,6 +102,40 @@ const Manage = () => {
     }
   };
 
+  const handleSaveEvent = async (data: any) => {
+    setSaving(true);
+    try {
+      const updateData = {
+        ...data,
+        guest_limit: data.guest_limit ? parseInt(data.guest_limit) : null,
+        rsvp_deadline: data.rsvp_deadline ? new Date(data.rsvp_deadline).toISOString() : null
+      };
+
+      const { error } = await supabase
+        .from('events')
+        .update(updateData)
+        .eq('id', id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Event updated",
+        description: "Your event has been updated successfully.",
+      });
+
+      setShowEditDialog(false);
+      setEvent({ ...event, ...updateData });
+    } catch (error: any) {
+      toast({
+        title: "Error updating event",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-card flex items-center justify-center">
@@ -123,7 +160,7 @@ const Manage = () => {
     : null;
 
   return (
-    <div className="min-h-screen bg-gradient-card">
+    <div className="min-h-screen">
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-primary mb-8">{event.title}</h1>
@@ -199,7 +236,14 @@ const Manage = () => {
                   <Clock className="h-8 w-8 mx-auto mb-2 text-accent" />
                   <h4 className="text-2xl font-bold text-primary">{timeLeft}</h4>
                   <p className="text-muted-foreground">Days to Respond</p>
-                  <Button variant="ghost" size="sm" className="mt-2">Edit</Button>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="mt-2"
+                    onClick={() => setShowEditDialog(true)}
+                  >
+                    Edit Event
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -283,6 +327,14 @@ const Manage = () => {
         onOpenChange={setShowCancelDialog}
         onConfirm={handleCancelEvent}
         isLoading={cancelling}
+      />
+      
+      <EditEventDialog
+        open={showEditDialog}
+        onOpenChange={setShowEditDialog}
+        onSave={handleSaveEvent}
+        event={event}
+        isLoading={saving}
       />
     </div>
   );

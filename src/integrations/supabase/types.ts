@@ -14,13 +14,116 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      events: {
+        Row: {
+          created_at: string
+          description: string
+          end_time: string
+          event_date: string
+          female_ratio: number | null
+          guest_limit: number | null
+          host_email: string
+          id: string
+          image_url: string | null
+          location: string
+          male_ratio: number | null
+          rsvp_deadline: string | null
+          start_time: string
+          status: string | null
+          title: string
+          unlimited_guests: boolean | null
+          updated_at: string
+          use_ratio_control: boolean | null
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          end_time: string
+          event_date: string
+          female_ratio?: number | null
+          guest_limit?: number | null
+          host_email: string
+          id?: string
+          image_url?: string | null
+          location: string
+          male_ratio?: number | null
+          rsvp_deadline?: string | null
+          start_time: string
+          status?: string | null
+          title: string
+          unlimited_guests?: boolean | null
+          updated_at?: string
+          use_ratio_control?: boolean | null
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          end_time?: string
+          event_date?: string
+          female_ratio?: number | null
+          guest_limit?: number | null
+          host_email?: string
+          id?: string
+          image_url?: string | null
+          location?: string
+          male_ratio?: number | null
+          rsvp_deadline?: string | null
+          start_time?: string
+          status?: string | null
+          title?: string
+          unlimited_guests?: boolean | null
+          updated_at?: string
+          use_ratio_control?: boolean | null
+        }
+        Relationships: []
+      }
+      rsvps: {
+        Row: {
+          attendee_email: string
+          attendee_name: string
+          created_at: string
+          event_id: string
+          gender: string
+          id: string
+          status: string
+        }
+        Insert: {
+          attendee_email: string
+          attendee_name: string
+          created_at?: string
+          event_id: string
+          gender: string
+          id?: string
+          status?: string
+        }
+        Update: {
+          attendee_email?: string
+          attendee_name?: string
+          created_at?: string
+          event_id?: string
+          gender?: string
+          id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rsvps_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_spots_remaining: {
+        Args: { event_uuid: string }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never

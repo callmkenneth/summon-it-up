@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -61,9 +62,9 @@ const NameCapture = () => {
       if (error) throw error;
 
       if (response === 'yes' || response === 'waitlist') {
-        navigate(`/details/${id}`);
+        navigate(`/details/${id}?name=${encodeURIComponent(name)}`);
       } else {
-        navigate(`/rejected/${id}`);
+        navigate(`/rejected/${id}?name=${encodeURIComponent(name)}`);
       }
     } catch (error: any) {
       toast({
@@ -157,6 +158,7 @@ const NameCapture = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

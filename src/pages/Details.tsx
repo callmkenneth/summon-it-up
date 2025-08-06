@@ -2,13 +2,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, MapPin, Users } from "lucide-react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 
 const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const [event, setEvent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -75,7 +77,7 @@ const Details = () => {
     return null;
   }
 
-  const userName = "Alex"; // This would come from the actual RSVP submission
+  const userName = searchParams.get('name') || "Guest"; // Get name from URL params
   const spotsRemaining = event.unlimited_guests 
     ? '∞' 
     : Math.max(0, (event.guest_limit || 0) - rsvps.yes.length);
@@ -89,8 +91,10 @@ const Details = () => {
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-primary mb-4">Alright {userName}, you're in!</h1>
-            <div className="text-6xl mb-4">🎉</div>
+            <h1 className="text-primary mb-4">
+              {event?.status === 'cancelled' ? 'Event Cancelled' : `Alright ${userName}, you're in!`}
+            </h1>
+            <div className="text-6xl mb-4">{event?.status === 'cancelled' ? '❌' : '🎉'}</div>
           </div>
 
           {/* Event Details */}
@@ -100,7 +104,11 @@ const Details = () => {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg">Event Image</span>
+                {event?.image_url ? (
+                  <img src={event.image_url} alt={event.title} className="w-full h-full object-cover rounded-lg" />
+                ) : (
+                  <span className="text-white text-lg">Event Image</span>
+                )}
               </div>
 
               <div className="grid gap-6 md:grid-cols-3">
@@ -250,6 +258,7 @@ const Details = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

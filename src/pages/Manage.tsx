@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, MapPin, Users, AlertTriangle } from "lucide-react";
+import { Calendar, Clock, MapPin, Users, AlertTriangle, X, Edit } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { CancelEventDialog } from "@/components/CancelEventDialog";
@@ -136,6 +137,31 @@ const Manage = () => {
     }
   };
 
+  const handleRemoveGuest = async (rsvpId: string) => {
+    try {
+      const { error } = await supabase
+        .from('rsvps')
+        .delete()
+        .eq('id', rsvpId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Guest removed",
+        description: "The guest has been removed from the event.",
+      });
+
+      // Reload data to reflect changes
+      loadEventData();
+    } catch (error: any) {
+      toast({
+        title: "Error removing guest",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-card flex items-center justify-center">
@@ -167,12 +193,25 @@ const Manage = () => {
 
           {/* Event Details Module */}
           <Card className="shadow-primary mb-8">
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="text-primary">Event Details</CardTitle>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setShowEditDialog(true)}
+                className="flex items-center gap-2"
+              >
+                <Edit className="h-4 w-4" />
+                Edit Event
+              </Button>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg">Event Image</span>
+                {event?.image_url ? (
+                  <img src={event.image_url} alt={event.title} className="w-full h-full object-cover rounded-lg" />
+                ) : (
+                  <span className="text-white text-lg">Event Image</span>
+                )}
               </div>
               
               <div className="grid gap-4 md:grid-cols-2">
@@ -236,14 +275,6 @@ const Manage = () => {
                   <Clock className="h-8 w-8 mx-auto mb-2 text-accent" />
                   <h4 className="text-2xl font-bold text-primary">{timeLeft}</h4>
                   <p className="text-muted-foreground">Days to Respond</p>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="mt-2"
-                    onClick={() => setShowEditDialog(true)}
-                  >
-                    Edit Event
-                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -282,10 +313,20 @@ const Manage = () => {
                   <div className="space-y-2">
                     {rsvps.yes.map((person, index) => (
                       <div key={index} className="flex items-center justify-between p-2 bg-green-50 rounded">
-                        <span>{person.name}</span>
-                        <Badge variant="secondary" className="text-xs">
-                          {person.gender}
-                        </Badge>
+                        <div className="flex items-center gap-2">
+                          <span>{person.attendee_name}</span>
+                          <Badge variant="secondary" className="text-xs">
+                            {person.gender}
+                          </Badge>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleRemoveGuest(person.id)}
+                          className="text-red-600 hover:text-red-800"
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
                       </div>
                     ))}
                   </div>
@@ -300,10 +341,20 @@ const Manage = () => {
                   <div className="space-y-2">
                     {rsvps.no.map((person, index) => (
                       <div key={index} className="flex items-center justify-between p-2 bg-red-50 rounded">
-                        <span>{person.name}</span>
-                        <Badge variant="secondary" className="text-xs">
-                          {person.gender}
-                        </Badge>
+                        <div className="flex items-center gap-2">
+                          <span>{person.attendee_name}</span>
+                          <Badge variant="secondary" className="text-xs">
+                            {person.gender}
+                          </Badge>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleRemoveGuest(person.id)}
+                          className="text-red-600 hover:text-red-800"
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
                       </div>
                     ))}
                   </div>
@@ -321,6 +372,7 @@ const Manage = () => {
           </div>
         </div>
       </div>
+      <Footer />
 
       <CancelEventDialog
         open={showCancelDialog}

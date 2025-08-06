@@ -135,6 +135,7 @@ export function EditEventDialog({
               <Input
                 id="guest_limit"
                 type="number"
+                min="0"
                 value={formData.guest_limit}
                 onChange={(e) => setFormData({...formData, guest_limit: e.target.value})}
                 placeholder="Leave empty for unlimited"

@@ -12,6 +12,9 @@ import Invite from "./pages/Invite";
 import NameCapture from "./pages/NameCapture";
 import Details from "./pages/Details";
 import Rejected from "./pages/Rejected";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
+import Cookies from "./pages/Cookies";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +36,9 @@ const App = () => (
             <Route path="/name/:id" element={<NameCapture />} />
             <Route path="/details/:id" element={<Details />} />
             <Route path="/rejected/:id" element={<Rejected />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/cookies" element={<Cookies />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

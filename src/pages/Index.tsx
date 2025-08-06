@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Footer } from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
@@ -19,7 +20,7 @@ const Index = () => {
             <h1 className="text-white mb-6 drop-shadow-lg">
               Create Beautiful Events
             </h1>
-            <p className="text-white/90 mb-12 max-w-2xl mx-auto text-xl leading-relaxed">
+            <p className="text-white/90 mb-12 max-w-2xl mx-auto text-lg leading-relaxed">
               The easiest way to organize gatherings, collect RSVPs, and manage your guest list with style.
             </p>
             
@@ -70,46 +71,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-dark-purple text-white py-12">
-        <div className="container mx-auto px-6">
-          <div className="grid gap-8 md:grid-cols-4">
-            <div>
-              <h5 className="font-bungee text-light-pink mb-4">Summons</h5>
-              <p className="text-sm text-gray-300">
-                Beautiful event management made simple.
-              </p>
-            </div>
-            <div>
-              <h5 className="text-light-pink mb-4">Product</h5>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="#" className="hover:text-white">Features</a></li>
-                <li><a href="#" className="hover:text-white">Pricing</a></li>
-                <li><a href="#" className="hover:text-white">Examples</a></li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="text-light-pink mb-4">Support</h5>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="#" className="hover:text-white">Help Center</a></li>
-                <li><a href="#" className="hover:text-white">Contact</a></li>
-                <li><a href="#" className="hover:text-white">Status</a></li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="text-light-pink mb-4">Legal</h5>
-              <ul className="space-y-2 text-sm text-gray-300">
-                <li><a href="#" className="hover:text-white">Privacy</a></li>
-                <li><a href="#" className="hover:text-white">Terms</a></li>
-                <li><a href="#" className="hover:text-white">Cookies</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-purple mt-8 pt-8 text-center text-sm text-gray-300">
-            <p>&copy; 2024 Summons. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

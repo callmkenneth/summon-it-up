@@ -5,6 +5,8 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const NameCapture = () => {
   const { id } = useParams();
@@ -14,21 +16,67 @@ const NameCapture = () => {
   
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !gender) return;
+    if (!name || !gender || !email) return;
 
-    // TODO: Submit RSVP to Supabase when connected
-    
-    if (response === 'yes' || response === 'waitlist') {
-      navigate(`/details/${id}`);
-    } else {
-      navigate(`/rejected/${id}`);
+    setSubmitting(true);
+    try {
+      // Check gender-specific spots if event uses ratio control
+      if (response === 'yes') {
+        const { data: spotsData, error: spotsError } = await supabase
+          .rpc('get_gender_spots_remaining', {
+            event_uuid: id,
+            target_gender: gender
+          });
+
+        if (spotsError) throw spotsError;
+
+        if (spotsData <= 0) {
+          toast({
+            title: "No spots available",
+            description: `Sorry, there are no more ${gender} spots available. Please check back later to see if anything opens up.`,
+            variant: "destructive",
+          });
+          setSubmitting(false);
+          return;
+        }
+      }
+
+      // Submit RSVP to Supabase
+      const { error } = await supabase
+        .from('rsvps')
+        .insert({
+          event_id: id,
+          attendee_name: name,
+          attendee_email: email,
+          gender: gender,
+          status: response === 'waitlist' ? 'yes' : response
+        });
+
+      if (error) throw error;
+
+      if (response === 'yes' || response === 'waitlist') {
+        navigate(`/details/${id}`);
+      } else {
+        navigate(`/rejected/${id}`);
+      }
+    } catch (error: any) {
+      toast({
+        title: "Error submitting RSVP",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  const isFormComplete = name.trim() && gender;
+  const isFormComplete = name.trim() && gender && email.trim();
 
   return (
     <div className="min-h-screen bg-gradient-card flex items-center justify-center">
@@ -58,18 +106,32 @@ const NameCapture = () => {
                     className="mt-2"
                     placeholder="Enter your full name"
                     autoFocus
+                    disabled={submitting}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="email">Your Email *</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="mt-2"
+                    placeholder="Enter your email address"
+                    disabled={submitting}
                   />
                 </div>
 
                 <div>
                   <Label className="text-base font-medium">Gender *</Label>
-                  <RadioGroup value={gender} onValueChange={setGender} className="mt-3">
+                  <RadioGroup value={gender} onValueChange={setGender} className="mt-3" disabled={submitting}>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="male" id="male" />
+                      <RadioGroupItem value="male" id="male" disabled={submitting} />
                       <Label htmlFor="male">Male</Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="female" id="female" />
+                      <RadioGroupItem value="female" id="female" disabled={submitting} />
                       <Label htmlFor="female">Female</Label>
                     </div>
                   </RadioGroup>
@@ -80,9 +142,9 @@ const NameCapture = () => {
                   variant="hero" 
                   size="lg" 
                   className="w-full"
-                  disabled={!isFormComplete}
+                  disabled={!isFormComplete || submitting}
                 >
-                  Done
+                  {submitting ? "Submitting..." : "Done"}
                 </Button>
               </form>
             </CardContent>

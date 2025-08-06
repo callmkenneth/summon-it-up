@@ -7,31 +7,21 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-card">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-light-pink">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <h2 className="font-bungee text-primary">Summons</h2>
-            </div>
-            <nav className="hidden md:flex space-x-6">
-              <a href="#" className="text-muted-foreground hover:text-primary">About</a>
-              <a href="#" className="text-muted-foreground hover:text-primary">Help</a>
-            </nav>
-          </div>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-6 text-center">
+      {/* Hero Section with Video Background */}
+      <section className="relative py-20 overflow-hidden">
+        {/* Pink Video Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-pink via-light-pink to-secondary opacity-90"></div>
+        <div className="absolute inset-0 bg-gradient-primary opacity-70"></div>
+        
+        {/* Content Overlay */}
+        <div className="relative z-10 container mx-auto px-6 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-primary mb-6">
+            <h1 className="text-white mb-6 drop-shadow-lg">
               Create Beautiful Events
             </h1>
-            <h3 className="text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-white/90 mb-12 max-w-2xl mx-auto text-xl leading-relaxed">
               The easiest way to organize gatherings, collect RSVPs, and manage your guest list with style.
-            </h3>
+            </p>
             
             <div className="mb-16">
               <Button 

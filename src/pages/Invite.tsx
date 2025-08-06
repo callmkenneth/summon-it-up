@@ -3,38 +3,96 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, MapPin, Users } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const Invite = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Mock data - in real app this would be fetched from Supabase
-  const event = {
-    title: "Summer Pool Party",
-    description: "Join us for a fun-filled afternoon by the pool! Bring your swimwear and appetite.",
-    date: "2024-08-15",
-    startTime: "14:00",
-    endTime: "18:00",
-    location: "123 Pool Lane, Sunshine City",
-    capacity: 20,
-    rsvpDeadline: "2024-08-13T23:59",
-    status: "open" as const
+  const { toast } = useToast();
+  const [event, setEvent] = useState<any>(null);
+  const [rsvps, setRsvps] = useState<any>({ yes: [], no: [] });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!id) {
+      toast({
+        title: "No event found",
+        description: "Invalid event link",
+        variant: "destructive",
+      });
+      navigate('/');
+      return;
+    }
+    loadEventData();
+  }, [id]);
+
+  const loadEventData = async () => {
+    try {
+      // Load event data
+      const { data: eventData, error: eventError } = await supabase
+        .from('events')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (eventError) throw eventError;
+
+      // Load RSVPs
+      const { data: rsvpData, error: rsvpError } = await supabase
+        .from('rsvps')
+        .select('*')
+        .eq('event_id', id);
+
+      if (rsvpError) throw rsvpError;
+
+      setEvent(eventData);
+      
+      // Group RSVPs by status
+      const groupedRsvps = {
+        yes: rsvpData?.filter(r => r.status === 'yes') || [],
+        no: rsvpData?.filter(r => r.status === 'no') || []
+      };
+      setRsvps(groupedRsvps);
+      
+    } catch (error: any) {
+      toast({
+        title: "Error loading event",
+        description: error.message,
+        variant: "destructive",
+      });
+      navigate('/');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const rsvps = {
-    yes: [
-      { name: "Alice Johnson" },
-      { name: "Bob Smith" },
-      { name: "Carol Davis" },
-    ],
-    no: [
-      { name: "David Wilson" },
-    ]
-  };
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-card flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+          <p className="mt-4 text-muted-foreground">Loading event...</p>
+        </div>
+      </div>
+    );
+  }
 
-  const spotsRemaining = event.capacity - rsvps.yes.length;
-  const timeLeft = Math.ceil((new Date(event.rsvpDeadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
-  const isFull = spotsRemaining <= 0;
+  if (!event) {
+    return null;
+  }
+
+  const spotsRemaining = event.unlimited_guests 
+    ? '∞' 
+    : Math.max(0, (event.guest_limit || 0) - rsvps.yes.length);
+    
+  const timeLeft = event.rsvp_deadline 
+    ? Math.ceil((new Date(event.rsvp_deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
+    : null;
+    
+  const isFull = !event.unlimited_guests && typeof spotsRemaining === 'number' && spotsRemaining <= 0;
 
   const handleRSVP = (response: 'yes' | 'no') => {
     navigate(`/name/${id}?response=${response}`);
@@ -55,7 +113,7 @@ const Invite = () => {
           {/* Event Description Module */}
           <Card className="shadow-primary mb-8">
             <CardHeader>
-              <CardTitle className="text-accent">{event.title}</CardTitle>
+              <CardTitle className="text-accent">{event?.title}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center">
@@ -69,7 +127,7 @@ const Invite = () => {
                     <h5>Where</h5>
                   </div>
                   <p className="text-muted-foreground">
-                    {rsvps.yes.some(r => r.name === "Current User") ? event.location : "RSVP to find out"}
+                    {event?.location || "RSVP to find out"}
                   </p>
                 </div>
 
@@ -79,10 +137,10 @@ const Invite = () => {
                     <h5>When</h5>
                   </div>
                   <p className="text-muted-foreground">
-                    {new Date(event.date).toLocaleDateString()}
+                    {event?.event_date ? new Date(event.event_date).toLocaleDateString() : ''}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    {event.startTime} - {event.endTime}
+                    {event?.start_time} - {event?.end_time}
                   </p>
                 </div>
 
@@ -92,7 +150,7 @@ const Invite = () => {
                     <h5>What</h5>
                   </div>
                   <p className="text-muted-foreground text-sm">
-                    {event.description}
+                    {event?.description}
                   </p>
                 </div>
               </div>
@@ -106,7 +164,7 @@ const Invite = () => {
                 <div className="text-center">
                   <Users className="h-6 w-6 mx-auto mb-2 text-accent" />
                   <p className="font-semibold text-primary">
-                    {spotsRemaining > 0 ? `${spotsRemaining} spots remaining` : "No spots remaining"}
+                    {typeof spotsRemaining === 'string' ? 'Unlimited spots' : spotsRemaining > 0 ? `${spotsRemaining} spots remaining` : "No spots remaining"}
                   </p>
                 </div>
               </CardContent>
@@ -117,7 +175,7 @@ const Invite = () => {
                 <div className="text-center">
                   <Clock className="h-6 w-6 mx-auto mb-2 text-accent" />
                   <p className="font-semibold text-primary">
-                    {timeLeft > 0 ? `${timeLeft} days to respond` : "RSVP closed"}
+                    {timeLeft !== null && timeLeft > 0 ? `${timeLeft} days to respond` : "RSVP closed"}
                   </p>
                 </div>
               </CardContent>
@@ -146,12 +204,15 @@ const Invite = () => {
                   <Badge variant="default" className="bg-green-100 text-green-800 mb-3">
                     ✅ Yes ({rsvps.yes.length})
                   </Badge>
-                  <div className="space-y-2">
-                    {rsvps.yes.map((person, index) => (
-                      <div key={index} className="p-2 bg-green-50 rounded">
-                        {person.name}
-                      </div>
-                    ))}
+                   <div className="space-y-2">
+                     {rsvps.yes.map((person, index) => (
+                       <div key={index} className="p-2 bg-green-50 rounded flex items-center justify-between">
+                         <span>{person.attendee_name}</span>
+                         <Badge variant="secondary" className="text-xs">
+                           {person.gender}
+                         </Badge>
+                       </div>
+                     ))}
                   </div>
                 </div>
 
@@ -159,12 +220,15 @@ const Invite = () => {
                   <Badge variant="secondary" className="bg-red-100 text-red-800 mb-3">
                     ❌ No ({rsvps.no.length})
                   </Badge>
-                  <div className="space-y-2">
-                    {rsvps.no.map((person, index) => (
-                      <div key={index} className="p-2 bg-red-50 rounded">
-                        {person.name}
-                      </div>
-                    ))}
+                   <div className="space-y-2">
+                     {rsvps.no.map((person, index) => (
+                       <div key={index} className="p-2 bg-red-50 rounded flex items-center justify-between">
+                         <span>{person.attendee_name}</span>
+                         <Badge variant="secondary" className="text-xs">
+                           {person.gender}
+                         </Badge>
+                       </div>
+                     ))}
                   </div>
                 </div>
               </div>

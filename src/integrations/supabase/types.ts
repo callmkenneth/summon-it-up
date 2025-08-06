@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instanciate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.12 (cd3cf9e)"
+    PostgrestVersion: "13.0.4"
   }
   public: {
     Tables: {
@@ -120,6 +120,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_gender_spots_remaining: {
+        Args: { event_uuid: string; target_gender: string }
+        Returns: number
+      }
       get_spots_remaining: {
         Args: { event_uuid: string }
         Returns: number

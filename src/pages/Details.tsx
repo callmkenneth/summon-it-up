@@ -3,39 +3,86 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, MapPin, Users } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Mock data - in real app this would be fetched from Supabase
-  const event = {
-    title: "Summer Pool Party",
-    description: "Join us for a fun-filled afternoon by the pool! Bring your swimwear and appetite.",
-    date: "2024-08-15",
-    startTime: "14:00",
-    endTime: "18:00",
-    location: "123 Pool Lane, Sunshine City",
-    capacity: 20,
-    rsvpDeadline: "2024-08-13T23:59",
-    status: "open" as const
+  const [event, setEvent] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadEventData();
+  }, [id]);
+
+  const loadEventData = async () => {
+    try {
+      const { data: eventData, error } = await supabase
+        .from('events')
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+      setEvent(eventData);
+    } catch (error: any) {
+      console.error('Error loading event:', error);
+      navigate('/');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const rsvps = {
-    yes: [
-      { name: "Alice Johnson" },
-      { name: "Bob Smith" },
-      { name: "Carol Davis" },
-      { name: "You" }, // Current user
-    ],
-    no: [
-      { name: "David Wilson" },
-    ]
+  const [rsvps, setRsvps] = useState<any>({ yes: [], no: [] });
+
+  useEffect(() => {
+    if (event) loadRsvpData();
+  }, [event]);
+
+  const loadRsvpData = async () => {
+    try {
+      const { data: rsvpData, error } = await supabase
+        .from('rsvps')
+        .select('*')
+        .eq('event_id', id);
+
+      if (error) throw error;
+
+      const groupedRsvps = {
+        yes: rsvpData?.filter(r => r.status === 'yes') || [],
+        no: rsvpData?.filter(r => r.status === 'no') || []
+      };
+      setRsvps(groupedRsvps);
+    } catch (error: any) {
+      console.error('Error loading RSVPs:', error);
+    }
   };
 
-  const userName = "Alex"; // In real app, this would come from the form submission
-  const spotsRemaining = event.capacity - rsvps.yes.length;
-  const timeLeft = Math.ceil((new Date(event.rsvpDeadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-card flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+          <p className="mt-4 text-muted-foreground">Loading event details...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!event) {
+    return null;
+  }
+
+  const userName = "Alex"; // This would come from the actual RSVP submission
+  const spotsRemaining = event.unlimited_guests 
+    ? '∞' 
+    : Math.max(0, (event.guest_limit || 0) - rsvps.yes.length);
+  
+  const timeLeft = event.rsvp_deadline 
+    ? Math.ceil((new Date(event.rsvp_deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
+    : null;
 
   return (
     <div className="min-h-screen bg-gradient-card">
@@ -49,7 +96,7 @@ const Details = () => {
           {/* Event Details */}
           <Card className="shadow-primary mb-8">
             <CardHeader>
-              <CardTitle className="text-accent">{event.title}</CardTitle>
+              <CardTitle className="text-accent">{event?.title}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center">
@@ -62,7 +109,7 @@ const Details = () => {
                     <MapPin className="h-5 w-5 text-accent" />
                     <h5>Where</h5>
                   </div>
-                  <p className="text-muted-foreground">{event.location}</p>
+                  <p className="text-muted-foreground">{event?.location}</p>
                   <p className="text-sm text-muted-foreground mt-1">
                     📍 Save this address for directions
                   </p>
@@ -74,15 +121,15 @@ const Details = () => {
                     <h5>When</h5>
                   </div>
                   <p className="text-muted-foreground">
-                    {new Date(event.date).toLocaleDateString('en-US', { 
+                    {event?.event_date ? new Date(event.event_date).toLocaleDateString('en-US', { 
                       weekday: 'long', 
                       year: 'numeric', 
                       month: 'long', 
                       day: 'numeric' 
-                    })}
+                    }) : ''}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    {event.startTime} - {event.endTime}
+                    {event?.start_time} - {event?.end_time}
                   </p>
                 </div>
 
@@ -92,7 +139,7 @@ const Details = () => {
                     <h5>What</h5>
                   </div>
                   <p className="text-muted-foreground text-sm">
-                    {event.description}
+                    {event?.description}
                   </p>
                 </div>
               </div>
@@ -117,7 +164,7 @@ const Details = () => {
                 <div className="text-center">
                   <Clock className="h-6 w-6 mx-auto mb-2 text-accent" />
                   <p className="font-semibold text-primary">
-                    {timeLeft > 0 ? `${timeLeft} days to respond` : "RSVP closed"}
+                    {timeLeft !== null && timeLeft > 0 ? `${timeLeft} days to respond` : "RSVP closed"}
                   </p>
                 </div>
               </CardContent>
@@ -147,18 +194,17 @@ const Details = () => {
                     ✅ Yes ({rsvps.yes.length})
                   </Badge>
                   <div className="space-y-2">
-                    {rsvps.yes.map((person, index) => (
-                      <div 
-                        key={index} 
-                        className={`p-2 rounded ${
-                          person.name === 'You' 
-                            ? 'bg-accent/20 border border-accent font-semibold' 
-                            : 'bg-green-50'
-                        }`}
-                      >
-                        {person.name === 'You' ? `${userName} (You)` : person.name}
-                      </div>
-                    ))}
+                     {rsvps.yes.map((person, index) => (
+                       <div 
+                         key={index} 
+                         className="p-2 bg-green-50 rounded flex items-center justify-between"
+                       >
+                         <span>{person.attendee_name}</span>
+                         <Badge variant="secondary" className="text-xs">
+                           {person.gender}
+                         </Badge>
+                       </div>
+                     ))}
                   </div>
                 </div>
 
@@ -167,11 +213,14 @@ const Details = () => {
                     ❌ No ({rsvps.no.length})
                   </Badge>
                   <div className="space-y-2">
-                    {rsvps.no.map((person, index) => (
-                      <div key={index} className="p-2 bg-red-50 rounded">
-                        {person.name}
-                      </div>
-                    ))}
+                     {rsvps.no.map((person, index) => (
+                       <div key={index} className="p-2 bg-red-50 rounded flex items-center justify-between">
+                         <span>{person.attendee_name}</span>
+                         <Badge variant="secondary" className="text-xs">
+                           {person.gender}
+                         </Badge>
+                       </div>
+                     ))}
                   </div>
                 </div>
               </div>

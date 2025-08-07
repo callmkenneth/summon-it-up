@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { Footer } from "@/components/Footer";
 
 const NewEvent = () => {
   const navigate = useNavigate();
@@ -33,9 +34,31 @@ const NewEvent = () => {
     e.preventDefault();
     
     try {
+      let imageUrl = null;
+      
+      // Upload image if provided
+      if (formData.image) {
+        const fileExt = formData.image.name.split('.').pop();
+        const fileName = `${Math.random()}.${fileExt}`;
+        
+        const { error: uploadError } = await supabase.storage
+          .from('event-images')
+          .upload(fileName, formData.image);
+
+        if (uploadError) throw uploadError;
+
+        // Get public URL
+        const { data: { publicUrl } } = supabase.storage
+          .from('event-images')
+          .getPublicUrl(fileName);
+        
+        imageUrl = publicUrl;
+      }
+
       const eventData = {
         title: formData.title,
         description: formData.description,
+        image_url: imageUrl,
         event_date: formData.eventDate,
         start_time: formData.startTime,
         end_time: formData.endTime,
@@ -46,7 +69,7 @@ const NewEvent = () => {
         male_ratio: formData.maleRatio / 100,
         female_ratio: (100 - formData.maleRatio) / 100,
         rsvp_deadline: formData.rsvpDeadline ? new Date(formData.rsvpDeadline).toISOString() : null,
-        host_email: formData.hostEmail,
+        host_email: formData.hostEmail || null,
         status: 'open'
       };
 
@@ -75,7 +98,7 @@ const NewEvent = () => {
   };
 
   const isFormComplete = formData.title && formData.description && formData.eventDate && 
-    formData.startTime && formData.endTime && formData.location && formData.hostEmail;
+    formData.startTime && formData.endTime && formData.location;
 
   return (
     <div className="min-h-screen bg-gradient-card">
@@ -177,17 +200,18 @@ const NewEvent = () => {
                 </div>
 
                 {!formData.unlimited && (
-                  <div>
-                    <Label htmlFor="guestLimit">Guest Limit</Label>
-                    <Input
-                      id="guestLimit"
-                      type="number"
-                      value={formData.guestLimit}
-                      onChange={(e) => setFormData(prev => ({ ...prev, guestLimit: e.target.value }))}
-                      className="mt-2"
-                      placeholder="Maximum number of guests"
-                    />
-                  </div>
+                <div>
+                  <Label htmlFor="guestLimit">Guest Limit</Label>
+                  <Input
+                    id="guestLimit"
+                    type="number"
+                    min="1"
+                    value={formData.guestLimit}
+                    onChange={(e) => setFormData(prev => ({ ...prev, guestLimit: e.target.value }))}
+                    className="mt-2"
+                    placeholder="Maximum number of guests"
+                  />
+                </div>
                 )}
 
                 {!formData.unlimited && (
@@ -250,7 +274,7 @@ const NewEvent = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="hostEmail">Your Email Address *</Label>
+                  <Label htmlFor="hostEmail">Your Email Address (Optional)</Label>
                   <Input
                     id="hostEmail"
                     type="email"
@@ -275,6 +299,7 @@ const NewEvent = () => {
           </Card>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

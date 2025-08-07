@@ -80,81 +80,83 @@ const NameCapture = () => {
   const isFormComplete = name.trim() && gender && email.trim();
 
   return (
-    <div className="min-h-screen bg-gradient-card flex items-center justify-center">
-      <div className="container mx-auto px-6 py-12">
-        <div className="max-w-md mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-primary mb-4">What's your name?</h1>
-            <p className="text-muted-foreground">so we can tell the host</p>
-          </div>
+    <div className="min-h-screen bg-gradient-card flex flex-col">
+      <div className="flex-1 flex items-center justify-center py-12">
+        <div className="container mx-auto px-6">
+          <div className="max-w-md mx-auto">
+            <div className="text-center mb-8">
+              <h1 className="text-primary mb-4">What's your name?</h1>
+              <p className="text-muted-foreground">so we can tell the host</p>
+            </div>
 
-          <Card className="shadow-primary">
-            <CardHeader>
-              <CardTitle className="text-center text-accent">
-                {response === 'yes' && "Great! You're coming 🎉"}
-                {response === 'no' && "Thanks for letting us know"}
-                {response === 'waitlist' && "Added to waitlist"}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <Label htmlFor="name">Your Name *</Label>
-                  <Input
-                    id="name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="mt-2"
-                    placeholder="Enter your full name"
-                    autoFocus
-                    disabled={submitting}
-                  />
-                </div>
+            <Card className="shadow-primary">
+              <CardHeader>
+                <CardTitle className="text-center text-accent">
+                  {response === 'yes' && "Great! You're coming 🎉"}
+                  {response === 'no' && "Thanks for letting us know"}
+                  {response === 'waitlist' && "Added to waitlist"}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <Label htmlFor="name">Your Name *</Label>
+                    <Input
+                      id="name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="mt-2"
+                      placeholder="Enter your full name"
+                      autoFocus
+                      disabled={submitting}
+                    />
+                  </div>
 
-                <div>
-                  <Label htmlFor="email">Your Email *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="mt-2"
-                    placeholder="Enter your email address"
-                    disabled={submitting}
-                  />
-                </div>
+                  <div>
+                    <Label htmlFor="email">Your Email *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="mt-2"
+                      placeholder="Enter your email address"
+                      disabled={submitting}
+                    />
+                  </div>
 
-                <div>
-                  <Label className="text-base font-medium">Gender *</Label>
-                  <RadioGroup value={gender} onValueChange={setGender} className="mt-3" disabled={submitting}>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="male" id="male" disabled={submitting} />
-                      <Label htmlFor="male">Male</Label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="female" id="female" disabled={submitting} />
-                      <Label htmlFor="female">Female</Label>
-                    </div>
-                  </RadioGroup>
-                </div>
+                  <div>
+                    <Label className="text-base font-medium">Gender *</Label>
+                    <RadioGroup value={gender} onValueChange={setGender} className="mt-3" disabled={submitting}>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="male" id="male" disabled={submitting} />
+                        <Label htmlFor="male">Male</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="female" id="female" disabled={submitting} />
+                        <Label htmlFor="female">Female</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
 
-                <Button 
-                  type="submit" 
-                  variant="hero" 
-                  size="lg" 
-                  className="w-full"
-                  disabled={!isFormComplete || submitting}
-                >
-                  {submitting ? "Submitting..." : "Done"}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+                  <Button 
+                    type="submit" 
+                    variant="hero" 
+                    size="lg" 
+                    className="w-full"
+                    disabled={!isFormComplete || submitting}
+                  >
+                    {submitting ? "Submitting..." : "Done"}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
 
-          <div className="text-center mt-8">
-            <p className="text-sm text-muted-foreground">
-              Your information will only be shared with the event host
-            </p>
+            <div className="text-center mt-8">
+              <p className="text-sm text-muted-foreground">
+                Your information will only be shared with the event host
+              </p>
+            </div>
           </div>
         </div>
       </div>

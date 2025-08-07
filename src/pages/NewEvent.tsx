@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -29,6 +29,14 @@ const NewEvent = () => {
     rsvpDeadline: '',
     hostEmail: ''
   });
+
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview) URL.revokeObjectURL(imagePreview);
+    };
+  }, [imagePreview]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -141,9 +149,30 @@ const NewEvent = () => {
                     id="image"
                     type="file"
                     accept="image/*"
-                    onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.files?.[0] || null }))}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0] || null;
+                      setFormData(prev => ({ ...prev, image: file }));
+                      if (file) {
+                        const url = URL.createObjectURL(file);
+                        setImagePreview(url);
+                      } else {
+                        setImagePreview(null);
+                      }
+                    }}
                     className="mt-2"
                   />
+                  {imagePreview && (
+                    <div className="mt-3">
+                      <div className="aspect-video rounded-lg overflow-hidden border">
+                        <img
+                          src={imagePreview}
+                          alt={formData.title ? `Preview: ${formData.title}` : 'Event image preview'}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -18,6 +18,7 @@ const Invite = () => {
   const [event, setEvent] = useState<any>(null);
   const [rsvps, setRsvps] = useState<any>({ yes: [], no: [] });
   const [loading, setLoading] = useState(true);
+  const [waitlist, setWaitlist] = useState<any[]>([]);
 
   useEffect(() => {
     if (!id) {
@@ -59,6 +60,16 @@ const Invite = () => {
         no: rsvpData?.filter(r => r.status === 'no') || []
       };
       setRsvps(groupedRsvps);
+
+      // Load Waitlist
+      const { data: waitlistData, error: waitlistError } = await supabase
+        .from('waitlist')
+        .select('*')
+        .eq('event_id', id)
+        .order('created_at', { ascending: true });
+
+      if (waitlistError) throw waitlistError;
+      setWaitlist(waitlistData || []);
       
     } catch (error: any) {
       toast({
@@ -264,6 +275,27 @@ const Invite = () => {
                       </div>
                     </div>
                   </div>
+                </CardContent>
+              </Card>
+
+              {/* Waitlist */}
+              <Card className="shadow-primary mb-8">
+                <CardHeader>
+                  <CardTitle className="text-primary">Waitlist ({waitlist.length})</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {waitlist.length > 0 ? (
+                    <div className="space-y-2">
+                      {waitlist.map((person: any, index: number) => (
+                        <div key={index} className="p-2 bg-muted rounded flex items-center justify-between">
+                          <span>{person.attendee_name}</span>
+                          <Badge variant="secondary" className="text-xs">{person.gender}</Badge>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-muted-foreground text-sm">No one on the waitlist yet.</p>
+                  )}
                 </CardContent>
               </Card>
 

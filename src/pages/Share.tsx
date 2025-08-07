@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { CountdownTimer } from "@/components/CountdownTimer";
 
 const Share = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Share = () => {
   const [email, setEmail] = useState('');
   const [emailSent, setEmailSent] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
+  const [event, setEvent] = useState<any>(null);
 
   const eventId = searchParams.get('id');
   const inviteLink = eventId ? `${window.location.origin}/invite/${eventId}` : '';
@@ -27,7 +29,19 @@ const Share = () => {
         variant: "destructive",
       });
       navigate('/newevent');
+      return;
     }
+
+    const fetchEvent = async () => {
+      const { data, error } = await supabase
+        .from('events')
+        .select('*')
+        .eq('id', eventId)
+        .single();
+      if (!error) setEvent(data);
+    };
+
+    fetchEvent();
   }, [eventId, navigate, toast]);
 
   const copyToClipboard = async (text: string, type: string) => {
@@ -126,6 +140,21 @@ const Share = () => {
               </CardContent>
             </Card>
           </div>
+
+          <Card className="shadow-accent mb-8">
+            <CardHeader>
+              <CardTitle className="text-primary flex items-center gap-2 justify-center">
+                ⏳ RSVP Deadline
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="text-center">
+              {event?.rsvp_deadline ? (
+                <CountdownTimer deadline={event.rsvp_deadline} />
+              ) : (
+                <span className="text-muted-foreground">No deadline</span>
+              )}
+            </CardContent>
+          </Card>
 
           <Card className="shadow-accent mb-8">
             <CardHeader>

@@ -22,7 +22,7 @@ export type Database = {
           event_date: string
           female_ratio: number | null
           guest_limit: number | null
-          host_email: string
+          host_email: string | null
           id: string
           image_url: string | null
           location: string
@@ -42,7 +42,7 @@ export type Database = {
           event_date: string
           female_ratio?: number | null
           guest_limit?: number | null
-          host_email: string
+          host_email?: string | null
           id?: string
           image_url?: string | null
           location: string
@@ -62,7 +62,7 @@ export type Database = {
           event_date?: string
           female_ratio?: number | null
           guest_limit?: number | null
-          host_email?: string
+          host_email?: string | null
           id?: string
           image_url?: string | null
           location?: string

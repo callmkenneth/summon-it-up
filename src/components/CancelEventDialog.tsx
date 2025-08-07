@@ -23,7 +23,7 @@ export function CancelEventDialog({
 }: CancelEventDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="sm:rounded-2xl gap-2 p-4">
         <DialogHeader>
           <DialogTitle>Cancel Event</DialogTitle>
           <DialogDescription>

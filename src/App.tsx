@@ -12,6 +12,7 @@ import Invite from "./pages/Invite";
 import NameCapture from "./pages/NameCapture";
 import Details from "./pages/Details";
 import Rejected from "./pages/Rejected";
+import WaitlistConfirm from "./pages/WaitlistConfirm";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import Cookies from "./pages/Cookies";
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/name/:id" element={<NameCapture />} />
             <Route path="/details/:id" element={<Details />} />
             <Route path="/rejected/:id" element={<Rejected />} />
+            <Route path="/waitlist-confirm/:id" element={<WaitlistConfirm />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/cookies" element={<Cookies />} />

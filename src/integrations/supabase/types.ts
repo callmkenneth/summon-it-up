@@ -115,6 +115,44 @@ export type Database = {
           },
         ]
       }
+      waitlist: {
+        Row: {
+          attendee_email: string | null
+          attendee_name: string
+          created_at: string
+          event_id: string
+          gender: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          attendee_email?: string | null
+          attendee_name: string
+          created_at?: string
+          event_id: string
+          gender: string
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          attendee_email?: string | null
+          attendee_name?: string
+          created_at?: string
+          event_id?: string
+          gender?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "waitlist_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

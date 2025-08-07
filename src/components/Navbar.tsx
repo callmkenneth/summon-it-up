@@ -6,12 +6,13 @@ export function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const isHome = location.pathname === '/';
+  const isNewEvent = location.pathname === '/newevent';
 
   return (
     <nav className="bg-card border-b border-border px-6 py-4">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center gap-4">
-          {!isHome && (
+          {!isHome && isNewEvent && (
             <Button
               variant="ghost"
               size="sm"

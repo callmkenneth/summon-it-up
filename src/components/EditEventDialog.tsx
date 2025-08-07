@@ -45,7 +45,7 @@ export function EditEventDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto sm:rounded-2xl gap-2 p-4">
         <DialogHeader>
           <DialogTitle>Edit Event</DialogTitle>
           <DialogDescription>

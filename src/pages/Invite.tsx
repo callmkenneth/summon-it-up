@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { CountdownTimer } from "@/components/CountdownTimer";
+import { IconWrapper } from "@/components/IconWrapper";
 
 const Invite = () => {
   const { id } = useParams();
@@ -135,76 +137,92 @@ const Invite = () => {
                   </div>
 
                   <div className="grid gap-6 md:grid-cols-3">
-                    <div className="text-center">
-                      <div className="flex items-center justify-center gap-2 mb-2">
-                        <MapPin className="h-5 w-5 text-accent" />
-                        <h5>Where</h5>
-                      </div>
-                      <p className="text-muted-foreground">
-                        RSVP to find out
-                      </p>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <IconWrapper variant="accent" size="sm">
+                        <MapPin className="h-4 w-4" />
+                      </IconWrapper>
+                      <h5>Where</h5>
                     </div>
+                    <p className="text-muted-foreground">
+                      RSVP to find out
+                    </p>
+                  </div>
 
-                    <div className="text-center">
-                      <div className="flex items-center justify-center gap-2 mb-2">
-                        <Calendar className="h-5 w-5 text-accent" />
-                        <h5>When</h5>
-                      </div>
-                      <p className="text-muted-foreground">
-                        {event?.event_date ? new Date(event.event_date).toLocaleDateString() : ''}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {event?.start_time} - {event?.end_time}
-                      </p>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <IconWrapper variant="accent" size="sm">
+                        <Calendar className="h-4 w-4" />
+                      </IconWrapper>
+                      <h5>When</h5>
                     </div>
+                    <p className="text-muted-foreground">
+                      {event?.event_date ? new Date(event.event_date).toLocaleDateString() : ''}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {event?.start_time} - {event?.end_time}
+                    </p>
+                  </div>
 
-                    <div className="text-center">
-                      <div className="flex items-center justify-center gap-2 mb-2">
-                        <span className="text-xl">🎉</span>
-                        <h5>What</h5>
-                      </div>
-                      <p className="text-muted-foreground text-sm">
-                        {event?.description}
-                      </p>
+                  <div className="text-center">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <IconWrapper variant="accent" size="sm">
+                        <span className="text-lg">🎉</span>
+                      </IconWrapper>
+                      <h5>What</h5>
                     </div>
+                    <p className="text-muted-foreground text-sm">
+                      {event?.description}
+                    </p>
+                  </div>
                   </div>
                 </CardContent>
               </Card>
 
               {/* Indicators */}
               <div className="grid gap-4 md:grid-cols-3 mb-8">
-                <Card className="shadow-accent">
-                  <CardContent className="pt-6">
-                    <div className="text-center">
-                      <Users className="h-6 w-6 mx-auto mb-2 text-accent" />
-                      <p className="font-semibold text-primary">
-                        {typeof spotsRemaining === 'string' ? 'Unlimited spots' : spotsRemaining > 0 ? `${spotsRemaining} spots remaining` : "No spots remaining"}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
+              <Card className="shadow-accent">
+                <CardContent className="pt-6">
+                  <div className="text-center">
+                    <IconWrapper variant="accent" size="md" className="mx-auto mb-2">
+                      <Users className="h-5 w-5" />
+                    </IconWrapper>
+                    <p className="font-semibold text-primary">
+                      {typeof spotsRemaining === 'string' ? 'Unlimited spots' : spotsRemaining > 0 ? `${spotsRemaining} spots remaining` : "No spots remaining"}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
 
-                <Card className="shadow-accent">
-                  <CardContent className="pt-6">
-                    <div className="text-center">
-                      <Clock className="h-6 w-6 mx-auto mb-2 text-accent" />
-                      <p className="font-semibold text-primary">
-                        {timeLeft !== null && timeLeft > 0 ? `${timeLeft} days to respond` : "RSVP closed"}
-                      </p>
+              <Card className="shadow-accent">
+                <CardContent className="pt-6">
+                  <div className="text-center">
+                    <IconWrapper variant="accent" size="md" className="mx-auto mb-2">
+                      <Clock className="h-5 w-5" />
+                    </IconWrapper>
+                    <div className="font-semibold text-primary">
+                      {event.rsvp_deadline ? (
+                        <CountdownTimer deadline={event.rsvp_deadline} />
+                      ) : (
+                        'No deadline'
+                      )}
                     </div>
-                  </CardContent>
-                </Card>
+                  </div>
+                </CardContent>
+              </Card>
 
-                <Card className="shadow-accent">
-                  <CardContent className="pt-6">
-                    <div className="text-center">
-                      <span className="text-2xl mb-2 block">👥</span>
-                      <p className="font-semibold text-primary">
-                        {rsvps.yes.length + rsvps.no.length} responses
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
+              <Card className="shadow-accent">
+                <CardContent className="pt-6">
+                  <div className="text-center">
+                    <IconWrapper variant="primary" size="md" className="mx-auto mb-2">
+                      <span className="text-lg">👥</span>
+                    </IconWrapper>
+                    <p className="font-semibold text-primary">
+                      {rsvps.yes.length + rsvps.no.length} responses
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
               </div>
 
               {/* Who's Coming */}

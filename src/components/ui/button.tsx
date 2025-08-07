@@ -20,7 +20,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         hero: "bg-gradient-primary text-white hover:scale-105 shadow-accent font-bold",
         rsvp: "bg-accent text-accent-foreground hover:bg-accent/90 shadow-accent",
-        reject: "bg-muted text-muted-foreground hover:bg-muted/80 border border-border",
+        reject: "bg-purple-100 text-purple-700 hover:bg-purple-200 border border-purple-300",
       },
       size: {
         default: "h-12 px-6 py-3",

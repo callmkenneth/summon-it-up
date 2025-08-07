@@ -23,7 +23,7 @@ const NameCapture = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !gender || !email) return;
+    if (!name || !gender) return;
 
     setSubmitting(true);
     try {
@@ -38,28 +38,37 @@ const NameCapture = () => {
         if (spotsError) throw spotsError;
 
         if (spotsData <= 0) {
-          toast({
-            title: "No spots available",
-            description: `Sorry, there are no more ${gender} spots available. Please check back later to see if anything opens up.`,
-            variant: "destructive",
-          });
-          setSubmitting(false);
+          navigate(`/waitlist-confirm/${id}?gender=${gender}`);
           return;
         }
       }
 
-      // Submit RSVP to Supabase
-      const { error } = await supabase
-        .from('rsvps')
-        .insert({
-          event_id: id,
-          attendee_name: name,
-          attendee_email: email,
-          gender: gender,
-          status: response === 'waitlist' ? 'yes' : response
-        });
-
-      if (error) throw error;
+      if (response === 'waitlist') {
+        // Submit to waitlist table
+        const { error } = await supabase
+          .from('waitlist')
+          .insert({
+            event_id: id,
+            attendee_name: name,
+            attendee_email: email || null,
+            gender: gender
+          });
+        
+        if (error) throw error;
+      } else {
+        // Submit RSVP to regular table
+        const { error } = await supabase
+          .from('rsvps')
+          .insert({
+            event_id: id,
+            attendee_name: name,
+            attendee_email: email || '',
+            gender: gender,
+            status: response
+          });
+        
+        if (error) throw error;
+      }
 
       if (response === 'yes' || response === 'waitlist') {
         navigate(`/details/${id}?name=${encodeURIComponent(name)}`);
@@ -77,7 +86,7 @@ const NameCapture = () => {
     }
   };
 
-  const isFormComplete = name.trim() && gender && email.trim();
+  const isFormComplete = name.trim() && gender;
 
   return (
     <div className="min-h-screen bg-gradient-card flex flex-col">
@@ -113,14 +122,14 @@ const NameCapture = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="email">Your Email *</Label>
+                    <Label htmlFor="email">Your Email (optional)</Label>
                     <Input
                       id="email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="mt-2"
-                      placeholder="Enter your email address"
+                      placeholder="Enter your email address (optional)"
                       disabled={submitting}
                     />
                   </div>

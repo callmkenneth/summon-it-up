@@ -6,6 +6,7 @@ import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import { to12Hour } from "@/lib/utils";
 
 const Details = () => {
   const { id } = useParams();
@@ -137,7 +138,7 @@ const Details = () => {
                     }) : ''}
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    {event?.start_time} - {event?.end_time}
+                    {to12Hour(event?.start_time)} - {to12Hour(event?.end_time)}
                   </p>
                 </div>
 

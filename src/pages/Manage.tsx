@@ -11,6 +11,7 @@ import { CancelEventDialog } from "@/components/CancelEventDialog";
 import { EditEventDialog } from "@/components/EditEventDialog";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { IconWrapper } from "@/components/IconWrapper";
+import { to12Hour } from "@/lib/utils";
 
 const Manage = () => {
   const navigate = useNavigate();
@@ -158,10 +159,39 @@ const Manage = () => {
 
       if (error) throw error;
 
-      toast({
-        title: "Guest removed",
-        description: "The guest has been removed from the event.",
-      });
+      // Promote the earliest person from the waitlist, if any
+      const { data: nextWaitlist, error: waitlistError } = await supabase
+        .from('waitlist')
+        .select('*')
+        .eq('event_id', id)
+        .order('created_at', { ascending: true })
+        .limit(1);
+
+      if (waitlistError) throw waitlistError;
+
+      if (nextWaitlist && nextWaitlist.length > 0) {
+        const person = nextWaitlist[0];
+        const { error: insertError } = await supabase.from('rsvps').insert({
+          event_id: id,
+          attendee_name: person.attendee_name,
+          attendee_email: person.attendee_email,
+          gender: person.gender,
+          status: 'yes',
+        });
+        if (insertError) throw insertError;
+
+        await supabase.from('waitlist').delete().eq('id', person.id);
+
+        toast({
+          title: "Spot filled from waitlist",
+          description: `${person.attendee_name} has been moved to the guest list.`,
+        });
+      } else {
+        toast({
+          title: "Guest removed",
+          description: "The guest has been removed from the event.",
+        });
+      }
 
       // Reload data to reflect changes
       loadEventData();
@@ -284,7 +314,7 @@ const Manage = () => {
                   </IconWrapper>
                   <div>
                     <p className="font-semibold">Time</p>
-                    <p className="text-muted-foreground">{event.start_time} - {event.end_time}</p>
+                    <p className="text-muted-foreground">{to12Hour(event.start_time)} - {to12Hour(event.end_time)}</p>
                   </div>
                 </div>
                 

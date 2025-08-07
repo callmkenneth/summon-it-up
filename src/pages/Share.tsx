@@ -149,7 +149,10 @@ const Share = () => {
             </CardHeader>
             <CardContent className="text-center">
               {event?.rsvp_deadline ? (
-                <CountdownTimer deadline={event.rsvp_deadline} />
+                <div>
+                  <CountdownTimer deadline={event.rsvp_deadline} />
+                  <p className="text-xs text-muted-foreground mt-1">Time left to respond</p>
+                </div>
               ) : (
                 <span className="text-muted-foreground">No deadline</span>
               )}

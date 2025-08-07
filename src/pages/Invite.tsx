@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { IconWrapper } from "@/components/IconWrapper";
+import { to12Hour } from "@/lib/utils";
 
 const Invite = () => {
   const { id } = useParams();
@@ -170,9 +171,9 @@ const Invite = () => {
                     <p className="text-muted-foreground">
                       {event?.event_date ? new Date(event.event_date).toLocaleDateString() : ''}
                     </p>
-                    <p className="text-sm text-muted-foreground">
-                      {event?.start_time} - {event?.end_time}
-                    </p>
+                      <p className="text-sm text-muted-foreground">
+                        {to12Hour(event?.start_time)} - {to12Hour(event?.end_time)}
+                      </p>
                   </div>
 
                   <div className="text-center">
@@ -218,6 +219,7 @@ const Invite = () => {
                         'No deadline'
                       )}
                     </div>
+                    <p className="text-xs text-muted-foreground mt-1">Time left to respond</p>
                   </div>
                 </CardContent>
               </Card>

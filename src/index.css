@@ -84,6 +84,9 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Background Image */
+    --app-background-image: url('/images/summons-background.jpg');
   }
 
   .dark {
@@ -132,6 +135,11 @@
 
   body {
     @apply bg-background text-foreground font-poppins;
+    background-image: var(--app-background-image);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
   }
 
   /* Summons Typography */

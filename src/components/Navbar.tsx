@@ -24,10 +24,10 @@ export function Navbar() {
             </Button>
           )}
           <div 
-            className="text-xl font-bold text-primary cursor-pointer"
+            className="cursor-pointer"
             onClick={() => navigate('/')}
           >
-            EventMaster
+            <img src="/images/summons-logo.png" alt="Summons logo" className="h-8 w-auto" />
           </div>
         </div>
         

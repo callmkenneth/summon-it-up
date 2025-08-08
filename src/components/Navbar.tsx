@@ -27,13 +27,17 @@ export function Navbar() {
             className="cursor-pointer"
             onClick={() => navigate('/')}
           >
-            <img src="/images/summons-logo.png" alt="Summons logo" className="h-8 w-auto" />
+            <img src="/lovable-uploads/adc7fe20-2149-40b1-bfdc-9d78a8c60316.png" alt="Summons logo" className="h-8 w-auto" />
           </div>
         </div>
         
-        <div className="text-sm text-muted-foreground">
-          Create • Manage • Celebrate
-        </div>
+        <Button 
+          variant="default" 
+          onClick={() => navigate('/newevent')}
+          className="text-sm"
+        >
+          New Event
+        </Button>
       </div>
     </nav>
   );

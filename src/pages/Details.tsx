@@ -39,6 +39,7 @@ const Details = () => {
   };
 
   const [rsvps, setRsvps] = useState<any>({ yes: [], no: [] });
+  const [waitlist, setWaitlist] = useState<any[]>([]);
 
   useEffect(() => {
     if (event) loadRsvpData();
@@ -58,6 +59,16 @@ const Details = () => {
         no: rsvpData?.filter(r => r.status === 'no') || []
       };
       setRsvps(groupedRsvps);
+
+      // Load waitlist
+      const { data: waitlistData, error: waitlistError } = await supabase
+        .from('waitlist')
+        .select('*')
+        .eq('event_id', id)
+        .order('created_at', { ascending: true });
+
+      if (waitlistError) throw waitlistError;
+      setWaitlist(waitlistData || []);
     } catch (error: any) {
       console.error('Error loading RSVPs:', error);
     }
@@ -99,18 +110,16 @@ const Details = () => {
           </div>
 
           {/* Event Details */}
-          <Card className="shadow-primary mb-8">
+          <Card className="mb-8">
             <CardHeader>
               <CardTitle className="text-accent">{event?.title}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center">
-                {event?.image_url ? (
+              {event?.image_url && (
+                <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center">
                   <img src={event.image_url} alt={event.title} className="w-full h-full object-cover rounded-lg" />
-                ) : (
-                  <span className="text-white text-lg">Event Image</span>
-                )}
-              </div>
+                </div>
+              )}
 
               <div className="grid gap-6 md:grid-cols-3">
                 <div>
@@ -157,7 +166,7 @@ const Details = () => {
 
           {/* Event Status */}
           <div className="grid gap-4 md:grid-cols-3 mb-8">
-            <Card className="shadow-accent">
+            <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">
                   <Users className="h-6 w-6 mx-auto mb-2 text-accent" />
@@ -168,7 +177,7 @@ const Details = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-accent">
+            <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">
                   <Clock className="h-6 w-6 mx-auto mb-2 text-accent" />
@@ -179,7 +188,7 @@ const Details = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-accent">
+            <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">
                   <span className="text-2xl mb-2 block">✅</span>
@@ -192,7 +201,7 @@ const Details = () => {
           </div>
 
           {/* Who's Coming */}
-          <Card className="shadow-primary mb-8">
+          <Card className="mb-8">
             <CardHeader>
               <CardTitle className="text-primary">Who's coming so far</CardTitle>
             </CardHeader>
@@ -236,8 +245,29 @@ const Details = () => {
             </CardContent>
           </Card>
 
+          {/* Waitlist */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="text-primary">Waitlist ({waitlist.length})</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {waitlist.length > 0 ? (
+                <div className="space-y-2">
+                  {waitlist.map((person: any, index: number) => (
+                    <div key={index} className="p-2 bg-muted rounded flex items-center justify-between">
+                      <span>{person.attendee_name}</span>
+                      <Badge variant="secondary" className="text-xs">{person.gender}</Badge>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-muted-foreground text-sm">No one on the waitlist yet.</p>
+              )}
+            </CardContent>
+          </Card>
+
           {/* Important Notes */}
-          <Card className="shadow-accent mb-8 bg-light-pink border-pink">
+          <Card className="mb-8 bg-light-pink border-pink">
             <CardContent className="pt-6">
               <div className="text-center">
                 <h5 className="text-primary mb-3">📝 Important Notes</h5>

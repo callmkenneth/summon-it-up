@@ -174,7 +174,7 @@ const Manage = () => {
         const { error: insertError } = await supabase.from('rsvps').insert({
           event_id: id,
           attendee_name: person.attendee_name,
-          attendee_email: person.attendee_email,
+          attendee_email: person.attendee_email || `waitlist-${person.id}@placeholder.com`,
           gender: person.gender,
           status: 'yes',
         });
@@ -259,7 +259,7 @@ const Manage = () => {
           <h1 className="text-primary mb-8">{event.title}</h1>
 
           {/* Event Details Module */}
-          <Card className="shadow-primary mb-8">
+          <Card className="mb-8">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="text-primary">Event Details</CardTitle>
               <div className="flex items-center gap-2">
@@ -289,13 +289,11 @@ const Manage = () => {
               </div>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center">
-                {event?.image_url ? (
+              {event?.image_url && (
+                <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center">
                   <img src={event.image_url} alt={event.title} className="w-full h-full object-cover rounded-lg" />
-                ) : (
-                  <span className="text-white text-lg">Event Image</span>
-                )}
-              </div>
+                </div>
+              )}
               
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 <div className="flex items-center gap-3">
@@ -378,7 +376,7 @@ const Manage = () => {
 
           {/* Actions & Indicators */}
           <div className="grid gap-6 md:grid-cols-3 mb-8">
-            <Card className="shadow-accent">
+            <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">
                   <IconWrapper variant="accent" size="lg" className="mx-auto mb-2">
@@ -390,7 +388,7 @@ const Manage = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-accent">
+            <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">
                   <IconWrapper variant="accent" size="lg" className="mx-auto mb-2">
@@ -408,7 +406,7 @@ const Manage = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-accent">
+            <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">
                   <IconWrapper variant="primary" size="lg" className="mx-auto mb-2">
@@ -422,7 +420,7 @@ const Manage = () => {
           </div>
 
           {/* Who's Coming */}
-          <Card className="shadow-primary mb-8">
+          <Card className="mb-8">
             <CardHeader>
               <CardTitle className="text-primary">Who's coming so far</CardTitle>
             </CardHeader>
@@ -489,7 +487,7 @@ const Manage = () => {
 
           {/* Waitlist */}
           {waitlist.length > 0 && (
-            <Card className="shadow-primary mb-8">
+            <Card className="mb-8">
               <CardHeader>
                 <CardTitle className="text-primary">Waitlist</CardTitle>
               </CardHeader>

@@ -135,18 +135,16 @@ const Invite = () => {
           {event?.status !== 'cancelled' && (
             <>
               {/* Event Description Module */}
-              <Card className="shadow-primary mb-8">
+              <Card className="mb-8">
                 <CardHeader>
                   <CardTitle className="text-accent">{event?.title}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center">
-                    {event?.image_url ? (
+                  {event?.image_url && (
+                    <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center">
                       <img src={event.image_url} alt={event.title} className="w-full h-full object-cover rounded-lg" />
-                    ) : (
-                      <span className="text-white text-lg">Event Image</span>
-                    )}
-                  </div>
+                    </div>
+                  )}
 
                   <div className="grid gap-6 md:grid-cols-3">
                   <div className="text-center">
@@ -193,7 +191,7 @@ const Invite = () => {
 
               {/* Indicators */}
               <div className="grid gap-4 md:grid-cols-3 mb-8">
-              <Card className="shadow-accent">
+              <Card className="">
                 <CardContent className="pt-6">
                   <div className="text-center">
                     <IconWrapper variant="accent" size="md" className="mx-auto mb-2">
@@ -206,7 +204,7 @@ const Invite = () => {
                 </CardContent>
               </Card>
 
-              <Card className="shadow-accent">
+              <Card className="">
                 <CardContent className="pt-6">
                   <div className="text-center">
                     <IconWrapper variant="accent" size="md" className="mx-auto mb-2">
@@ -224,7 +222,7 @@ const Invite = () => {
                 </CardContent>
               </Card>
 
-              <Card className="shadow-accent">
+              <Card className="">
                 <CardContent className="pt-6">
                   <div className="text-center">
                     <IconWrapper variant="primary" size="md" className="mx-auto mb-2">
@@ -239,7 +237,7 @@ const Invite = () => {
               </div>
 
               {/* Who's Coming */}
-              <Card className="shadow-primary mb-8">
+              <Card className="mb-8">
                 <CardHeader>
                   <CardTitle className="text-primary">Who's coming so far</CardTitle>
                 </CardHeader>
@@ -281,7 +279,7 @@ const Invite = () => {
               </Card>
 
               {/* Waitlist */}
-              <Card className="shadow-primary mb-8">
+              <Card className="mb-8">
                 <CardHeader>
                   <CardTitle className="text-primary">Waitlist ({waitlist.length})</CardTitle>
                 </CardHeader>

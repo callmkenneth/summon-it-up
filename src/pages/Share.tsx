@@ -98,7 +98,7 @@ const Share = () => {
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 mb-12">
-            <Card className="shadow-primary">
+            <Card className="">
               <CardHeader>
                 <CardTitle className="text-accent flex items-center gap-2">
                   <span>📤</span> Invitation Page
@@ -119,7 +119,7 @@ const Share = () => {
               </CardContent>
             </Card>
 
-            <Card className="shadow-primary">
+            <Card className="">
               <CardHeader>
                 <CardTitle className="text-primary flex items-center gap-2">
                   <span>⚙️</span> Management Page
@@ -141,7 +141,7 @@ const Share = () => {
             </Card>
           </div>
 
-          <Card className="shadow-accent mb-8">
+          <Card className="mb-8">
             <CardHeader>
               <CardTitle className="text-primary flex items-center gap-2 justify-center">
                 ⏳ RSVP Deadline
@@ -159,7 +159,7 @@ const Share = () => {
             </CardContent>
           </Card>
 
-          <Card className="shadow-accent mb-8">
+          <Card className="mb-8">
             <CardHeader>
               <CardTitle className="text-primary flex items-center gap-2 justify-center">
                 <Mail className="h-5 w-5" />

@@ -231,10 +231,10 @@ const Manage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-card flex items-center justify-center">
+      <div className="min-h-screen page-scrim flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-          <p className="mt-4 text-muted-foreground">Loading event data...</p>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-white"></div>
+          <p className="mt-4 text-white/80">Loading event data...</p>
         </div>
       </div>
     );
@@ -253,10 +253,10 @@ const Manage = () => {
     : null;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen page-scrim">
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-primary mb-8">{event.title}</h1>
+          <h1 className="text-white mb-8">{event.title}</h1>
 
           {/* Event Details Module */}
           <Card className="mb-8">
@@ -375,7 +375,7 @@ const Manage = () => {
           </Card>
 
           {/* Actions & Indicators */}
-          <div className="grid gap-2.5 md:grid-cols-3 mb-8">
+          <div className="grid gap-4 md:grid-cols-3 mb-8">
             <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">

@@ -9,7 +9,7 @@ export function Navbar() {
   const isNewEvent = location.pathname === '/newevent';
 
   return (
-    <nav className="bg-card border-b border-border px-6 py-4">
+    <nav className="bg-white/10 backdrop-blur-md border-b border-white/20 px-6 py-4">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center gap-4">
           {!isHome && isNewEvent && (
@@ -27,7 +27,7 @@ export function Navbar() {
             className="cursor-pointer"
             onClick={() => navigate('/')}
           >
-            <img src="/lovable-uploads/adc7fe20-2149-40b1-bfdc-9d78a8c60316.png" alt="Summons logo" className="h-8 w-auto" />
+            <img src="/Summons-logo.png" alt="Summons logo" className="h-8 w-auto" />
           </div>
         </div>
         

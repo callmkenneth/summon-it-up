@@ -109,17 +109,17 @@ const NewEvent = () => {
     formData.startTime && formData.endTime && formData.location;
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen page-scrim">
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-2xl mx-auto">
-          <h1 className="text-center mb-8 text-primary">Create New Event</h1>
+          <h1 className="text-center mb-8 text-white">Create New Event</h1>
           
           <Card className="shadow-primary border-light-pink">
             <CardHeader>
               <CardTitle className="text-primary text-2xl">Event Details</CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <Label htmlFor="title">Event Title *</Label>
                   <Input

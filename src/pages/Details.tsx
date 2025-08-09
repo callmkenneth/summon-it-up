@@ -76,10 +76,10 @@ const Details = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-card flex items-center justify-center">
+      <div className="min-h-screen page-scrim flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-          <p className="mt-4 text-muted-foreground">Loading event details...</p>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-white"></div>
+          <p className="mt-4 text-white/80">Loading event details...</p>
         </div>
       </div>
     );
@@ -99,11 +99,11 @@ const Details = () => {
     : null;
 
   return (
-    <div className="min-h-screen bg-gradient-card">
+    <div className="min-h-screen page-scrim">
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-primary mb-4">
+            <h1 className="text-white mb-4">
               {event?.status === 'cancelled' ? 'Event Cancelled' : `Alright ${userName}, you're in!`}
             </h1>
             <div className="text-6xl mb-4">{event?.status === 'cancelled' ? '❌' : '🎉'}</div>
@@ -165,7 +165,7 @@ const Details = () => {
           </Card>
 
           {/* Event Status */}
-          <div className="grid gap-2.5 md:grid-cols-3 mb-8">
+          <div className="grid gap-4 md:grid-cols-3 mb-8">
             <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">

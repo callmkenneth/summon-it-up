@@ -87,17 +87,17 @@ const Share = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen page-scrim">
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-primary mb-4">All Set!</h1>
-          <h4 className="text-muted-foreground mb-12">Your Event is Ready to Be Shared</h4>
+          <h1 className="text-white mb-4">All Set!</h1>
+          <h4 className="text-white/80 mb-12">Your Event is Ready to Be Shared</h4>
           
           <div className="bg-light-pink border border-pink rounded-lg p-6 mb-8">
             <p className="text-primary font-bold text-lg">Don't close your browser without saving these first!</p>
           </div>
 
-          <div className="grid gap-2.5 md:grid-cols-2 mb-12">
+          <div className="grid gap-4 md:grid-cols-2 mb-12">
             <Card className="">
               <CardHeader>
                 <CardTitle className="text-accent flex items-center gap-2">

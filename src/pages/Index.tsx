@@ -12,7 +12,7 @@ const Index = () => {
       <section className="relative py-20 overflow-hidden">
         {/* Pink Video Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-pink via-light-pink to-secondary opacity-90"></div>
-        <div className="absolute inset-0 bg-gradient-primary opacity-70"></div>
+        
         
         {/* Content Overlay */}
         <div className="relative z-10 container mx-auto px-6 text-center">

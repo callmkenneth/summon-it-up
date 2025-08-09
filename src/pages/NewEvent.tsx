@@ -328,7 +328,7 @@ const NewEvent = () => {
                   type="submit" 
                   variant="hero" 
                   size="lg" 
-                  className="w-full"
+                  className="w-full rounded-[50px]"
                   disabled={!isFormComplete}
                 >
                   Generate Link

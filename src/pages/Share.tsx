@@ -97,7 +97,7 @@ const Share = () => {
             <p className="text-primary font-bold text-lg">Don't close your browser without saving these first!</p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-2 mb-12">
+          <div className="grid gap-2.5 md:grid-cols-2 mb-12">
             <Card className="">
               <CardHeader>
                 <CardTitle className="text-accent flex items-center gap-2">

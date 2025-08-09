@@ -375,7 +375,7 @@ const Manage = () => {
           </Card>
 
           {/* Actions & Indicators */}
-          <div className="grid gap-6 md:grid-cols-3 mb-8">
+          <div className="grid gap-2.5 md:grid-cols-3 mb-8">
             <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">

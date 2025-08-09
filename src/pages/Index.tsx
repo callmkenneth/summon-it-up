@@ -7,7 +7,7 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-card">
+    <div className="min-h-screen">
       {/* Hero Section with Video Background */}
       <section className="relative py-20 overflow-hidden">
         {/* Pink Video Background */}

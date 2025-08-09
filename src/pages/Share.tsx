@@ -87,7 +87,7 @@ const Share = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-card">
+    <div className="min-h-screen">
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-primary mb-4">All Set!</h1>

@@ -4,13 +4,9 @@ import { Footer } from "@/components/Footer";
 import { useNavigate } from "react-router-dom";
 const Index = () => {
   const navigate = useNavigate();
-  return <div className="min-h-screen">
+  return <div className="min-h-screen page-scrim">
       {/* Hero Section with Video Background */}
       <section className="relative py-20 overflow-hidden">
-        {/* Pink Video Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-pink via-light-pink to-secondary opacity-90"></div>
-        <div className="absolute inset-0 bg-gradient-primary opacity-70"></div>
-        
         {/* Content Overlay */}
         <div className="relative z-10 container mx-auto px-6 text-center">
           <div className="max-w-4xl mx-auto">

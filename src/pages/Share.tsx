@@ -93,7 +93,7 @@ const Share = () => {
           <h1 className="text-white mb-4">All Set!</h1>
           <h4 className="text-white/80 mb-12">Your Event is Ready to Be Shared</h4>
           
-          <div className="bg-light-pink border border-pink rounded-lg p-6 mb-8">
+          <div className="bg-light-pink border border-pink rounded-[30px] p-6 mb-8">
             <p className="text-primary font-bold text-lg">Don't close your browser without saving these first!</p>
           </div>
 

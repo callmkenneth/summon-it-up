@@ -191,7 +191,7 @@ const Share = () => {
             </CardContent>
           </Card>
 
-          <div className="bg-gradient-primary rounded-lg p-6">
+          <div className="bg-gradient-primary rounded-[30px] p-6">
             <h5 className="text-white mb-4">Start planning the next one</h5>
             <Button variant="secondary" size="lg" onClick={() => navigate('/newevent')}>
               New Event

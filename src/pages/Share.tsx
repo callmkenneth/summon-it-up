@@ -89,15 +89,15 @@ const Share = () => {
   return (
     <div className="min-h-screen page-scrim">
       <div className="container mx-auto px-6 py-12">
-        <div className="max-w-3xl mx-auto text-center">
+        <div className="max-w-3xl mx-auto text-center space-y-4">
           <h1 className="text-white mb-4">All Set!</h1>
-          <h4 className="text-white/80 mb-12">Your Event is Ready to Be Shared</h4>
+          <h4 className="text-white/80">Your Event is Ready to Be Shared</h4>
           
-          <div className="bg-light-pink border border-pink rounded-[30px] p-6 mb-8">
+          <div className="bg-light-pink border border-pink rounded-[30px] p-6">
             <p className="text-primary font-bold text-lg">Don't close your browser without saving these first!</p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2 mb-12">
+          <div className="grid gap-4 md:grid-cols-2">
             <Card className="">
               <CardHeader>
                 <CardTitle className="text-accent flex items-center gap-2">
@@ -141,7 +141,7 @@ const Share = () => {
             </Card>
           </div>
 
-          <Card className="mb-8">
+          <Card className="">
             <CardHeader>
               <CardTitle className="text-primary flex items-center gap-2 justify-center">
                 ⏳ RSVP Deadline
@@ -159,7 +159,7 @@ const Share = () => {
             </CardContent>
           </Card>
 
-          <Card className="mb-8">
+          <Card className="">
             <CardHeader>
               <CardTitle className="text-primary flex items-center gap-2 justify-center">
                 <Mail className="h-5 w-5" />

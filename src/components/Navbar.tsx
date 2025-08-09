@@ -18,17 +18,6 @@ export function Navbar() {
           >
             <img src="/Summons-logo.png" alt="Summons logo" className="h-12 w-auto" />
           </div>
-          {!isHome && isNewEvent && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => navigate('/')}
-              className="flex items-center gap-2"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back
-            </Button>
-          )}
         </div>
         
         <Button 

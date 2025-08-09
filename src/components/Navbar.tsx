@@ -27,7 +27,7 @@ export function Navbar() {
             className="cursor-pointer"
             onClick={() => navigate('/')}
           >
-            <img src="/Summons-logo.png" alt="Summons logo" className="h-8 w-auto" />
+            <img src="/Summons-logo.png" alt="Summons logo" className="h-12 w-auto" />
           </div>
         </div>
         

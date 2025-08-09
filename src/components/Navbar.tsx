@@ -23,7 +23,7 @@ export function Navbar() {
         <Button 
           variant="default" 
           onClick={() => navigate('/newevent')}
-          className="text-sm"
+          className="text-sm border border-white"
         >
           New Event
         </Button>

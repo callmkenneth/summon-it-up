@@ -27,6 +27,9 @@ const NameCapture = () => {
 
     setSubmitting(true);
     try {
+      // Generate unique email if none provided to avoid duplicate key constraint
+      const finalEmail = email || `placeholder-${Date.now()}-${Math.random().toString(36).substr(2, 9)}@noemail.com`;
+
       // Check gender-specific spots if event uses ratio control
       if (response === 'yes') {
         const { data: spotsData, error: spotsError } = await supabase
@@ -44,30 +47,73 @@ const NameCapture = () => {
       }
 
       if (response === 'waitlist') {
-        // Submit to waitlist table
-        const { error } = await supabase
+        // Check if already on waitlist and update, otherwise insert
+        const { data: existingWaitlist } = await supabase
           .from('waitlist')
-          .insert({
-            event_id: id,
-            attendee_name: name,
-            attendee_email: email || null,
-            gender: gender
-          });
-        
-        if (error) throw error;
+          .select('id')
+          .eq('event_id', id)
+          .eq('attendee_email', finalEmail)
+          .maybeSingle();
+
+        if (existingWaitlist) {
+          // Update existing waitlist entry
+          const { error } = await supabase
+            .from('waitlist')
+            .update({
+              attendee_name: name,
+              gender: gender
+            })
+            .eq('id', existingWaitlist.id);
+          
+          if (error) throw error;
+        } else {
+          // Insert new waitlist entry
+          const { error } = await supabase
+            .from('waitlist')
+            .insert({
+              event_id: id,
+              attendee_name: name,
+              attendee_email: finalEmail,
+              gender: gender
+            });
+          
+          if (error) throw error;
+        }
       } else {
-        // Submit RSVP to regular table
-        const { error } = await supabase
+        // Check if RSVP already exists and update, otherwise insert
+        const { data: existingRsvp } = await supabase
           .from('rsvps')
-          .insert({
-            event_id: id,
-            attendee_name: name,
-            attendee_email: email || '',
-            gender: gender,
-            status: response
-          });
-        
-        if (error) throw error;
+          .select('id')
+          .eq('event_id', id)
+          .eq('attendee_email', finalEmail)
+          .maybeSingle();
+
+        if (existingRsvp) {
+          // Update existing RSVP
+          const { error } = await supabase
+            .from('rsvps')
+            .update({
+              attendee_name: name,
+              gender: gender,
+              status: response
+            })
+            .eq('id', existingRsvp.id);
+          
+          if (error) throw error;
+        } else {
+          // Insert new RSVP
+          const { error } = await supabase
+            .from('rsvps')
+            .insert({
+              event_id: id,
+              attendee_name: name,
+              attendee_email: finalEmail,
+              gender: gender,
+              status: response
+            });
+          
+          if (error) throw error;
+        }
       }
 
       if (response === 'yes' || response === 'waitlist') {

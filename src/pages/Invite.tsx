@@ -120,8 +120,8 @@ const Invite = () => {
   return (
     <div className="min-h-screen page-scrim">
       <div className="container mx-auto px-6 py-12">
-        <div className="max-w-3xl mx-auto">
-          <h1 className="text-white mb-8 text-center">
+        <div className="max-w-3xl mx-auto space-y-2">
+          <h1 className="text-white mb-4 text-center">
             {event?.status === 'cancelled' ? 'Event Cancelled' : (isFull ? "Event Full" : "You're invited")}
           </h1>
 
@@ -135,7 +135,7 @@ const Invite = () => {
           {event?.status !== 'cancelled' && (
             <>
               {/* Event Description Module */}
-              <Card className="mb-8">
+              <Card className="">
                 <CardHeader>
                   <CardTitle className="text-accent">{event?.title}</CardTitle>
                 </CardHeader>
@@ -190,7 +190,7 @@ const Invite = () => {
               </Card>
 
               {/* Indicators */}
-              <div className="grid gap-2 md:grid-cols-3 mb-8">
+              <div className="grid gap-2 md:grid-cols-3">
               <Card className="">
                 <CardContent className="pt-6">
                   <div className="text-center">
@@ -237,7 +237,7 @@ const Invite = () => {
               </div>
 
               {/* Who's Coming */}
-              <Card className="mb-8">
+              <Card className="">
                 <CardHeader>
                   <CardTitle className="text-primary">Who's coming so far</CardTitle>
                 </CardHeader>
@@ -279,7 +279,7 @@ const Invite = () => {
               </Card>
 
               {/* Waitlist */}
-              <Card className="mb-8">
+              <Card className="">
                 <CardHeader>
                   <CardTitle className="text-primary">Waitlist ({waitlist.length})</CardTitle>
                 </CardHeader>
@@ -300,7 +300,7 @@ const Invite = () => {
               </Card>
 
               {/* RSVP Buttons */}
-              <div className="space-y-4">
+              <div className="">
                 {!isFull ? (
                   <div className="grid gap-2 md:grid-cols-2">
                     <Button 

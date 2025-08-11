@@ -144,7 +144,7 @@ const NewEvent = () => {
                   }
                 }} className="mt-2" />
                   {imagePreview && <div className="mt-3">
-                      <div className="aspect-video rounded-lg overflow-hidden border">
+                      <div className="aspect-square rounded-lg overflow-hidden border">
                         <img src={imagePreview} alt={formData.title ? `Preview: ${formData.title}` : 'Event image preview'} className="w-full h-full object-cover" loading="lazy" />
                       </div>
                     </div>}

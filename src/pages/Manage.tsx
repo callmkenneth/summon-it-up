@@ -255,11 +255,11 @@ const Manage = () => {
   return (
     <div className="min-h-screen page-scrim">
       <div className="container mx-auto px-6 py-12">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-white mb-8">{event.title}</h1>
+        <div className="max-w-4xl mx-auto space-y-2">
+          <h1 className="text-white mb-4">{event.title}</h1>
 
           {/* Event Details Module */}
-          <Card className="mb-8">
+          <Card className="">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="text-primary">Event Details</CardTitle>
               <div className="flex items-center gap-2">
@@ -375,7 +375,7 @@ const Manage = () => {
           </Card>
 
           {/* Actions & Indicators */}
-          <div className="grid gap-2 md:grid-cols-3 mb-8">
+          <div className="grid gap-2 md:grid-cols-3">
             <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">
@@ -420,7 +420,7 @@ const Manage = () => {
           </div>
 
           {/* Who's Coming */}
-          <Card className="mb-8">
+          <Card className="">
             <CardHeader>
               <CardTitle className="text-primary">Who's coming so far</CardTitle>
             </CardHeader>
@@ -487,7 +487,7 @@ const Manage = () => {
 
           {/* Waitlist */}
           {waitlist.length > 0 && (
-            <Card className="mb-8">
+            <Card className="">
               <CardHeader>
                 <CardTitle className="text-primary">Waitlist</CardTitle>
               </CardHeader>

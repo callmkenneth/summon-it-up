@@ -208,7 +208,7 @@ const Details = () => {
                      {rsvps.yes.map((person, index) => (
                         <div 
                           key={index} 
-                          className="p-2 bg-green-50 rounded-[30px] flex items-center justify-between"
+                          className="p-4 bg-green-50 rounded-[30px] flex items-center justify-between"
                         >
                          <span>{person.attendee_name}</span>
                          <Badge variant="secondary" className="text-xs">
@@ -225,7 +225,7 @@ const Details = () => {
                   </Badge>
                   <div className="space-y-2">
                      {rsvps.no.map((person, index) => (
-                       <div key={index} className="p-2 bg-red-50 rounded-[30px] flex items-center justify-between">
+                       <div key={index} className="p-4 bg-red-50 rounded-[30px] flex items-center justify-between">
                          <span>{person.attendee_name}</span>
                          <Badge variant="secondary" className="text-xs">
                            {person.gender}
@@ -247,7 +247,7 @@ const Details = () => {
               {waitlist.length > 0 ? (
                 <div className="space-y-2">
                   {waitlist.map((person: any, index: number) => (
-                    <div key={index} className="p-2 bg-muted rounded-[30px] flex items-center justify-between">
+                    <div key={index} className="p-4 bg-muted rounded-[30px] flex items-center justify-between">
                       <span>{person.attendee_name}</span>
                       <Badge variant="secondary" className="text-xs">{person.gender}</Badge>
                     </div>

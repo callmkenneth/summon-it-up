@@ -21,6 +21,7 @@ const buttonVariants = cva(
         hero: "bg-gradient-primary text-white hover:scale-105 shadow-accent font-bold",
         rsvp: "bg-accent text-accent-foreground hover:bg-accent/90 shadow-accent rounded-lg",
         reject: "bg-light-pink text-primary hover:bg-light-pink/80 shadow-md rounded-lg",
+        waitlist: "bg-primary text-white border-[3px] border-white rounded-[30px] hover:bg-primary/90",
       },
       size: {
         default: "h-12 px-6 py-3",

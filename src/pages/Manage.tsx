@@ -368,8 +368,8 @@ const Manage = () => {
             <Card className="">
               <CardContent className="pt-6">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <img src="/lovable-uploads/c6610557-4286-44eb-a1fd-0225f5748b7d.png" alt="Spots" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
-                  <p className="font-semibold">Spots remaining</p>
+                  <img src="/lovable-uploads/c6610557-4286-44eb-a1fd-0225f5748b7d.png" alt="Spots" className="w-12 h-12" onError={(e) => e.currentTarget.style.display = 'none'} />
+                  <p className="font-semibold text-lg">Spots remaining</p>
                 </div>
                 <div className="text-center">
                   <SpotCounter 
@@ -383,8 +383,8 @@ const Manage = () => {
             <Card className="">
               <CardContent className="pt-6">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="Time" className="w-10 h-10" />
-                  <p className="font-semibold">Time left to respond</p>
+                  <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="Time" className="w-12 h-12" />
+                  <p className="font-semibold text-lg">Time left to respond</p>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-primary">
@@ -394,7 +394,7 @@ const Manage = () => {
                       'No deadline'
                     )}
                   </div>
-                  <p className="text-xs text-muted-foreground">(days, hours, minutes, seconds)</p>
+                  <p className="text-xs text-muted-foreground mt-2">(days, hours, minutes, seconds)</p>
                 </div>
               </CardContent>
             </Card>
@@ -415,7 +415,7 @@ const Manage = () => {
                   </div>
                   <div className="space-y-2">
                     {rsvps.yes.map((person, index) => (
-                      <div key={index} className="flex items-center justify-between p-2 bg-green-50 rounded-[30px]">
+                      <div key={index} className="flex items-center justify-between p-4 bg-green-50 rounded-[30px]">
                         <div className="flex items-center gap-2">
                           <span>{person.attendee_name}</span>
                           <Badge variant="secondary" className="text-xs">
@@ -443,7 +443,7 @@ const Manage = () => {
                   </div>
                   <div className="space-y-2">
                     {rsvps.no.map((person, index) => (
-                      <div key={index} className="flex items-center justify-between p-2 bg-red-50 rounded-[30px]">
+                      <div key={index} className="flex items-center justify-between p-4 bg-red-50 rounded-[30px]">
                         <div className="flex items-center gap-2">
                           <span>{person.attendee_name}</span>
                           <Badge variant="secondary" className="text-xs">
@@ -475,7 +475,7 @@ const Manage = () => {
               <CardContent>
                 <div className="space-y-2">
                   {waitlist.map((person: any, index: number) => (
-                    <div key={index} className="flex items-center justify-between p-2 bg-yellow-50 rounded-[30px]">
+                    <div key={index} className="flex items-center justify-between p-4 bg-yellow-50 rounded-[30px]">
                       <div className="flex items-center gap-2">
                         <span>{person.attendee_name}</span>
                         <Badge variant="secondary" className="text-xs">

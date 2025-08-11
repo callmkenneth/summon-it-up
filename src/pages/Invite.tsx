@@ -190,8 +190,8 @@ const Invite = () => {
               <Card className="">
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-center gap-3 mb-4">
-                    <img src="/lovable-uploads/9f573c3c-4c96-4d30-844e-7d3ad630c505.png" alt="Spots" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
-                    <p className="font-semibold">Spots remaining</p>
+                    <img src="/lovable-uploads/9f573c3c-4c96-4d30-844e-7d3ad630c505.png" alt="Spots" className="w-12 h-12" onError={(e) => e.currentTarget.style.display = 'none'} />
+                    <p className="font-semibold text-lg">Spots remaining</p>
                   </div>
                   <div className="text-center">
                     <SpotCounter 
@@ -205,8 +205,8 @@ const Invite = () => {
               <Card className="">
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-center gap-3 mb-4">
-                    <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="Time" className="w-10 h-10" />
-                    <p className="font-semibold">Time left to respond</p>
+                    <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="Time" className="w-12 h-12" />
+                    <p className="font-semibold text-lg">Time left to respond</p>
                   </div>
                   <div className="text-center">
                     <div className="font-semibold text-primary">
@@ -216,7 +216,7 @@ const Invite = () => {
                         'No deadline'
                       )}
                     </div>
-                    <p className="text-xs text-muted-foreground">(days, hours, minutes, seconds)</p>
+                    <p className="text-xs text-muted-foreground mt-2">(days, hours, minutes, seconds)</p>
                   </div>
                 </CardContent>
               </Card>
@@ -235,7 +235,7 @@ const Invite = () => {
                       </Badge>
                        <div className="space-y-2">
                          {rsvps.yes.map((person, index) => (
-                           <div key={index} className="p-2 bg-green-50 rounded-[30px] flex items-center justify-between">
+                           <div key={index} className="p-4 bg-green-50 rounded-[30px] flex items-center justify-between">
                              <span>{person.attendee_name}</span>
                              <Badge variant="secondary" className="text-xs">
                                {person.gender}
@@ -251,7 +251,7 @@ const Invite = () => {
                       </Badge>
                        <div className="space-y-2">
                          {rsvps.no.map((person, index) => (
-                           <div key={index} className="p-2 bg-red-50 rounded-[30px] flex items-center justify-between">
+                           <div key={index} className="p-4 bg-red-50 rounded-[30px] flex items-center justify-between">
                              <span>{person.attendee_name}</span>
                              <Badge variant="secondary" className="text-xs">
                                {person.gender}
@@ -273,7 +273,7 @@ const Invite = () => {
                   {waitlist.length > 0 ? (
                     <div className="space-y-2">
                       {waitlist.map((person: any, index: number) => (
-                        <div key={index} className="p-2 bg-muted rounded-[30px] flex items-center justify-between">
+                        <div key={index} className="p-4 bg-muted rounded-[30px] flex items-center justify-between">
                           <span>{person.attendee_name}</span>
                           <Badge variant="secondary" className="text-xs">{person.gender}</Badge>
                         </div>
@@ -309,7 +309,7 @@ const Invite = () => {
                 ) : (
                   <div className="text-center">
                     <Button 
-                      variant="hero" 
+                      variant="waitlist" 
                       size="lg" 
                       className="w-full md:w-auto"
                       onClick={handleWaitlist}

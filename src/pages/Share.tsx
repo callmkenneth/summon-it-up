@@ -139,7 +139,7 @@ const Share = () => {
               {event?.rsvp_deadline ? <div>
                   <CountdownTimer deadline={event.rsvp_deadline} size="large" />
                   <p className="text-xs text-muted-foreground mt-1">Time left to respond</p>
-                  <p className="text-xs text-muted-foreground">(days, hours, minutes, seconds)</p>
+                  <p className="text-xs text-muted-foreground mt-2">(days, hours, minutes, seconds)</p>
                 </div> : <span className="text-muted-foreground">No deadline</span>}
             </CardContent>
           </Card>

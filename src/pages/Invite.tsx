@@ -218,6 +218,7 @@ const Invite = () => {
                       )}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">Time left to respond</p>
+                    <p className="text-xs text-muted-foreground">Days, hours, minutes, seconds</p>
                   </div>
                 </CardContent>
               </Card>

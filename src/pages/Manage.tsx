@@ -402,6 +402,7 @@ const Manage = () => {
                     )}
                   </div>
                   <p className="text-muted-foreground">Time to Respond</p>
+                  <p className="text-xs text-muted-foreground">Days, hours, minutes, seconds</p>
                 </div>
               </CardContent>
             </Card>

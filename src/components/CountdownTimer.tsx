@@ -46,10 +46,10 @@ export function CountdownTimer({ deadline, className = "", size = "small" }: Cou
   return (
     <div className="bg-light-pink border-2 border-pink rounded-[30px] px-3 py-1 inline-block">
       <span className={`font-bungee ${size === 'large' ? 'text-6xl' : 'text-2xl'} ${className}`}>
-        {timeLeft.days > 0 
-          ? `${timeLeft.days.toString().padStart(2, '0')}:${timeLeft.hours.toString().padStart(2, '0')}:${timeLeft.minutes.toString().padStart(2, '0')}`
-          : `${timeLeft.hours.toString().padStart(2, '0')}:${timeLeft.minutes.toString().padStart(2, '0')}:${timeLeft.seconds.toString().padStart(2, '0')}`
-        }
+        {timeLeft.days.toString().padStart(2, '0')}:
+        {timeLeft.hours.toString().padStart(2, '0')}:
+        {timeLeft.minutes.toString().padStart(2, '0')}:
+        {timeLeft.seconds.toString().padStart(2, '0')}
       </span>
     </div>
   );

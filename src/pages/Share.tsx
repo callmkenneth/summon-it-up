@@ -146,7 +146,7 @@ const Share = () => {
           <Card className="">
             <CardHeader>
               <CardTitle className="text-primary flex items-center gap-2 justify-center">
-                <Mail className="h-10 w-10" />
+                <img src="/lovable-uploads/b5763a95-016c-48dc-810e-bb5e756a5149.png" alt="Mail icon" className="w-10 h-10" />
                 WANT THESE DETAILS IN YOUR INBOX?
               </CardTitle>
             </CardHeader>

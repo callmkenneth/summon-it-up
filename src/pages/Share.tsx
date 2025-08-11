@@ -85,7 +85,7 @@ const Share = () => {
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-3xl mx-auto text-center space-y-4">
           <h1 className="text-white mb-4">All Set!</h1>
-          <h4 className="text-white/80">Your Event is Ready to Be Shared</h4>
+          <h4 className="text-white/80">YOUR EVENT IS READY TO BE SHARED.</h4>
           
           <div className="bg-light-pink border border-pink rounded-[30px] p-6">
             <p className="text-primary font-bold text-lg">Don't close your browser without saving these first!</p>

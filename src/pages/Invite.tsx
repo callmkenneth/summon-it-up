@@ -175,7 +175,7 @@ const Invite = () => {
                   {/* What section on its own line */}
                   <div className="text-left">
                     <div className="flex items-center justify-start gap-2 mb-2">
-                      <img src="/lovable-uploads/9aa0cac8-3d5b-4dfd-b53f-30c71180282e.png" alt="What" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                      <img src="/lovable-uploads/1b997230-1be6-4930-8518-2eb19dee0d03.png" alt="What" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                       <h5>What</h5>
                     </div>
                     <p className="text-muted-foreground text-sm">

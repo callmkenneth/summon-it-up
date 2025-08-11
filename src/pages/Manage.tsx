@@ -294,31 +294,31 @@ const Manage = () => {
               
               <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
                   <div className="flex items-center gap-3">
-                   <img src="/when.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
-                   <div>
-                     <p className="font-semibold">Date</p>
-                     <p className="text-muted-foreground">{new Date(event.event_date).toLocaleDateString()}</p>
-                   </div>
-                 </div>
-                 
-                 <div className="flex items-center gap-3">
-                    <img src="/lovable-uploads/9093f28c-f70c-4480-9f7f-940bb14d7a22.png" alt="Time" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                    <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                     <div>
-                      <p className="font-semibold">Time</p>
-                      <p className="text-muted-foreground">{to12Hour(event.start_time)} - {to12Hour(event.end_time)}</p>
+                      <p className="font-semibold">Date</p>
+                      <p className="text-muted-foreground">{new Date(event.event_date).toLocaleDateString()}</p>
                     </div>
                   </div>
-                 
-                 <div className="flex items-center gap-3">
-                   <img src="/where.png" alt="Where" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
-                   <div>
-                     <p className="font-semibold">Location</p>
-                     <p className="text-muted-foreground">{event.location}</p>
+                  
+                  <div className="flex items-center gap-3">
+                     <img src="/lovable-uploads/9093f28c-f70c-4480-9f7f-940bb14d7a22.png" alt="Time" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                     <div>
+                       <p className="font-semibold">Time</p>
+                       <p className="text-muted-foreground">{to12Hour(event.start_time)} - {to12Hour(event.end_time)}</p>
+                     </div>
                    </div>
-                 </div>
-                 
-                 <div className="flex items-center gap-3">
-                   <img src="/spots.png" alt="Spots" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                  
+                  <div className="flex items-center gap-3">
+                    <img src="/lovable-uploads/ace9dfe7-9ade-4fb1-81e5-720002c00b6c.png" alt="Where" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                    <div>
+                      <p className="font-semibold">Location</p>
+                      <p className="text-muted-foreground">{event.location}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    <img src="/lovable-uploads/718e6376-b7a9-43b1-98d9-745480a8fde5.png" alt="Spots" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                    <div>
                      <p className="font-semibold">Capacity</p>
                      <p className="text-muted-foreground">
@@ -353,11 +353,11 @@ const Manage = () => {
               </div>
               
               {/* What section on its own line */}
-              <div className="text-left">
-                 <div className="flex items-center justify-start gap-2 mb-2">
-                   <img src="/what.png" alt="What" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
-                   <p className="font-semibold">What</p>
-                 </div>
+                 <div className="text-left">
+                  <div className="flex items-center justify-start gap-2 mb-2">
+                    <img src="/lovable-uploads/9aa0cac8-3d5b-4dfd-b53f-30c71180282e.png" alt="What" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                    <p className="font-semibold">What</p>
+                  </div>
                 <p className="text-muted-foreground">{event.description}</p>
               </div>
             </CardContent>
@@ -367,8 +367,8 @@ const Manage = () => {
           <div className="grid gap-2 md:grid-cols-2">
             <Card className="">
               <CardContent className="pt-6">
-                <div className="text-center">
-                  <img src="/spots.png" alt="Spots" className="w-10 h-10 mx-auto mb-2" onError={(e) => e.currentTarget.style.display = 'none'} />
+                 <div className="text-center">
+                   <img src="/lovable-uploads/718e6376-b7a9-43b1-98d9-745480a8fde5.png" alt="Spots" className="w-10 h-10 mx-auto mb-2" onError={(e) => e.currentTarget.style.display = 'none'} />
                   <SpotCounter 
                     spotsClaimed={rsvps.yes.length} 
                     totalSpots={event.unlimited_guests ? null : event.guest_limit} 

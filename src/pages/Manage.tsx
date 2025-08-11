@@ -302,7 +302,7 @@ const Manage = () => {
                   </div>
                   
                   <div className="flex items-center gap-3">
-                     <img src="/lovable-uploads/9093f28c-f70c-4480-9f7f-940bb14d7a22.png" alt="Time" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                     <img src="/lovable-uploads/ea8aa2c3-0089-4a80-892e-5cc91a31da51.png" alt="Time" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                      <div>
                        <p className="font-semibold">Time</p>
                        <p className="text-muted-foreground">{to12Hour(event.start_time)} - {to12Hour(event.end_time)}</p>

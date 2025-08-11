@@ -265,14 +265,12 @@ const Manage = () => {
               <CardTitle className="text-primary">Event Details</CardTitle>
               <div className="flex items-center gap-2">
                 <Button 
-                  variant="ghost" 
+                  variant="outline" 
                   size="sm" 
                   onClick={() => setShowEditDialog(true)}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 border-primary"
                 >
-                  <IconWrapper variant="white" size="sm">
-                    <Edit className="h-4 w-4" />
-                  </IconWrapper>
+                  <Edit className="h-4 w-4" />
                   Edit Event
                 </Button>
                 <Button 
@@ -282,9 +280,7 @@ const Manage = () => {
                   disabled={event.status === 'cancelled'}
                   className="flex items-center gap-2"
                 >
-                  <IconWrapper variant="white" size="sm">
-                    <AlertTriangle className="h-4 w-4" />
-                  </IconWrapper>
+                  <AlertTriangle className="h-4 w-4" />
                   {event.status === 'cancelled' ? 'Cancelled' : 'Cancel Event'}
                 </Button>
               </div>

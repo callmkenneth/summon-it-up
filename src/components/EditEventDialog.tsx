@@ -146,7 +146,7 @@ export function EditEventDialog({
           <DialogFooter className="gap-2">
             <Button
               type="button"
-              variant="outline"
+              variant="secondary"
               onClick={() => onOpenChange(false)}
               disabled={isLoading}
             >

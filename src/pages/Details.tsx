@@ -186,7 +186,7 @@ const Details = () => {
             <Card>
               <CardContent className="pt-6">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <img src="/lovable-uploads/90d342d8-bdc6-4f9c-91d5-3c15ba16a036.png" alt="Confirmed" className="w-12 h-12" onError={(e) => e.currentTarget.style.display = 'none'} />
+                  <img src="/lovable-uploads/6453c430-5a5d-46ca-86b5-e46c3ac971ce.png" alt="Confirmed" className="w-12 h-12" onError={(e) => e.currentTarget.style.display = 'none'} />
                   <h5 className="font-semibold text-lg">You're confirmed!</h5>
                 </div>
                 <div className="text-center">

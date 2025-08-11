@@ -294,7 +294,7 @@ const Manage = () => {
               
               <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
                   <div className="flex items-center gap-3">
-                    <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                    <img src="/lovable-uploads/36ab1d6e-1bf7-4a10-a658-8050f82f824b.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                     <div>
                       <p className="font-semibold">Date</p>
                       <p className="text-muted-foreground">{new Date(event.event_date).toLocaleDateString()}</p>

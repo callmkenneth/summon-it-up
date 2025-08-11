@@ -10,7 +10,7 @@ export function Navbar() {
 
   return (
     <nav className="bg-white/10 backdrop-blur-md border-b border-white/20 px-3 md:px-6 py-4">
-      <div className="container mx-auto flex items-center justify-between">
+      <div className="w-full flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div 
             className="cursor-pointer"

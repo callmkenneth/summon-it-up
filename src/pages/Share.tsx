@@ -112,6 +112,7 @@ const Share = () => {
                     variant="outline"
                     size="icon"
                     onClick={() => copyToClipboard(inviteLink, 'invite')}
+                    className="h-10 w-10 shadow-none border-input"
                   >
                     {copied === 'invite' ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" style={{ color: '#3D2051' }} />}
                   </Button>
@@ -133,6 +134,7 @@ const Share = () => {
                     variant="outline"
                     size="icon"
                     onClick={() => copyToClipboard(manageLink, 'manage')}
+                    className="h-10 w-10 shadow-none border-input"
                   >
                     {copied === 'manage' ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" style={{ color: '#3D2051' }} />}
                   </Button>

@@ -47,10 +47,12 @@ export function CountdownTimer({ deadline, className = "" }: CountdownTimerProps
   }
 
   return (
-    <span className={`font-bungee text-xl ${className}`}>
-      {timeLeft.hours.toString().padStart(2, '0')}:
-      {timeLeft.minutes.toString().padStart(2, '0')}:
-      {timeLeft.seconds.toString().padStart(2, '0')}
-    </span>
+    <div className="bg-light-pink border-2 border-pink rounded-[30px] px-4 py-2 inline-block">
+      <span className={`font-bungee text-xl ${className}`}>
+        {timeLeft.hours.toString().padStart(2, '0')}:
+        {timeLeft.minutes.toString().padStart(2, '0')}:
+        {timeLeft.seconds.toString().padStart(2, '0')}
+      </span>
+    </div>
   );
 }

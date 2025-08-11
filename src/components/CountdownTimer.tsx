@@ -3,9 +3,10 @@ import React, { useState, useEffect } from 'react';
 interface CountdownTimerProps {
   deadline: string;
   className?: string;
+  size?: 'small' | 'large';
 }
 
-export function CountdownTimer({ deadline, className = "" }: CountdownTimerProps) {
+export function CountdownTimer({ deadline, className = "", size = "small" }: CountdownTimerProps) {
   const [timeLeft, setTimeLeft] = useState<{
     days: number;
     hours: number;
@@ -43,12 +44,12 @@ export function CountdownTimer({ deadline, className = "" }: CountdownTimerProps
   }
 
   if (timeLeft.days > 0) {
-    return <span className={`font-bungee text-lg ${className}`}>{timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m</span>;
+    return <span className={`font-bungee ${size === 'large' ? 'text-xl' : 'text-lg'} ${className}`}>{timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m</span>;
   }
 
   return (
     <div className="bg-light-pink border-2 border-pink rounded-[30px] px-3 py-1 inline-block">
-      <span className={`font-bungee text-2xl ${className}`}>
+      <span className={`font-bungee ${size === 'large' ? 'text-6xl' : 'text-2xl'} ${className}`}>
         {timeLeft.hours.toString().padStart(2, '0')}:
         {timeLeft.minutes.toString().padStart(2, '0')}:
         {timeLeft.seconds.toString().padStart(2, '0')}

@@ -83,7 +83,7 @@ const Share = () => {
   };
   return <div className="min-h-screen page-scrim">
       <div className="container mx-auto px-6 py-12">
-        <div className="max-w-3xl mx-auto text-center space-y-4">
+        <div className="max-w-3xl mx-auto text-center space-y-2">
           <h1 className="text-white mb-4">All Set!</h1>
           <h4 className="text-white/80">YOUR EVENT IS READY TO BE SHARED.</h4>
           
@@ -91,11 +91,11 @@ const Share = () => {
             <p className="text-primary font-bold text-lg">Don't close your browser without saving these first!</p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-2 md:grid-cols-2">
             <Card className="">
               <CardHeader>
                 <CardTitle className="text-primary flex items-center gap-2">
-                  <img src="/lovable-uploads/5ecb635f-dbf8-46d8-bf83-05300c3ac8a1.png" alt="Upload icon" className="w-8 h-8" /> INVITATION PAGE
+                  <img src="/lovable-uploads/5ecb635f-dbf8-46d8-bf83-05300c3ac8a1.png" alt="Upload icon" className="w-10 h-10" /> INVITATION PAGE
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -114,7 +114,7 @@ const Share = () => {
             <Card className="">
               <CardHeader>
                 <CardTitle className="text-primary flex items-center gap-2">
-                  <img src="/lovable-uploads/ace9dfe7-9ade-4fb1-81e5-720002c00b6c.png" alt="Settings icon" className="w-8 h-8" /> MANAGEMENT PAGE
+                  <img src="/lovable-uploads/ace9dfe7-9ade-4fb1-81e5-720002c00b6c.png" alt="Settings icon" className="w-10 h-10" /> MANAGEMENT PAGE
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -133,7 +133,7 @@ const Share = () => {
 
           <Card className="">
             <CardHeader>
-              <CardTitle className="text-primary flex items-center gap-2 justify-center"><img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="Hourglass icon" className="w-8 h-8" /> RSVP DEADLINE</CardTitle>
+              <CardTitle className="text-primary flex items-center gap-2 justify-center"><img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="Hourglass icon" className="w-10 h-10" /> RSVP DEADLINE</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               {event?.rsvp_deadline ? <div>
@@ -146,7 +146,7 @@ const Share = () => {
           <Card className="">
             <CardHeader>
               <CardTitle className="text-primary flex items-center gap-2 justify-center">
-                <Mail className="h-5 w-5" />
+                <Mail className="h-10 w-10" />
                 WANT THESE DETAILS IN YOUR INBOX?
               </CardTitle>
             </CardHeader>

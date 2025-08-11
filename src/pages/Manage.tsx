@@ -270,8 +270,8 @@ const Manage = () => {
                   onClick={() => setShowEditDialog(true)}
                   className="flex items-center gap-2 border-primary"
                 >
-                  <Edit className="h-4 w-4" />
-                  Edit Event
+                  <Edit className="h-4 w-4 text-dark-purple" />
+                  <span className="text-dark-purple">Edit Event</span>
                 </Button>
                 <Button 
                   variant="destructive" 
@@ -293,10 +293,8 @@ const Manage = () => {
               )}
               
               <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
-                <div className="flex items-center gap-3">
-                  <IconWrapper variant="accent" size="md">
-                    <Calendar className="h-5 w-5" />
-                  </IconWrapper>
+                 <div className="flex items-center gap-3">
+                  <img src="/lovable-uploads/609ef6f2-a235-49b3-ac92-8ba998f318b8.png" alt="When" className="w-10 h-10" />
                   <div>
                     <p className="font-semibold">Date</p>
                     <p className="text-muted-foreground">{new Date(event.event_date).toLocaleDateString()}</p>
@@ -314,9 +312,7 @@ const Manage = () => {
                 </div>
                 
                 <div className="flex items-center gap-3">
-                  <IconWrapper variant="accent" size="md">
-                    <MapPin className="h-5 w-5" />
-                  </IconWrapper>
+                  <img src="/lovable-uploads/46458a7e-bf3a-41d4-b3b3-12d184d89ea1.png" alt="Where" className="w-10 h-10" />
                   <div>
                     <p className="font-semibold">Location</p>
                     <p className="text-muted-foreground">{event.location}</p>
@@ -324,9 +320,7 @@ const Manage = () => {
                 </div>
                 
                 <div className="flex items-center gap-3">
-                  <IconWrapper variant="accent" size="md">
-                    <Users className="h-5 w-5" />
-                  </IconWrapper>
+                  <img src="/lovable-uploads/df0004f3-b604-4034-957c-8ec6dbeb93ca.png" alt="Spots" className="w-10 h-10" />
                   <div>
                     <p className="font-semibold">Capacity</p>
                     <p className="text-muted-foreground">
@@ -367,7 +361,7 @@ const Manage = () => {
               {/* What section on its own line */}
               <div className="text-left">
                 <div className="flex items-center justify-start gap-2 mb-2">
-                  <span className="text-lg">🎉</span>
+                  <img src="/lovable-uploads/43059de6-40fd-428a-8df5-5b8701b667a3.png" alt="What" className="w-10 h-10" />
                   <p className="font-semibold">What</p>
                 </div>
                 <p className="text-muted-foreground">{event.description}</p>
@@ -380,9 +374,7 @@ const Manage = () => {
             <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">
-                  <IconWrapper variant="accent" size="lg" className="mx-auto mb-2">
-                    <Users className="h-6 w-6" />
-                  </IconWrapper>
+                  <img src="/lovable-uploads/df0004f3-b604-4034-957c-8ec6dbeb93ca.png" alt="Spots" className="w-10 h-10 mx-auto mb-2" />
                   <SpotCounter 
                     spotsClaimed={rsvps.yes.length} 
                     totalSpots={event.unlimited_guests ? null : event.guest_limit} 

@@ -149,10 +149,8 @@ const Invite = () => {
 
                    <div className="grid gap-2 md:grid-cols-2">
                   <div className="text-left">
-                    <div className="flex items-center justify-start gap-2 mb-2">
-                      <IconWrapper variant="accent" size="sm">
-                        <MapPin className="h-4 w-4" />
-                      </IconWrapper>
+                     <div className="flex items-center justify-start gap-2 mb-2">
+                      <img src="/lovable-uploads/46458a7e-bf3a-41d4-b3b3-12d184d89ea1.png" alt="Where" className="w-10 h-10" />
                       <h5>Where</h5>
                     </div>
                     <p className="text-muted-foreground">
@@ -162,9 +160,7 @@ const Invite = () => {
 
                   <div className="text-left">
                     <div className="flex items-center justify-start gap-2 mb-2">
-                      <IconWrapper variant="accent" size="sm">
-                        <Calendar className="h-4 w-4" />
-                      </IconWrapper>
+                      <img src="/lovable-uploads/609ef6f2-a235-49b3-ac92-8ba998f318b8.png" alt="When" className="w-10 h-10" />
                       <h5>When</h5>
                     </div>
                     <p className="text-muted-foreground">
@@ -179,9 +175,7 @@ const Invite = () => {
                   {/* What section on its own line */}
                   <div className="text-left">
                     <div className="flex items-center justify-start gap-2 mb-2">
-                      <IconWrapper variant="accent" size="sm">
-                        <span className="text-lg">🎉</span>
-                      </IconWrapper>
+                      <img src="/lovable-uploads/43059de6-40fd-428a-8df5-5b8701b667a3.png" alt="What" className="w-10 h-10" />
                       <h5>What</h5>
                     </div>
                     <p className="text-muted-foreground text-sm">
@@ -196,9 +190,7 @@ const Invite = () => {
               <Card className="">
                 <CardContent className="pt-6">
                   <div className="text-center">
-                    <IconWrapper variant="accent" size="md" className="mx-auto mb-2">
-                      <Users className="h-5 w-5" />
-                    </IconWrapper>
+                    <img src="/lovable-uploads/df0004f3-b604-4034-957c-8ec6dbeb93ca.png" alt="Spots" className="w-10 h-10 mx-auto mb-2" />
                     <SpotCounter 
                       spotsClaimed={rsvps.yes.length} 
                       totalSpots={event.unlimited_guests ? null : event.guest_limit} 

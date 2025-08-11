@@ -125,7 +125,7 @@ const Details = () => {
               <div className="grid gap-2 md:grid-cols-2">
                 <div className="text-left">
                   <div className="flex items-center justify-start gap-2 mb-3">
-                    <img src="/lovable-uploads/46458a7e-bf3a-41d4-b3b3-12d184d89ea1.png" alt="Where" className="w-10 h-10" />
+                    <img src="/lovable-uploads/ace9dfe7-9ade-4fb1-81e5-720002c00b6c.png" alt="Where" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                     <h5>Where</h5>
                   </div>
                   <p className="text-muted-foreground">{event?.location}</p>
@@ -136,7 +136,7 @@ const Details = () => {
 
                 <div className="text-left">
                   <div className="flex items-center justify-start gap-2 mb-3">
-                    <img src="/lovable-uploads/609ef6f2-a235-49b3-ac92-8ba998f318b8.png" alt="When" className="w-10 h-10" />
+                    <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                     <h5>When</h5>
                   </div>
                   <p className="text-muted-foreground">
@@ -156,7 +156,7 @@ const Details = () => {
               {/* What section on its own line */}
               <div className="text-left">
                 <div className="flex items-center justify-start gap-2 mb-3">
-                  <img src="/lovable-uploads/43059de6-40fd-428a-8df5-5b8701b667a3.png" alt="What" className="w-10 h-10" />
+                  <img src="/lovable-uploads/9aa0cac8-3d5b-4dfd-b53f-30c71180282e.png" alt="What" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                   <h5>What</h5>
                 </div>
                 <p className="text-muted-foreground text-sm">
@@ -171,7 +171,7 @@ const Details = () => {
             <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">
-                  <img src="/lovable-uploads/df0004f3-b604-4034-957c-8ec6dbeb93ca.png" alt="Spots" className="w-10 h-10 mx-auto mb-2" />
+                  <img src="/lovable-uploads/718e6376-b7a9-43b1-98d9-745480a8fde5.png" alt="Spots" className="w-10 h-10 mx-auto mb-2" onError={(e) => e.currentTarget.style.display = 'none'} />
                   <SpotCounter 
                     spotsClaimed={rsvps.yes.length} 
                     totalSpots={event.unlimited_guests ? null : event.guest_limit} 

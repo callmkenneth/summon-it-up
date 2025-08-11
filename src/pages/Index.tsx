@@ -14,7 +14,9 @@ const Index = () => {
             <p className="text-white/90 mb-12 max-w-2xl mx-auto text-lg leading-relaxed">Haunt your friends with RSVP timers, spot limits, and the perfect party mix — before the night disappears.</p>
             
             <div className="mb-16">
-              <Button variant="hero" size="lg" onClick={() => navigate('/newevent')} className="text-xl px-12 py-6 border-3 border-white rounded-[30px] bg-[#EF4EB7] hover:bg-[#EF4EB7]/90" style={{ background: '#EF4EB7' }}>
+              <Button variant="hero" size="lg" onClick={() => navigate('/newevent')} className="text-xl px-12 py-6 border-3 border-white rounded-[30px] bg-[#EF4EB7] hover:bg-[#EF4EB7]/90" style={{
+              background: '#EF4EB7'
+            }}>
                 New Event
               </Button>
             </div>
@@ -24,7 +26,7 @@ const Index = () => {
               <Card className="shadow-primary hover:shadow-accent transition-shadow">
                 <CardContent className="pt-8 pb-8 text-center">
                   <div className="text-4xl mb-4">😎</div>
-                  <h5 className="text-primary mb-3">Create Demand</h5>
+                  <h5 className="text-primary mb-3">CREATE DEMAND</h5>
                   <p className="text-muted-foreground text-sm">Limited spots make your party the hottest haunt in town.</p>
                 </CardContent>
               </Card>
@@ -32,7 +34,7 @@ const Index = () => {
               <Card className="shadow-primary hover:shadow-accent transition-shadow">
                 <CardContent className="pt-8 pb-8 text-center">
                   <div className="text-4xl mb-4">⏳</div>
-                  <h5 className="text-primary mb-3">Run the Clock</h5>
+                  <h5 className="text-primary mb-3">RUN THE CLOCK</h5>
                   <p className="text-muted-foreground text-sm">Give guests a ticking clock so they act fast or miss out.
 
                 </p>
@@ -42,7 +44,7 @@ const Index = () => {
               <Card className="shadow-primary hover:shadow-accent transition-shadow">
                 <CardContent className="pt-8 pb-8 text-center">
                   <div className="text-4xl mb-4">👫</div>
-                  <h5 className="text-primary mb-3">Control the Ratio</h5>
+                  <h5 className="text-primary mb-3">CONTROL THE RATIO</h5>
                   <p className="text-muted-foreground text-sm">Fine-tune your guest list for the ideal social dynamic.
 
                 </p>

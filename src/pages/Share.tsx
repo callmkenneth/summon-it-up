@@ -95,7 +95,7 @@ const Share = () => {
             <Card className="">
               <CardHeader>
                 <CardTitle className="text-primary flex items-center gap-2">
-                  <img src="/lovable-uploads/5ecb635f-dbf8-46d8-bf83-05300c3ac8a1.png" alt="Upload icon" className="w-5 h-5" /> INVITATION PAGE
+                  <img src="/lovable-uploads/5ecb635f-dbf8-46d8-bf83-05300c3ac8a1.png" alt="Upload icon" className="w-8 h-8" /> INVITATION PAGE
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">

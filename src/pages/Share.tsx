@@ -114,7 +114,7 @@ const Share = () => {
             <Card className="">
               <CardHeader>
                 <CardTitle className="text-primary flex items-center gap-2">
-                  <span>⚙️</span> Management Page
+                  <span>⚙️</span> MANAGEMENT PAGE
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">

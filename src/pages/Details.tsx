@@ -136,7 +136,7 @@ const Details = () => {
 
                 <div className="text-left">
                   <div className="flex items-center justify-start gap-2 mb-3">
-                    <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                    <img src="/lovable-uploads/01bfb213-3e0c-49f5-8d84-6e6d4c10b80f.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                     <h5>When</h5>
                   </div>
                   <p className="text-muted-foreground">

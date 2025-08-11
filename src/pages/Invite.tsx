@@ -150,7 +150,7 @@ const Invite = () => {
                    <div className="grid gap-2 md:grid-cols-2">
                   <div className="text-left">
                      <div className="flex items-center justify-start gap-2 mb-2">
-                      <img src="/lovable-uploads/ace9dfe7-9ade-4fb1-81e5-720002c00b6c.png" alt="Where" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                      <img src="/lovable-uploads/9fe89a1a-df3d-424a-b9ac-17da9974b862.png" alt="Where" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                       <h5>Where</h5>
                     </div>
                     <p className="text-muted-foreground">

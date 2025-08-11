@@ -94,8 +94,8 @@ const Share = () => {
           <div className="grid gap-4 md:grid-cols-2">
             <Card className="">
               <CardHeader>
-                <CardTitle className="text-accent flex items-center gap-2">
-                  <span>📤</span> Invitation Page
+                <CardTitle className="text-primary flex items-center gap-2">
+                  <span>📤</span> INVITATION PAGE
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">

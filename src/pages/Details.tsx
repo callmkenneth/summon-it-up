@@ -184,12 +184,15 @@ const Details = () => {
             </Card>
 
             <Card>
-              <CardContent className="flex items-center justify-center min-h-[120px]">
+              <CardContent className="pt-6">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <img src="/lovable-uploads/90d342d8-bdc6-4f9c-91d5-3c15ba16a036.png" alt="Confirmed" className="w-12 h-12" onError={(e) => e.currentTarget.style.display = 'none'} />
+                  <h5 className="font-semibold text-lg">You're confirmed!</h5>
+                </div>
                 <div className="text-center">
-                  <span className="text-2xl mb-2 block">✅</span>
-                  <p className="font-semibold text-green-600">
-                    You're confirmed!
-                  </p>
+                  <div className="bg-light-pink border-2 border-pink rounded-[30px] px-3 py-1 inline-block">
+                    <span className="font-bungee text-purple text-4xl">✓</span>
+                  </div>
                 </div>
               </CardContent>
             </Card>

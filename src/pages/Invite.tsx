@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { CountdownTimer } from "@/components/CountdownTimer";
+import { SpotCounter } from "@/components/SpotCounter";
 import { IconWrapper } from "@/components/IconWrapper";
 import { to12Hour } from "@/lib/utils";
 
@@ -146,7 +147,7 @@ const Invite = () => {
                     </div>
                   )}
 
-                  <div className="grid gap-2 md:grid-cols-3">
+                  <div className="grid gap-2 md:grid-cols-2">
                   <div className="text-center">
                     <div className="flex items-center justify-center gap-2 mb-2">
                       <IconWrapper variant="accent" size="sm">
@@ -173,7 +174,9 @@ const Invite = () => {
                         {to12Hour(event?.start_time)} - {to12Hour(event?.end_time)}
                       </p>
                   </div>
+                  </div>
 
+                  {/* What section on its own line */}
                   <div className="text-center">
                     <div className="flex items-center justify-center gap-2 mb-2">
                       <IconWrapper variant="accent" size="sm">
@@ -185,21 +188,22 @@ const Invite = () => {
                       {event?.description}
                     </p>
                   </div>
-                  </div>
                 </CardContent>
               </Card>
 
               {/* Indicators */}
-              <div className="grid gap-2 md:grid-cols-3">
+              <div className="grid gap-2 md:grid-cols-2">
               <Card className="">
                 <CardContent className="pt-6">
                   <div className="text-center">
                     <IconWrapper variant="accent" size="md" className="mx-auto mb-2">
                       <Users className="h-5 w-5" />
                     </IconWrapper>
-                    <p className="font-semibold text-primary">
-                      {typeof spotsRemaining === 'string' ? 'Unlimited spots' : spotsRemaining > 0 ? `${spotsRemaining} spots remaining` : "No spots remaining"}
-                    </p>
+                    <SpotCounter 
+                      spotsClaimed={rsvps.yes.length} 
+                      totalSpots={event.unlimited_guests ? null : event.guest_limit} 
+                    />
+                    <p className="text-xs text-muted-foreground mt-1">spots remaining</p>
                   </div>
                 </CardContent>
               </Card>
@@ -218,20 +222,7 @@ const Invite = () => {
                       )}
                     </div>
                     <p className="text-xs text-muted-foreground mt-1">Time left to respond</p>
-                    <p className="text-xs text-muted-foreground">Days, hours, minutes, seconds</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="">
-                <CardContent className="pt-6">
-                  <div className="text-center">
-                    <IconWrapper variant="primary" size="md" className="mx-auto mb-2">
-                      <span className="text-lg">👥</span>
-                    </IconWrapper>
-                    <p className="font-semibold text-primary">
-                      {rsvps.yes.length + rsvps.no.length} responses
-                    </p>
+                    <p className="text-xs text-muted-foreground">(days, hours, minutes, seconds)</p>
                   </div>
                 </CardContent>
               </Card>

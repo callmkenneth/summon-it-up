@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { to12Hour } from "@/lib/utils";
+import { SpotCounter } from "@/components/SpotCounter";
 
 const Details = () => {
   const { id } = useParams();
@@ -121,7 +122,7 @@ const Details = () => {
                 </div>
               )}
 
-              <div className="grid gap-2 md:grid-cols-3">
+              <div className="grid gap-2 md:grid-cols-2">
                 <div>
                   <div className="flex items-center gap-2 mb-3">
                     <MapPin className="h-5 w-5 text-accent" />
@@ -150,40 +151,32 @@ const Details = () => {
                     {to12Hour(event?.start_time)} - {to12Hour(event?.end_time)}
                   </p>
                 </div>
+              </div>
 
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="text-xl">🎉</span>
-                    <h5>What</h5>
-                  </div>
-                  <p className="text-muted-foreground text-sm">
-                    {event?.description}
-                  </p>
+              {/* What section on its own line */}
+              <div>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-xl">🎉</span>
+                  <h5>What</h5>
                 </div>
+                <p className="text-muted-foreground text-sm">
+                  {event?.description}
+                </p>
               </div>
             </CardContent>
           </Card>
 
           {/* Event Status */}
-          <div className="grid gap-2 md:grid-cols-3 mb-8">
+          <div className="grid gap-2 md:grid-cols-2 mb-8">
             <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">
                   <Users className="h-6 w-6 mx-auto mb-2 text-accent" />
-                  <p className="font-semibold text-primary">
-                    {spotsRemaining} spots remaining
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="">
-              <CardContent className="pt-6">
-                <div className="text-center">
-                  <Clock className="h-6 w-6 mx-auto mb-2 text-accent" />
-                  <p className="font-semibold text-primary">
-                    {timeLeft !== null && timeLeft > 0 ? `${timeLeft} days to respond` : "RSVP closed"}
-                  </p>
+                  <SpotCounter 
+                    spotsClaimed={rsvps.yes.length} 
+                    totalSpots={event.unlimited_guests ? null : event.guest_limit} 
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">spots remaining</p>
                 </div>
               </CardContent>
             </Card>

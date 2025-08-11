@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { CancelEventDialog } from "@/components/CancelEventDialog";
 import { EditEventDialog } from "@/components/EditEventDialog";
 import { CountdownTimer } from "@/components/CountdownTimer";
+import { SpotCounter } from "@/components/SpotCounter";
 import { IconWrapper } from "@/components/IconWrapper";
 import { to12Hour } from "@/lib/utils";
 
@@ -367,23 +368,30 @@ const Manage = () => {
                 )}
               </div>
               
+              {/* What section on its own line */}
               <div>
-                <p className="font-semibold mb-2">Description</p>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-lg">🎉</span>
+                  <p className="font-semibold">What</p>
+                </div>
                 <p className="text-muted-foreground">{event.description}</p>
               </div>
             </CardContent>
           </Card>
 
           {/* Actions & Indicators */}
-          <div className="grid gap-2 md:grid-cols-3">
+          <div className="grid gap-2 md:grid-cols-2">
             <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">
                   <IconWrapper variant="accent" size="lg" className="mx-auto mb-2">
                     <Users className="h-6 w-6" />
                   </IconWrapper>
-                  <h4 className="text-2xl font-bold text-primary">{spotsRemaining}</h4>
-                  <p className="text-muted-foreground">Spots Remaining</p>
+                  <SpotCounter 
+                    spotsClaimed={rsvps.yes.length} 
+                    totalSpots={event.unlimited_guests ? null : event.guest_limit} 
+                  />
+                  <p className="text-xs text-muted-foreground mt-1">spots remaining</p>
                 </div>
               </CardContent>
             </Card>
@@ -402,19 +410,7 @@ const Manage = () => {
                     )}
                   </div>
                   <p className="text-muted-foreground">Time to Respond</p>
-                  <p className="text-xs text-muted-foreground">Days, hours, minutes, seconds</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="">
-              <CardContent className="pt-6">
-                <div className="text-center">
-                  <IconWrapper variant="primary" size="lg" className="mx-auto mb-2">
-                    <span className="text-xl">👥</span>
-                  </IconWrapper>
-                  <h4 className="text-2xl font-bold text-primary">{rsvps.yes.length + rsvps.no.length}</h4>
-                  <p className="text-muted-foreground">Total Responses</p>
+                  <p className="text-xs text-muted-foreground">(days, hours, minutes, seconds)</p>
                 </div>
               </CardContent>
             </Card>

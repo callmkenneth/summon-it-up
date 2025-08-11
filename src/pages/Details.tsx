@@ -102,7 +102,7 @@ const Details = () => {
   return (
     <div className="min-h-screen page-scrim">
       <div className="container mx-auto px-6 py-12">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto space-y-2">
           <div className="text-center mb-8">
             <h1 className="text-white mb-4">
               {event?.status === 'cancelled' ? 'Event Cancelled' : `Alright ${userName}, you're in!`}
@@ -111,7 +111,7 @@ const Details = () => {
           </div>
 
           {/* Event Details */}
-          <Card className="mb-8">
+          <Card>
             <CardHeader>
               <CardTitle className="text-accent">{event?.title}</CardTitle>
             </CardHeader>
@@ -167,22 +167,24 @@ const Details = () => {
           </Card>
 
           {/* Event Status */}
-          <div className="grid gap-2 md:grid-cols-2 mb-8">
-            <Card className="">
+          <div className="grid gap-2 md:grid-cols-2">
+            <Card>
               <CardContent className="pt-6">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <img src="/lovable-uploads/ghost-icon.png" alt="Spots" className="w-12 h-12" onError={(e) => e.currentTarget.style.display = 'none'} />
+                  <h5 className="font-semibold text-lg">Spots remaining</h5>
+                </div>
                 <div className="text-center">
-                  <img src="/lovable-uploads/718e6376-b7a9-43b1-98d9-745480a8fde5.png" alt="Spots" className="w-10 h-10 mx-auto mb-2" onError={(e) => e.currentTarget.style.display = 'none'} />
                   <SpotCounter 
                     spotsClaimed={rsvps.yes.length} 
                     totalSpots={event.unlimited_guests ? null : event.guest_limit} 
                   />
-                  <p className="text-xs text-muted-foreground mt-1">spots remaining</p>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="">
-              <CardContent className="pt-6">
+            <Card>
+              <CardContent className="flex items-center justify-center min-h-[120px]">
                 <div className="text-center">
                   <span className="text-2xl mb-2 block">✅</span>
                   <p className="font-semibold text-green-600">
@@ -194,7 +196,7 @@ const Details = () => {
           </div>
 
           {/* Who's Coming */}
-          <Card className="mb-8">
+          <Card>
             <CardHeader>
               <CardTitle className="text-primary">Who's coming so far</CardTitle>
             </CardHeader>
@@ -239,7 +241,7 @@ const Details = () => {
           </Card>
 
           {/* Waitlist */}
-          <Card className="mb-8">
+          <Card>
             <CardHeader>
               <CardTitle className="text-primary">Waitlist ({waitlist.length})</CardTitle>
             </CardHeader>
@@ -260,7 +262,7 @@ const Details = () => {
           </Card>
 
           {/* Important Notes */}
-          <Card className="mb-8 bg-light-pink border-pink">
+          <Card className="bg-light-pink border-pink">
             <CardContent className="pt-6">
               <div className="text-center">
                 <h5 className="text-primary mb-3">📝 Important Notes</h5>

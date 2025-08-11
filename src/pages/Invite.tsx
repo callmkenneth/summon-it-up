@@ -147,9 +147,9 @@ const Invite = () => {
                     </div>
                   )}
 
-                  <div className="grid gap-2 md:grid-cols-2">
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-2 mb-2">
+                   <div className="grid gap-2 md:grid-cols-2">
+                  <div className="text-left">
+                    <div className="flex items-center justify-start gap-2 mb-2">
                       <IconWrapper variant="accent" size="sm">
                         <MapPin className="h-4 w-4" />
                       </IconWrapper>
@@ -160,8 +160,8 @@ const Invite = () => {
                     </p>
                   </div>
 
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-2 mb-2">
+                  <div className="text-left">
+                    <div className="flex items-center justify-start gap-2 mb-2">
                       <IconWrapper variant="accent" size="sm">
                         <Calendar className="h-4 w-4" />
                       </IconWrapper>
@@ -177,8 +177,8 @@ const Invite = () => {
                   </div>
 
                   {/* What section on its own line */}
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-2 mb-2">
+                  <div className="text-left">
+                    <div className="flex items-center justify-start gap-2 mb-2">
                       <IconWrapper variant="accent" size="sm">
                         <span className="text-lg">🎉</span>
                       </IconWrapper>

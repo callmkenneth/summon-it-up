@@ -123,8 +123,8 @@ const Details = () => {
               )}
 
               <div className="grid gap-2 md:grid-cols-2">
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
+                <div className="text-left">
+                  <div className="flex items-center justify-start gap-2 mb-3">
                     <MapPin className="h-5 w-5 text-accent" />
                     <h5>Where</h5>
                   </div>
@@ -134,8 +134,8 @@ const Details = () => {
                   </p>
                 </div>
 
-                <div>
-                  <div className="flex items-center gap-2 mb-3">
+                <div className="text-left">
+                  <div className="flex items-center justify-start gap-2 mb-3">
                     <Calendar className="h-5 w-5 text-accent" />
                     <h5>When</h5>
                   </div>
@@ -154,8 +154,8 @@ const Details = () => {
               </div>
 
               {/* What section on its own line */}
-              <div>
-                <div className="flex items-center gap-2 mb-3">
+              <div className="text-left">
+                <div className="flex items-center justify-start gap-2 mb-3">
                   <span className="text-xl">🎉</span>
                   <h5>What</h5>
                 </div>

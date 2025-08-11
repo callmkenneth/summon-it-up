@@ -369,8 +369,8 @@ const Manage = () => {
               </div>
               
               {/* What section on its own line */}
-              <div>
-                <div className="flex items-center gap-2 mb-2">
+              <div className="text-left">
+                <div className="flex items-center justify-start gap-2 mb-2">
                   <span className="text-lg">🎉</span>
                   <p className="font-semibold">What</p>
                 </div>

@@ -171,7 +171,7 @@ const Details = () => {
             <Card>
               <CardContent className="pt-6">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <img src="/lovable-uploads/ghost-icon.png" alt="Spots" className="w-12 h-12" onError={(e) => e.currentTarget.style.display = 'none'} />
+                  <img src="/lovable-uploads/03d31a51-1d83-4589-a9d3-899022efdd3e.png" alt="Spots" className="w-12 h-12" onError={(e) => e.currentTarget.style.display = 'none'} />
                   <h5 className="font-semibold text-lg">Spots remaining</h5>
                 </div>
                 <div className="text-center">

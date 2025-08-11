@@ -19,8 +19,8 @@ const buttonVariants = cva(
         ghost: "text-white hover:bg-white/10 backdrop-blur-sm",
         link: "text-primary underline-offset-4 hover:underline",
         hero: "bg-gradient-primary text-white hover:scale-105 shadow-accent font-bold",
-        rsvp: "bg-accent text-accent-foreground hover:bg-accent/90 shadow-accent",
-        reject: "bg-purple-200 text-purple-800 hover:bg-purple-300 border border-purple-400",
+        rsvp: "bg-accent text-accent-foreground hover:bg-accent/90 shadow-accent rounded-[30px]",
+        reject: "bg-light-pink text-primary hover:bg-light-pink/80 shadow-md rounded-[30px]",
       },
       size: {
         default: "h-12 px-6 py-3",

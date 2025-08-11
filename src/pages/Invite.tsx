@@ -160,7 +160,7 @@ const Invite = () => {
 
                   <div className="text-left">
                     <div className="flex items-center justify-start gap-2 mb-2">
-                      <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                      <img src="/lovable-uploads/5af563b1-4cd0-4019-afcd-dcf542c9cad3.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                       <h5>When</h5>
                     </div>
                     <p className="text-muted-foreground">

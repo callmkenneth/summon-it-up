@@ -125,7 +125,7 @@ const Details = () => {
               <div className="grid gap-2 md:grid-cols-2">
                 <div className="text-left">
                   <div className="flex items-center justify-start gap-2 mb-3">
-                    <img src="/lovable-uploads/ace9dfe7-9ade-4fb1-81e5-720002c00b6c.png" alt="Where" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                    <img src="/lovable-uploads/2a28bf9e-ab8c-4ff3-9da2-ef509b9b9aa0.png" alt="Where" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                     <h5>Where</h5>
                   </div>
                   <p className="text-muted-foreground">{event?.location}</p>

@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, MapPin, Users } from "lucide-react";
+import { Clock } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Footer } from "@/components/Footer";
@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { SpotCounter } from "@/components/SpotCounter";
-import { IconWrapper } from "@/components/IconWrapper";
+
 import { to12Hour } from "@/lib/utils";
 
 const Invite = () => {
@@ -202,20 +202,18 @@ const Invite = () => {
 
               <Card className="">
                 <CardContent className="pt-6">
-                  <div className="text-center">
-                    <IconWrapper variant="accent" size="md" className="mx-auto mb-2">
-                      <Clock className="h-5 w-5" />
-                    </IconWrapper>
-                    <div className="font-semibold text-primary">
-                      {event.rsvp_deadline ? (
-                        <CountdownTimer deadline={event.rsvp_deadline} />
-                      ) : (
-                        'No deadline'
-                      )}
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-1">Time left to respond</p>
-                    <p className="text-xs text-muted-foreground">(days, hours, minutes, seconds)</p>
-                  </div>
+                   <div className="text-center">
+                     <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="Time" className="w-10 h-10 mx-auto mb-2" />
+                     <div className="font-semibold text-primary">
+                       {event.rsvp_deadline ? (
+                         <CountdownTimer deadline={event.rsvp_deadline} />
+                       ) : (
+                         'No deadline'
+                       )}
+                     </div>
+                     <p className="text-xs text-muted-foreground mt-1">Time left to respond</p>
+                     <p className="text-xs text-muted-foreground">(days, hours, minutes, seconds)</p>
+                   </div>
                 </CardContent>
               </Card>
               </div>

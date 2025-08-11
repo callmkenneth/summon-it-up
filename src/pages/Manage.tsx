@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Clock, MapPin, Users, AlertTriangle, X, Edit } from "lucide-react";
+import { Clock, AlertTriangle, X, Edit } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Footer } from "@/components/Footer";
@@ -11,7 +11,7 @@ import { CancelEventDialog } from "@/components/CancelEventDialog";
 import { EditEventDialog } from "@/components/EditEventDialog";
 import { CountdownTimer } from "@/components/CountdownTimer";
 import { SpotCounter } from "@/components/SpotCounter";
-import { IconWrapper } from "@/components/IconWrapper";
+
 import { to12Hour } from "@/lib/utils";
 
 const Manage = () => {
@@ -302,14 +302,12 @@ const Manage = () => {
                 </div>
                 
                 <div className="flex items-center gap-3">
-                  <IconWrapper variant="accent" size="md">
-                    <Clock className="h-5 w-5" />
-                  </IconWrapper>
-                  <div>
-                    <p className="font-semibold">Time</p>
-                    <p className="text-muted-foreground">{to12Hour(event.start_time)} - {to12Hour(event.end_time)}</p>
-                  </div>
-                </div>
+                   <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="Time" className="w-10 h-10" />
+                   <div>
+                     <p className="font-semibold">Time</p>
+                     <p className="text-muted-foreground">{to12Hour(event.start_time)} - {to12Hour(event.end_time)}</p>
+                   </div>
+                 </div>
                 
                 <div className="flex items-center gap-3">
                   <img src="/lovable-uploads/46458a7e-bf3a-41d4-b3b3-12d184d89ea1.png" alt="Where" className="w-10 h-10" />
@@ -331,29 +329,25 @@ const Manage = () => {
 
                 {event.use_ratio_control && (
                   <>
-                    <div className="flex items-center gap-3">
-                      <IconWrapper variant="primary" size="md">
-                        <span className="text-sm font-bold">♂</span>
-                      </IconWrapper>
-                      <div>
-                        <p className="font-semibold">Male Spots</p>
-                        <p className="text-muted-foreground">
-                          {Math.floor((event.guest_limit || 0) * (event.male_ratio || 0.5)) - rsvps.yes.filter((r: any) => r.gender === 'male').length} remaining
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center gap-3">
-                      <IconWrapper variant="primary" size="md">
-                        <span className="text-sm font-bold">♀</span>
-                      </IconWrapper>
-                      <div>
-                        <p className="font-semibold">Female Spots</p>
-                        <p className="text-muted-foreground">
-                          {(event.guest_limit || 0) - Math.floor((event.guest_limit || 0) * (event.male_ratio || 0.5)) - rsvps.yes.filter((r: any) => r.gender === 'female').length} remaining
-                        </p>
-                      </div>
-                    </div>
+                     <div className="flex items-center gap-3">
+                       <span className="text-sm font-bold bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center">♂</span>
+                       <div>
+                         <p className="font-semibold">Male Spots</p>
+                         <p className="text-muted-foreground">
+                           {Math.floor((event.guest_limit || 0) * (event.male_ratio || 0.5)) - rsvps.yes.filter((r: any) => r.gender === 'male').length} remaining
+                         </p>
+                       </div>
+                     </div>
+                     
+                     <div className="flex items-center gap-3">
+                       <span className="text-sm font-bold bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center">♀</span>
+                       <div>
+                         <p className="font-semibold">Female Spots</p>
+                         <p className="text-muted-foreground">
+                           {(event.guest_limit || 0) - Math.floor((event.guest_limit || 0) * (event.male_ratio || 0.5)) - rsvps.yes.filter((r: any) => r.gender === 'female').length} remaining
+                         </p>
+                       </div>
+                     </div>
                   </>
                 )}
               </div>
@@ -386,20 +380,18 @@ const Manage = () => {
 
             <Card className="">
               <CardContent className="pt-6">
-                <div className="text-center">
-                  <IconWrapper variant="accent" size="lg" className="mx-auto mb-2">
-                    <Clock className="h-6 w-6" />
-                  </IconWrapper>
-                  <div className="text-2xl font-bold text-primary">
-                    {event.rsvp_deadline ? (
-                      <CountdownTimer deadline={event.rsvp_deadline} />
-                    ) : (
-                      'No deadline'
-                    )}
-                  </div>
-                  <p className="text-muted-foreground">Time to Respond</p>
-                  <p className="text-xs text-muted-foreground">(days, hours, minutes, seconds)</p>
-                </div>
+                 <div className="text-center">
+                   <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="Time" className="w-10 h-10 mx-auto mb-2" />
+                   <div className="text-2xl font-bold text-primary">
+                     {event.rsvp_deadline ? (
+                       <CountdownTimer deadline={event.rsvp_deadline} />
+                     ) : (
+                       'No deadline'
+                     )}
+                   </div>
+                   <p className="text-muted-foreground">Time to Respond</p>
+                   <p className="text-xs text-muted-foreground">(days, hours, minutes, seconds)</p>
+                 </div>
               </CardContent>
             </Card>
           </div>

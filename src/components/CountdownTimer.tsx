@@ -43,11 +43,11 @@ export function CountdownTimer({ deadline, className = "" }: CountdownTimerProps
   }
 
   if (timeLeft.days > 0) {
-    return <span className={className}>{timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m</span>;
+    return <span className={`font-bungee text-xl ${className}`}>{timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m</span>;
   }
 
   return (
-    <span className={className}>
+    <span className={`font-bungee text-xl ${className}`}>
       {timeLeft.hours.toString().padStart(2, '0')}:
       {timeLeft.minutes.toString().padStart(2, '0')}:
       {timeLeft.seconds.toString().padStart(2, '0')}

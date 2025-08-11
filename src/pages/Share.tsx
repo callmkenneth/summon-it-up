@@ -113,7 +113,7 @@ const Share = () => {
                     size="icon"
                     onClick={() => copyToClipboard(inviteLink, 'invite')}
                   >
-                    {copied === 'invite' ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                    {copied === 'invite' ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4 text-purple-700" />}
                   </Button>
                 </div>
               </CardContent>
@@ -134,7 +134,7 @@ const Share = () => {
                     size="icon"
                     onClick={() => copyToClipboard(manageLink, 'manage')}
                   >
-                    {copied === 'manage' ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                    {copied === 'manage' ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4 text-purple-700" />}
                   </Button>
                 </div>
               </CardContent>

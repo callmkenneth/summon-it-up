@@ -154,7 +154,7 @@ const Share = () => {
               {!emailSent ? <>
                   <div className="flex gap-2 max-w-md mx-auto">
                     <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="your@email.com" className="flex-1" />
-                    <Button onClick={sendEmail} variant="rsvp" disabled={!email}>
+                    <Button onClick={sendEmail} variant="rsvp" disabled={!email} className="rounded-[30px]">
                       Send
                     </Button>
                   </div>
@@ -167,7 +167,7 @@ const Share = () => {
 
           <div className="bg-gradient-primary rounded-[30px] p-6">
             <h5 className="text-white mb-4">START PLANNING THE NEXT ONE</h5>
-            <Button variant="secondary" size="lg" onClick={() => navigate('/newevent')}>
+            <Button variant="secondary" size="lg" onClick={() => navigate('/newevent')} className="rounded-[30px]">
               New Event
             </Button>
           </div>

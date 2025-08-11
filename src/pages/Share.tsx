@@ -114,7 +114,7 @@ const Share = () => {
             <Card className="">
               <CardHeader>
                 <CardTitle className="text-primary flex items-center gap-2">
-                  <img src="/lovable-uploads/ace9dfe7-9ade-4fb1-81e5-720002c00b6c.png" alt="Settings icon" className="w-2.5 h-2.5" /> MANAGEMENT PAGE
+                  <img src="/lovable-uploads/ace9dfe7-9ade-4fb1-81e5-720002c00b6c.png" alt="Settings icon" className="w-8 h-8" /> MANAGEMENT PAGE
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -133,7 +133,7 @@ const Share = () => {
 
           <Card className="">
             <CardHeader>
-              <CardTitle className="text-primary flex items-center gap-2 justify-center">⏳ RSVP DEADLINE</CardTitle>
+              <CardTitle className="text-primary flex items-center gap-2 justify-center"><img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="Hourglass icon" className="w-8 h-8" /> RSVP DEADLINE</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
               {event?.rsvp_deadline ? <div>

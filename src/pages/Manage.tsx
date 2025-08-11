@@ -291,7 +291,7 @@ const Manage = () => {
             </CardHeader>
             <CardContent className="space-y-6">
               {event?.image_url && (
-                <div className="aspect-video bg-gradient-hero rounded-lg flex items-center justify-center">
+                <div className="aspect-square bg-gradient-hero rounded-lg flex items-center justify-center">
                   <img src={event.image_url} alt={event.title} className="w-full h-full object-cover rounded-lg" />
                 </div>
               )}

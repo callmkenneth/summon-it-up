@@ -7,87 +7,81 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { CountdownTimer } from "@/components/CountdownTimer";
-
 const Share = () => {
   const navigate = useNavigate();
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const [searchParams] = useSearchParams();
   const [email, setEmail] = useState('');
   const [emailSent, setEmailSent] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const [event, setEvent] = useState<any>(null);
-
   const eventId = searchParams.get('id');
   const inviteLink = eventId ? `${window.location.origin}/invite/${eventId}` : '';
   const manageLink = eventId ? `${window.location.origin}/manage/${eventId}` : '';
-
   useEffect(() => {
     if (!eventId) {
       toast({
         title: "No event found",
         description: "Please create an event first",
-        variant: "destructive",
+        variant: "destructive"
       });
       navigate('/newevent');
       return;
     }
-
     const fetchEvent = async () => {
-      const { data, error } = await supabase
-        .from('events')
-        .select('*')
-        .eq('id', eventId)
-        .single();
+      const {
+        data,
+        error
+      } = await supabase.from('events').select('*').eq('id', eventId).single();
       if (!error) setEvent(data);
     };
-
     fetchEvent();
   }, [eventId, navigate, toast]);
-
   const copyToClipboard = async (text: string, type: string) => {
     try {
       await navigator.clipboard.writeText(text);
       setCopied(type);
       toast({
         title: "Copied!",
-        description: "Link copied to clipboard",
+        description: "Link copied to clipboard"
       });
       setTimeout(() => setCopied(null), 2000);
     } catch (err) {
       toast({
         title: "Failed to copy",
         description: "Please copy the link manually",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   };
-
   const sendEmail = async () => {
     if (!eventId || !email) return;
-
     try {
-      const { error } = await supabase.functions.invoke('send-event-details', {
-        body: { eventId, email }
+      const {
+        error
+      } = await supabase.functions.invoke('send-event-details', {
+        body: {
+          eventId,
+          email
+        }
       });
-
       if (error) throw error;
-
       setEmailSent(true);
       toast({
         title: "Email sent!",
-        description: "Event details have been sent to your inbox",
+        description: "Event details have been sent to your inbox"
       });
     } catch (error: any) {
       toast({
         title: "Failed to send email",
         description: error.message,
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   };
-
-  return (
-    <div className="min-h-screen page-scrim">
+  return <div className="min-h-screen page-scrim">
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-3xl mx-auto text-center space-y-4">
           <h1 className="text-white mb-4">All Set!</h1>
@@ -108,13 +102,10 @@ const Share = () => {
                 <p className="text-sm text-muted-foreground">Copy this link and send to attendees</p>
                 <div className="flex gap-2">
                   <Input value={inviteLink} readOnly className="flex-1" />
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => copyToClipboard(inviteLink, 'invite')}
-                    className="h-10 w-10 shadow-none border-input"
-                  >
-                    {copied === 'invite' ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" style={{ color: '#3D2051' }} />}
+                  <Button variant="outline" size="icon" onClick={() => copyToClipboard(inviteLink, 'invite')} className="h-10 w-10 shadow-none border-input">
+                    {copied === 'invite' ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" style={{
+                    color: '#3D2051'
+                  }} />}
                   </Button>
                 </div>
               </CardContent>
@@ -130,13 +121,10 @@ const Share = () => {
                 <p className="text-sm text-muted-foreground">Save this link to view and edit RSVPs</p>
                 <div className="flex gap-2">
                   <Input value={manageLink} readOnly className="flex-1" />
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => copyToClipboard(manageLink, 'manage')}
-                    className="h-10 w-10 shadow-none border-input"
-                  >
-                    {copied === 'manage' ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" style={{ color: '#3D2051' }} />}
+                  <Button variant="outline" size="icon" onClick={() => copyToClipboard(manageLink, 'manage')} className="h-10 w-10 shadow-none border-input">
+                    {copied === 'manage' ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" style={{
+                    color: '#3D2051'
+                  }} />}
                   </Button>
                 </div>
               </CardContent>
@@ -145,19 +133,13 @@ const Share = () => {
 
           <Card className="">
             <CardHeader>
-              <CardTitle className="text-primary flex items-center gap-2 justify-center">
-                ⏳ RSVP Deadline
-              </CardTitle>
+              <CardTitle className="text-primary flex items-center gap-2 justify-center">⏳ RSVP DEADLINE</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
-              {event?.rsvp_deadline ? (
-                <div>
+              {event?.rsvp_deadline ? <div>
                   <CountdownTimer deadline={event.rsvp_deadline} />
                   <p className="text-xs text-muted-foreground mt-1">Time left to respond</p>
-                </div>
-              ) : (
-                <span className="text-muted-foreground">No deadline</span>
-              )}
+                </div> : <span className="text-muted-foreground">No deadline</span>}
             </CardContent>
           </Card>
 
@@ -169,40 +151,28 @@ const Share = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {!emailSent ? (
-                <>
+              {!emailSent ? <>
                   <div className="flex gap-2 max-w-md mx-auto">
-                    <Input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="your@email.com"
-                      className="flex-1"
-                    />
+                    <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="your@email.com" className="flex-1" />
                     <Button onClick={sendEmail} variant="rsvp" disabled={!email}>
                       Send
                     </Button>
                   </div>
-                </>
-              ) : (
-                <div className="text-center">
+                </> : <div className="text-center">
                   <div className="text-green-600 mb-2">✅ Email sent successfully!</div>
                   <p className="text-sm text-muted-foreground">Check your inbox for the event details</p>
-                </div>
-              )}
+                </div>}
             </CardContent>
           </Card>
 
           <div className="bg-gradient-primary rounded-[30px] p-6">
-            <h5 className="text-white mb-4">Start planning the next one</h5>
+            <h5 className="text-white mb-4">START PLANNING THE NEXT ONE</h5>
             <Button variant="secondary" size="lg" onClick={() => navigate('/newevent')}>
               New Event
             </Button>
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Share;

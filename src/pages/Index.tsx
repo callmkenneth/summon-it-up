@@ -14,7 +14,7 @@ const Index = () => {
             <p className="text-white/90 mb-12 max-w-2xl mx-auto text-lg leading-relaxed">Haunt your friends with RSVP timers, spot limits, and the perfect party mix — before the night disappears.</p>
             
             <div className="mb-16">
-              <Button variant="hero" size="lg" onClick={() => navigate('/newevent')} className="text-xl px-12 py-6 border-3 border-white" style={{ backgroundColor: '#EF4EB7' }}>
+              <Button variant="hero" size="lg" onClick={() => navigate('/newevent')} className="text-xl px-12 py-6 border-3 border-white rounded-[30px] bg-[#EF4EB7] hover:bg-[#EF4EB7]/90" style={{ background: '#EF4EB7' }}>
                 New Event
               </Button>
             </div>

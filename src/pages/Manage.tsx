@@ -310,7 +310,7 @@ const Manage = () => {
                    </div>
                   
                   <div className="flex items-center gap-3">
-                    <img src="/lovable-uploads/ace9dfe7-9ade-4fb1-81e5-720002c00b6c.png" alt="Where" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                    <img src="/lovable-uploads/927ce1ff-849a-4f82-a7e5-3e9a3dc0b71a.png" alt="Where" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                     <div>
                       <p className="font-semibold">Location</p>
                       <p className="text-muted-foreground">{event.location}</p>

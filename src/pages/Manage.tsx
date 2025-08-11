@@ -368,7 +368,7 @@ const Manage = () => {
             <Card className="">
               <CardContent className="pt-6">
                  <div className="text-center">
-                   <img src="/lovable-uploads/718e6376-b7a9-43b1-98d9-745480a8fde5.png" alt="Spots" className="w-10 h-10 mx-auto mb-2" onError={(e) => e.currentTarget.style.display = 'none'} />
+                   <img src="/lovable-uploads/c6610557-4286-44eb-a1fd-0225f5748b7d.png" alt="Spots" className="w-10 h-10 mx-auto mb-2" onError={(e) => e.currentTarget.style.display = 'none'} />
                   <SpotCounter 
                     spotsClaimed={rsvps.yes.length} 
                     totalSpots={event.unlimited_guests ? null : event.guest_limit} 

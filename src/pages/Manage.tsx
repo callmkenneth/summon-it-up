@@ -318,7 +318,7 @@ const Manage = () => {
                   </div>
                   
                   <div className="flex items-center gap-3">
-                    <img src="/lovable-uploads/718e6376-b7a9-43b1-98d9-745480a8fde5.png" alt="Spots" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                    <img src="/lovable-uploads/d09121b9-a6e2-4381-8721-dc359cbbbbd9.png" alt="Spots" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                    <div>
                      <p className="font-semibold">Capacity</p>
                      <p className="text-muted-foreground">

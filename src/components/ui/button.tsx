@@ -15,12 +15,12 @@ const buttonVariants = cva(
         outline:
           "border border-white/30 bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm shadow-md",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-md",
+          "bg-secondary/90 text-secondary-foreground hover:bg-secondary shadow-md",
         ghost: "text-white hover:bg-white/10 backdrop-blur-sm",
         link: "text-primary underline-offset-4 hover:underline",
         hero: "bg-gradient-primary text-white hover:scale-105 shadow-accent font-bold",
         rsvp: "bg-accent text-accent-foreground hover:bg-accent/90 shadow-accent",
-        reject: "bg-purple-100 text-purple-700 hover:bg-purple-200 border border-purple-300",
+        reject: "bg-purple-200 text-purple-800 hover:bg-purple-300 border border-purple-400",
       },
       size: {
         default: "h-12 px-6 py-3",

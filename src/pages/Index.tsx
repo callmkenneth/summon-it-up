@@ -25,7 +25,7 @@ const Index = () => {
             <div className="grid gap-2 md:grid-cols-3 max-w-4xl mx-auto">
               <Card className="shadow-primary hover:shadow-accent transition-shadow">
                 <CardContent className="pt-8 pb-8 text-center">
-                  <img src="/lovable-uploads/9aa0cac8-3d5b-4dfd-b53f-30c71180282e.png" alt="Ghost icon" className="w-16 h-16 mx-auto mb-4" />
+                  <img src="/lovable-uploads/9aa0cac8-3d5b-4dfd-b53f-30c71180282e.png" alt="Ghost icon" className="w-24 h-24 mx-auto mb-4" />
                   <h5 className="text-primary mb-3">CREATE DEMAND</h5>
                   <p className="text-muted-foreground text-sm">Limited spots make your party the hottest haunt in town.</p>
                 </CardContent>
@@ -33,7 +33,7 @@ const Index = () => {
 
               <Card className="shadow-primary hover:shadow-accent transition-shadow">
                 <CardContent className="pt-8 pb-8 text-center">
-                  <img src="/lovable-uploads/4d2aee0a-f125-4fa8-8cc6-e95a81efb42b.png" alt="Hourglass icon" className="w-16 h-16 mx-auto mb-4" />
+                  <img src="/lovable-uploads/4d2aee0a-f125-4fa8-8cc6-e95a81efb42b.png" alt="Hourglass icon" className="w-24 h-24 mx-auto mb-4" />
                   <h5 className="text-primary mb-3">RUN THE CLOCK</h5>
                   <p className="text-muted-foreground text-sm">Give guests a ticking clock so they act fast or miss out.
 
@@ -43,7 +43,7 @@ const Index = () => {
 
               <Card className="shadow-primary hover:shadow-accent transition-shadow">
                 <CardContent className="pt-8 pb-8 text-center">
-                  <img src="/lovable-uploads/718e6376-b7a9-43b1-98d9-745480a8fde5.png" alt="Gender symbols icon" className="w-16 h-16 mx-auto mb-4" />
+                  <img src="/lovable-uploads/718e6376-b7a9-43b1-98d9-745480a8fde5.png" alt="Gender symbols icon" className="w-24 h-24 mx-auto mb-4" />
                   <h5 className="text-primary mb-3">CONTROL THE RATIO</h5>
                   <p className="text-muted-foreground text-sm">Fine-tune your guest list for the ideal social dynamic.
 

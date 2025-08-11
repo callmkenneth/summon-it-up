@@ -295,7 +295,7 @@ const Manage = () => {
                 </div>
               )}
               
-              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
                 <div className="flex items-center gap-3">
                   <IconWrapper variant="accent" size="md">
                     <Calendar className="h-5 w-5" />
@@ -375,7 +375,7 @@ const Manage = () => {
           </Card>
 
           {/* Actions & Indicators */}
-          <div className="grid gap-4 md:grid-cols-3 mb-8">
+          <div className="grid gap-2 md:grid-cols-3 mb-8">
             <Card className="">
               <CardContent className="pt-6">
                 <div className="text-center">
@@ -425,7 +425,7 @@ const Manage = () => {
               <CardTitle className="text-primary">Who's coming so far</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className="grid gap-2 md:grid-cols-2">
                 <div>
                   <div className="flex items-center gap-2 mb-4">
                     <Badge variant="default" className="bg-green-100 text-green-800">

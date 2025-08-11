@@ -4,7 +4,7 @@ export function Footer() {
   return (
     <footer className="bg-dark-purple text-white py-12">
       <div className="container mx-auto px-6">
-        <div className="grid gap-8 md:grid-cols-3">
+        <div className="grid gap-2 md:grid-cols-3">
           <div>
             <h4 className="text-xl font-bold mb-4">EventMaster</h4>
             <p className="text-purple-200">

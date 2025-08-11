@@ -146,7 +146,7 @@ const Invite = () => {
                     </div>
                   )}
 
-                  <div className="grid gap-6 md:grid-cols-3">
+                  <div className="grid gap-2 md:grid-cols-3">
                   <div className="text-center">
                     <div className="flex items-center justify-center gap-2 mb-2">
                       <IconWrapper variant="accent" size="sm">
@@ -190,7 +190,7 @@ const Invite = () => {
               </Card>
 
               {/* Indicators */}
-              <div className="grid gap-4 md:grid-cols-3 mb-8">
+              <div className="grid gap-2 md:grid-cols-3 mb-8">
               <Card className="">
                 <CardContent className="pt-6">
                   <div className="text-center">
@@ -242,7 +242,7 @@ const Invite = () => {
                   <CardTitle className="text-primary">Who's coming so far</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="grid gap-6 md:grid-cols-2">
+                  <div className="grid gap-2 md:grid-cols-2">
                     <div>
                       <Badge variant="default" className="bg-green-100 text-green-800 mb-3">
                         ✅ Yes ({rsvps.yes.length})
@@ -302,7 +302,7 @@ const Invite = () => {
               {/* RSVP Buttons */}
               <div className="space-y-4">
                 {!isFull ? (
-                  <div className="grid gap-4 md:grid-cols-2">
+                  <div className="grid gap-2 md:grid-cols-2">
                     <Button 
                       variant="rsvp" 
                       size="lg" 

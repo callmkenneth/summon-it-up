@@ -53,8 +53,8 @@ export function EditEventDialog({
           </DialogDescription>
         </DialogHeader>
         
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="space-y-6 p-2">
+          <div className="grid grid-cols-2 gap-6">
             <div className="col-span-2">
               <Label htmlFor="title">Event Title</Label>
               <Input

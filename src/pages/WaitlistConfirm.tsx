@@ -42,7 +42,7 @@ const WaitlistConfirm = () => {
                   
                   <div className="grid gap-3">
                     <Button 
-                      variant="rsvp" 
+                      variant="hero" 
                       size="lg" 
                       className="w-full"
                       onClick={handleJoinWaitlist}

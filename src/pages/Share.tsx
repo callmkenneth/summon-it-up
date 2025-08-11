@@ -147,7 +147,7 @@ const Share = () => {
             <CardHeader>
               <CardTitle className="text-primary flex items-center gap-2 justify-center">
                 <Mail className="h-5 w-5" />
-                Want these details in your inbox?
+                WANT THESE DETAILS IN YOUR INBOX?
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">

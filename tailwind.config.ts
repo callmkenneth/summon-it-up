@@ -110,11 +110,67 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'gradient-shift': {
+					'0%': { 
+						background: 'linear-gradient(135deg, hsl(280 71% 35% / 0.3), hsl(280 71% 35% / 0.2))'
+					},
+					'25%': { 
+						background: 'linear-gradient(135deg, hsl(320 85% 62% / 0.3), hsl(320 85% 62% / 0.2))'
+					},
+					'50%': { 
+						background: 'linear-gradient(135deg, hsl(300 100% 91% / 0.2), hsl(315 100% 79% / 0.2))'
+					},
+					'75%': { 
+						background: 'linear-gradient(135deg, hsl(285 50% 55% / 0.3), hsl(285 50% 55% / 0.2))'
+					},
+					'100%': { 
+						background: 'linear-gradient(135deg, hsl(280 71% 35% / 0.3), hsl(280 71% 35% / 0.2))'
+					}
+				},
+				'fade-in-up': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(20px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'scale-fade-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'scale(0.95)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'scale(1)'
+					}
+				},
+				'float': {
+					'0%, 100%': {
+						transform: 'translateY(0px)'
+					},
+					'50%': {
+						transform: 'translateY(-5px)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'gradient-shift': 'gradient-shift 10s ease-in-out infinite',
+				'fade-in-up': 'fade-in-up 0.6s ease-out forwards',
+				'scale-fade-in': 'scale-fade-in 0.4s ease-out forwards',
+				'float': 'float 3s ease-in-out infinite',
+				'fade-in-up-delay-1': 'fade-in-up 0.6s ease-out 0.3s forwards',
+				'fade-in-up-delay-2': 'fade-in-up 0.6s ease-out 0.6s forwards',
+				'fade-in-up-delay-3': 'fade-in-up 0.6s ease-out 0.9s forwards',
+				'fade-in-up-delay-4': 'fade-in-up 0.6s ease-out 1.2s forwards',
+				'fade-in-up-delay-5': 'fade-in-up 0.6s ease-out 1.5s forwards',
+				'fade-in-up-delay-6': 'fade-in-up 0.6s ease-out 1.8s forwards',
+				'scale-fade-in-delay': 'scale-fade-in 0.4s ease-out 0.6s forwards'
 			}
 		}
 	},

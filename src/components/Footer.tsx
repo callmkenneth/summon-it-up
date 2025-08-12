@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-export function Footer() {
-  return <footer className="bg-dark-purple text-white py-12">
+export function Footer({ className }: { className?: string }) {
+  return <footer className={`bg-dark-purple text-white py-12 ${className || ''}`}>
       <div className="container mx-auto px-6">
         <div className="grid gap-2 md:grid-cols-3">
           <div>

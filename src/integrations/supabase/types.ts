@@ -191,6 +191,30 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_event_rsvps_for_host: {
+        Args: { event_uuid: string; host_email_param: string }
+        Returns: {
+          id: string
+          event_id: string
+          attendee_name: string
+          attendee_email: string
+          gender: string
+          status: string
+          created_at: string
+        }[]
+      }
+      get_event_waitlist_for_host: {
+        Args: { event_uuid: string; host_email_param: string }
+        Returns: {
+          id: string
+          event_id: string
+          attendee_name: string
+          attendee_email: string
+          gender: string
+          created_at: string
+          updated_at: string
+        }[]
+      }
       get_gender_spots_remaining: {
         Args: { event_uuid: string; target_gender: string }
         Returns: number

@@ -188,41 +188,7 @@ export type Database = {
       }
     }
     Views: {
-      rsvps_public: {
-        Row: {
-          attendee_name: string | null
-          created_at: string | null
-          event_id: string | null
-          gender: string | null
-          id: string | null
-          status: string | null
-        }
-        Insert: {
-          attendee_name?: string | null
-          created_at?: string | null
-          event_id?: string | null
-          gender?: string | null
-          id?: string | null
-          status?: string | null
-        }
-        Update: {
-          attendee_name?: string | null
-          created_at?: string | null
-          event_id?: string | null
-          gender?: string | null
-          id?: string | null
-          status?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "rsvps_event_id_fkey"
-            columns: ["event_id"]
-            isOneToOne: false
-            referencedRelation: "events"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
+      [_ in never]: never
     }
     Functions: {
       get_event_rsvps_for_host: {
@@ -252,6 +218,17 @@ export type Database = {
       get_gender_spots_remaining: {
         Args: { event_uuid: string; target_gender: string }
         Returns: number
+      }
+      get_public_rsvps: {
+        Args: { event_uuid: string }
+        Returns: {
+          id: string
+          event_id: string
+          attendee_name: string
+          gender: string
+          status: string
+          created_at: string
+        }[]
       }
       get_spots_remaining: {
         Args: { event_uuid: string }

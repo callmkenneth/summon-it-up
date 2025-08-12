@@ -19,7 +19,7 @@ const Share = () => {
   const [copied, setCopied] = useState<string | null>(null);
   const [event, setEvent] = useState<any>(null);
   const eventId = searchParams.get('id');
-  const inviteLink = eventId ? `${window.location.origin}/og-invite/${eventId}` : '';
+  const inviteLink = eventId ? `https://lsbaijtsrkvrnkjyioza.supabase.co/functions/v1/og-invite/${eventId}` : '';
   const manageLink = eventId ? `${window.location.origin}/manage/${eventId}` : '';
   useEffect(() => {
     if (!eventId) {

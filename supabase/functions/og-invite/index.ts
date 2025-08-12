@@ -43,18 +43,24 @@ serve(async (req) => {
 
     // Check if this is a social media crawler
     const userAgent = req.headers.get('user-agent') || '';
-    const isCrawler = /facebookexternalhit|twitterbot|linkedinbot|slackbot|whatsapp|telegram/i.test(userAgent);
+    console.log('User Agent:', userAgent);
+    const isCrawler = /facebookexternalhit|twitterbot|linkedinbot|slackbot|whatsapp|telegram|discordbot/i.test(userAgent);
+    console.log('Is Crawler:', isCrawler);
 
     // For regular users, redirect to React app
     if (!isCrawler) {
-      return Response.redirect(`${url.origin}/invite/${eventId}`, 302);
+      console.log('Redirecting regular user to React app');
+      return Response.redirect(`https://lsbaijtsrkvrnkjyioza.supabase.co/invite/${eventId}`, 302);
     }
 
     // For crawlers, serve HTML with meta tags
+    console.log('Serving HTML for crawler');
     const title = event.title || 'You\'re Invited!';
     const description = event.description || 'Join us for an amazing event';
-    const imageUrl = event.image_url || `${url.origin}/Summons-logo.png`;
-    const canonicalUrl = `${url.origin}/invite/${eventId}`;
+    const imageUrl = event.image_url || `https://lsbaijtsrkvrnkjyioza.supabase.co/Summons-logo.png`;
+    const canonicalUrl = `https://lsbaijtsrkvrnkjyioza.supabase.co/invite/${eventId}`;
+    
+    console.log('Event data:', { title, description, imageUrl, canonicalUrl });
 
     const html = `
 <!DOCTYPE html>
@@ -110,6 +116,6 @@ serve(async (req) => {
     const pathSegments = url.pathname.split('/');
     const eventId = pathSegments[pathSegments.length - 1];
     
-    return Response.redirect(`${url.origin}/invite/${eventId || ''}`, 302);
+    return Response.redirect(`https://lsbaijtsrkvrnkjyioza.supabase.co/invite/${eventId || ''}`, 302);
   }
 });

@@ -11,7 +11,7 @@ const Index = () => {
         <div className="relative z-10 container mx-auto px-6 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-white mb-6 drop-shadow-lg">The FOMO-Fueled Party Planner</h1>
-            <p className="text-white/90 mb-12 max-w-2xl mx-auto text-lg leading-relaxed">Haunt your friends with RSVP timers, spot limits, and the perfect party mix — before the night disappears.</p>
+            <p className="text-white/90 mb-12 max-w-2xl mx-auto text-lg leading-relaxed">Plan events that don't get ghosted. Fuel demand with RSVP timers, capped guest lists, and gender ratio controls.</p>
             
             <div className="mb-16">
               <Button variant="hero" size="lg" onClick={() => navigate('/newevent')} className="text-xl px-12 py-6 border-3 border-white rounded-[30px] bg-[#EF4EB7] hover:bg-[#EF4EB7]/90" style={{

@@ -67,8 +67,19 @@
     --shadow-primary: 0 10px 30px -10px hsl(var(--primary) / 0.3);
     --shadow-accent: 0 10px 30px -10px hsl(var(--accent) / 0.4);
 
-    /* Animations */
+    /* Animations & Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --spring-bounce: 0.34, 1.56, 0.64, 1;
+    --spring-smooth: 0.25, 0.46, 0.45, 0.94;
+    
+    /* Animation Delays for Staggered Effects */
+    --delay-1: 0.1s;
+    --delay-2: 0.2s;
+    --delay-3: 0.3s;
+    --delay-4: 0.4s;
+    --delay-5: 0.5s;
 
     /* Page Scrim for Non-Home Pages */
     --gradient-scrim: linear-gradient(to bottom, hsl(0 0% 0% / 0.6), hsl(0 0% 0% / 0.3), hsl(0 0% 0% / 0.1));
@@ -179,4 +190,183 @@
   .page-scrim {
     background-image: var(--gradient-scrim);
   }
+}
+
+/* Animation Utilities & Interactive Elements */
+@layer components {
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Interactive Link Animation */
+  .story-link {
+    @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+
+  /* Hover Scale Animation */
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+
+  /* Hover Lift Animation */
+  .hover-lift {
+    @apply transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  /* Magnetic Hover Effect */
+  .magnetic-hover {
+    @apply transition-all duration-300 hover:scale-110 hover:shadow-xl;
+  }
+
+  /* Glow Effect */
+  .glow {
+    @apply relative overflow-hidden;
+  }
+  
+  .glow::before {
+    @apply content-[''] absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full transition-transform duration-1000;
+  }
+  
+  .glow:hover::before {
+    @apply translate-x-full;
+  }
+
+  /* Button Ripple Effect */
+  .ripple {
+    @apply relative overflow-hidden;
+  }
+
+  /* Staggered Animation Classes */
+  .stagger-children > * {
+    @apply opacity-0 translate-y-4;
+    animation: fade-in-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+
+  /* Gradient Animation Background */
+  .animated-gradient {
+    @apply bg-gradient-to-r from-primary via-accent to-magenta bg-[length:200%_200%];
+    animation: gradient-x 3s ease infinite;
+  }
+
+  /* Pulse Animation */
+  .pulse-ring {
+    @apply relative;
+  }
+  
+  .pulse-ring::before {
+    @apply content-[''] absolute inset-0 rounded-full border-2 border-accent animate-ping;
+  }
+
+  /* Loading Shimmer */
+  .shimmer {
+    @apply relative overflow-hidden bg-muted;
+  }
+  
+  .shimmer::after {
+    @apply content-[''] absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent transform -translate-x-full;
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Floating Animation */
+  .floating {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .floating-delayed {
+    animation: float-delayed 3s ease-in-out infinite;
+  }
+
+  /* Success Celebration */
+  .celebrate {
+    @apply relative;
+  }
+  
+  .celebrate::after {
+    @apply content-['🎉'] absolute -top-8 left-1/2 transform -translate-x-1/2 text-2xl opacity-0;
+    animation: confetti 2s ease-out;
+  }
+
+  /* Typewriter Effect */
+  .typewriter {
+    @apply overflow-hidden whitespace-nowrap border-r-2 border-accent;
+    animation: typewriter 3s steps(20, end), blink-caret 0.75s step-end infinite;
+  }
+
+  @keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: hsl(var(--accent)); }
+  }
+
+  /* Entrance Animation Variants */
+  .enter-from-left {
+    animation: slide-in-left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .enter-from-right {
+    animation: slide-in-right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .enter-from-bottom {
+    animation: slide-up 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .enter-scale {
+    animation: scale-in-bounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Counter Animation */
+  .counter-digit {
+    @apply inline-block transition-all duration-300;
+  }
+  
+  .counter-digit.updating {
+    animation: count-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Page Transition Classes */
+  .page-enter {
+    @apply opacity-0 translate-y-4;
+  }
+  
+  .page-enter-active {
+    @apply opacity-100 translate-y-0 transition-all duration-500 ease-out;
+  }
+  
+  .page-exit {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  .page-exit-active {
+    @apply opacity-0 -translate-y-4 transition-all duration-300 ease-in;
+  }
+
+  /* Scroll-based Reveal */
+  .reveal-on-scroll {
+    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+  }
+  
+  .reveal-on-scroll.revealed {
+    @apply opacity-100 translate-y-0;
+  }
+}
 }

@@ -3,8 +3,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Footer } from "@/components/Footer";
 import { PageTransition, StaggeredReveal } from "@/components/PageTransition";
 import { useNavigate } from "react-router-dom";
+import { useScrollReveal } from "@/hooks/useScrollReveal";
 const Index = () => {
   const navigate = useNavigate();
+  useScrollReveal();
   return (
     <PageTransition>
       <div className="min-h-screen page-scrim">

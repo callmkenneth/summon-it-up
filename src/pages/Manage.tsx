@@ -261,7 +261,7 @@ const Manage = () => {
 
           {/* Event Details Module */}
           <Card className="">
-            <CardHeader className="flex flex-row items-center justify-between">
+            <CardHeader className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
               <CardTitle className="text-primary">EVENT DETAILS</CardTitle>
               <div className="flex items-center gap-2">
                 <Button 

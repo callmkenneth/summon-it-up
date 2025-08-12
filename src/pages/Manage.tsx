@@ -369,7 +369,7 @@ const Manage = () => {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <img src="/lovable-uploads/c6610557-4286-44eb-a1fd-0225f5748b7d.png" alt="Spots" className="w-12 h-12" onError={(e) => e.currentTarget.style.display = 'none'} />
-                  <p className="font-semibold text-lg">Spots remaining</p>
+                  <p className="font-semibold text-lg">SPOTS REMAINING</p>
                 </div>
                 <div className="text-center">
                   <SpotCounter 
@@ -384,7 +384,7 @@ const Manage = () => {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="Time" className="w-12 h-12" />
-                  <p className="font-semibold text-lg">Time left to respond</p>
+                  <p className="font-semibold text-lg">TIME LEFT TO RESPOND</p>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-primary">
@@ -403,7 +403,7 @@ const Manage = () => {
           {/* Who's Coming */}
           <Card className="">
             <CardHeader>
-              <CardTitle className="text-primary">Who's coming so far</CardTitle>
+              <CardTitle className="text-primary">WHO'S COMING SO FAR</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid gap-2 md:grid-cols-2">

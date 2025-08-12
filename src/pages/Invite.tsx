@@ -151,7 +151,7 @@ const Invite = () => {
                   <div className="text-left">
                      <div className="flex items-center justify-start gap-2 mb-2">
                       <img src="/lovable-uploads/9fe89a1a-df3d-424a-b9ac-17da9974b862.png" alt="Where" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
-                      <h5>Where</h5>
+                      <h5>WHERE</h5>
                     </div>
                     <p className="text-muted-foreground">
                       RSVP to find out
@@ -160,8 +160,8 @@ const Invite = () => {
 
                   <div className="text-left">
                     <div className="flex items-center justify-start gap-2 mb-2">
-                      <img src="/lovable-uploads/5af563b1-4cd0-4019-afcd-dcf542c9cad3.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
-                      <h5>When</h5>
+                       <img src="/lovable-uploads/5af563b1-4cd0-4019-afcd-dcf542c9cad3.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                       <h5>WHEN</h5>
                     </div>
                     <p className="text-muted-foreground">
                       {event?.event_date ? new Date(event.event_date).toLocaleDateString() : ''}
@@ -175,8 +175,8 @@ const Invite = () => {
                   {/* What section on its own line */}
                   <div className="text-left">
                     <div className="flex items-center justify-start gap-2 mb-2">
-                      <img src="/lovable-uploads/1b997230-1be6-4930-8518-2eb19dee0d03.png" alt="What" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
-                      <h5>What</h5>
+                       <img src="/lovable-uploads/1b997230-1be6-4930-8518-2eb19dee0d03.png" alt="What" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
+                       <h5>WHAT</h5>
                     </div>
                     <p className="text-muted-foreground text-sm">
                       {event?.description}
@@ -191,7 +191,7 @@ const Invite = () => {
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-center gap-3 mb-4">
                     <img src="/lovable-uploads/9f573c3c-4c96-4d30-844e-7d3ad630c505.png" alt="Spots" className="w-12 h-12" onError={(e) => e.currentTarget.style.display = 'none'} />
-                    <p className="font-semibold text-lg">Spots remaining</p>
+                    <p className="font-semibold text-lg">SPOTS REMAINING</p>
                   </div>
                   <div className="text-center">
                     <SpotCounter 
@@ -206,7 +206,7 @@ const Invite = () => {
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-center gap-3 mb-4">
                     <img src="/lovable-uploads/3047b19b-8477-432b-943b-4302c6f0b908.png" alt="Time" className="w-12 h-12" />
-                    <p className="font-semibold text-lg">Time left to respond</p>
+                    <p className="font-semibold text-lg">TIME LEFT TO RESPOND</p>
                   </div>
                   <div className="text-center">
                     <div className="font-semibold text-primary">
@@ -225,7 +225,7 @@ const Invite = () => {
               {/* Who's Coming */}
               <Card className="">
                 <CardHeader>
-                  <CardTitle className="text-primary">Who's coming so far</CardTitle>
+                  <CardTitle className="text-primary">WHO'S COMING SO FAR</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid gap-2 md:grid-cols-2">

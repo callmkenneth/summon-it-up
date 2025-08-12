@@ -45,7 +45,7 @@ export function CountdownTimer({ deadline, className = "", size = "small" }: Cou
 
   return (
     <div className="bg-light-pink border-2 border-pink rounded-[30px] px-3 py-1 inline-block">
-      <span className={`font-bungee text-purple ${size === 'large' ? 'text-[99px]' : 'text-4xl'} ${className}`}>
+      <span className={`font-bungee text-purple ${size === 'large' ? 'text-4xl md:text-6xl lg:text-[99px]' : 'text-4xl'} ${className}`}>
         {timeLeft.days.toString().padStart(2, '0')}:
         {timeLeft.hours.toString().padStart(2, '0')}:
         {timeLeft.minutes.toString().padStart(2, '0')}:

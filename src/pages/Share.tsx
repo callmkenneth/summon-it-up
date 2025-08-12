@@ -7,6 +7,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { CountdownTimer } from "@/components/CountdownTimer";
+import { Footer } from "@/components/Footer";
 const Share = () => {
   const navigate = useNavigate();
   const {
@@ -174,6 +175,7 @@ const Share = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>;
 };
 export default Share;

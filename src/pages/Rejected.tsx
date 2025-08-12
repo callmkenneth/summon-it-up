@@ -1,17 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+import { Footer } from "@/components/Footer";
 
 const Rejected = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   
-  const userName = "Alex"; // In real app, this would come from the form submission
+  const userName = searchParams.get('name') || "Friend";
 
   return (
-    <div className="min-h-screen bg-gradient-card flex items-center justify-center">
+    <div className="min-h-screen page-scrim">
       <div className="container mx-auto px-6 py-12">
-        <div className="max-w-md mx-auto text-center">
+        <div className="max-w-3xl mx-auto space-y-2 text-center">
           <h1 className="text-primary mb-8">Thanks for the RSVP {userName}</h1>
           
           <div className="text-6xl mb-8">👋</div>
@@ -38,6 +40,7 @@ const Rejected = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

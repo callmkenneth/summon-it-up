@@ -50,11 +50,10 @@ const Invite = () => {
 
       if (eventError) throw eventError;
 
-      // Load RSVPs
-      const { data: rsvpData, error: rsvpError } = await supabase
-        .from('rsvps')
-        .select('*')
-        .eq('event_id', id);
+      // Load RSVPs using secure function (excludes email addresses)
+      const { data: rsvpData, error: rsvpError } = await supabase.rpc('get_public_rsvps', {
+        event_uuid: id
+      });
 
       if (rsvpError) throw rsvpError;
 

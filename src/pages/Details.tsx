@@ -53,10 +53,9 @@ const Details = () => {
 
   const loadRsvpData = async () => {
     try {
-      const { data: rsvpData, error } = await supabase
-        .from('rsvps')
-        .select('*')
-        .eq('event_id', id);
+      const { data: rsvpData, error } = await supabase.rpc('get_public_rsvps', {
+        event_uuid: id
+      });
 
       if (error) throw error;
 

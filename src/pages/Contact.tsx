@@ -10,7 +10,7 @@ const Contact = () => {
           <h1 className="text-white mb-8 text-center">Get in Touch</h1>
           
           <div className="space-y-6">
-            <Card className="">
+            <Card className="bg-white shadow-lg">
               <CardHeader>
                 <CardTitle className="text-primary flex items-center gap-2">
                   <Mail className="h-6 w-6" />
@@ -34,7 +34,7 @@ const Contact = () => {
             </Card>
 
             <div className="grid gap-6 md:grid-cols-2">
-              <Card className="">
+              <Card className="bg-white shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-primary flex items-center gap-2">
                     <MessageSquare className="h-6 w-6" />
@@ -67,7 +67,7 @@ const Contact = () => {
                 </CardContent>
               </Card>
 
-              <Card className="">
+              <Card className="bg-white shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-primary flex items-center gap-2">
                     <Clock className="h-6 w-6" />
@@ -87,7 +87,7 @@ const Contact = () => {
               </Card>
             </div>
 
-            <Card className="">
+            <Card className="bg-white shadow-lg">
               <CardHeader>
                 <CardTitle className="text-primary">Frequently Asked Questions</CardTitle>
               </CardHeader>

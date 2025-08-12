@@ -14,7 +14,7 @@ const Rejected = () => {
     <div className="min-h-screen page-scrim">
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-3xl mx-auto space-y-2 text-center">
-          <h1 className="text-primary mb-8">Thanks for the RSVP {userName}</h1>
+          <h1 className="text-white mb-8">Thanks for the RSVP {userName}</h1>
           
           <div className="text-6xl mb-8">👋</div>
           

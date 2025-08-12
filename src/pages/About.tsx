@@ -8,52 +8,52 @@ const About = () => {
           <h1 className="text-white mb-8 text-center">About Summons</h1>
           
           <div className="space-y-8">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8">
-              <h2 className="text-white text-2xl font-bold mb-4">What is Summons?</h2>
-              <p className="text-white/80 text-lg leading-relaxed">
+            <div className="bg-white rounded-lg p-8 shadow-lg">
+              <h2 className="text-primary text-2xl font-bold mb-4">What is Summons?</h2>
+              <p className="text-muted-foreground text-lg leading-relaxed">
                 Summons is the ultimate event planning platform that weaponizes FOMO (Fear of Missing Out) to create urgency and excitement around your events. With features like RSVP timers, spot limits, and ratio controls, we help you plan events that people actually want to attend.
               </p>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8">
-              <h2 className="text-white text-2xl font-bold mb-4">Why Use Summons?</h2>
+            <div className="bg-white rounded-lg p-8 shadow-lg">
+              <h2 className="text-primary text-2xl font-bold mb-4">Why Use Summons?</h2>
               <div className="grid gap-6 md:grid-cols-2">
                 <div>
-                  <h3 className="text-white font-semibold mb-2">⏰ RSVP Deadlines</h3>
-                  <p className="text-white/80">Create urgency with countdown timers that push people to respond quickly.</p>
+                  <h3 className="text-primary font-semibold mb-2">⏰ RSVP Deadlines</h3>
+                  <p className="text-muted-foreground">Create urgency with countdown timers that push people to respond quickly.</p>
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold mb-2">🎯 Spot Limits</h3>
-                  <p className="text-white/80">Limited capacity creates exclusivity and makes your event more desirable.</p>
+                  <h3 className="text-primary font-semibold mb-2">🎯 Spot Limits</h3>
+                  <p className="text-muted-foreground">Limited capacity creates exclusivity and makes your event more desirable.</p>
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold mb-2">⚖️ Ratio Controls</h3>
-                  <p className="text-white/80">Maintain the perfect balance of attendees for your event type.</p>
+                  <h3 className="text-primary font-semibold mb-2">⚖️ Ratio Controls</h3>
+                  <p className="text-muted-foreground">Maintain the perfect balance of attendees for your event type.</p>
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold mb-2">📱 Easy Sharing</h3>
-                  <p className="text-white/80">Simple invite links make it easy to spread the word about your event.</p>
+                  <h3 className="text-primary font-semibold mb-2">📱 Easy Sharing</h3>
+                  <p className="text-muted-foreground">Simple invite links make it easy to spread the word about your event.</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8">
-              <h2 className="text-white text-2xl font-bold mb-4">Perfect For</h2>
+            <div className="bg-white rounded-lg p-8 shadow-lg">
+              <h2 className="text-primary text-2xl font-bold mb-4">Perfect For</h2>
               <div className="grid gap-4 md:grid-cols-3">
                 <div className="text-center">
                   <div className="text-4xl mb-2">🎉</div>
-                  <h3 className="text-white font-semibold">House Parties</h3>
-                  <p className="text-white/80 text-sm">Control the crowd and create exclusive gatherings</p>
+                  <h3 className="text-primary font-semibold">House Parties</h3>
+                  <p className="text-muted-foreground text-sm">Control the crowd and create exclusive gatherings</p>
                 </div>
                 <div className="text-center">
                   <div className="text-4xl mb-2">💼</div>
-                  <h3 className="text-white font-semibold">Corporate Events</h3>
-                  <p className="text-white/80 text-sm">Professional networking with strategic attendance limits</p>
+                  <h3 className="text-primary font-semibold">Corporate Events</h3>
+                  <p className="text-muted-foreground text-sm">Professional networking with strategic attendance limits</p>
                 </div>
                 <div className="text-center">
                   <div className="text-4xl mb-2">🎭</div>
-                  <h3 className="text-white font-semibold">Special Occasions</h3>
-                  <p className="text-white/80 text-sm">Birthdays, celebrations, and memorable moments</p>
+                  <h3 className="text-primary font-semibold">Special Occasions</h3>
+                  <p className="text-muted-foreground text-sm">Birthdays, celebrations, and memorable moments</p>
                 </div>
               </div>
             </div>

@@ -267,7 +267,7 @@ const Invite = () => {
               {/* Waitlist */}
               <Card className="">
                 <CardHeader>
-                  <CardTitle className="text-primary">Waitlist ({waitlist.length})</CardTitle>
+                  <CardTitle className="text-primary">WAITLIST ({waitlist.length})</CardTitle>
                 </CardHeader>
                 <CardContent>
                   {waitlist.length > 0 ? (

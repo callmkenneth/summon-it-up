@@ -82,7 +82,7 @@
     --delay-5: 0.5s;
 
     /* Page Scrim for Non-Home Pages */
-    --gradient-scrim: linear-gradient(to bottom, hsl(0 0% 0% / 0.6), hsl(0 0% 0% / 0.3), hsl(0 0% 0% / 0.1));
+    --gradient-scrim: linear-gradient(to bottom, hsl(0 0% 0% / 0.72), hsl(0 0% 0% / 0.36), hsl(0 0% 0% / 0.12));
 
     --sidebar-background: 0 0% 98%;
 

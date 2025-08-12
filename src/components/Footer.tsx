@@ -2,7 +2,15 @@ import { Link } from "react-router-dom";
 export function Footer() {
   return <footer className="bg-dark-purple text-white py-12">
       <div className="container mx-auto px-6">
-        <div className="grid gap-2 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-4">
+          <div className="flex flex-col items-center md:items-start">
+            <img 
+              src="/lovable-uploads/be10147d-3851-4e59-a847-c370b0b360af.png" 
+              alt="Summons Logo" 
+              className="w-24 h-24 mb-4"
+            />
+          </div>
+          
           <div>
             <h4 className="text-xl font-bold mb-4">Summons</h4>
             <p className="text-purple-200">Plan events that weaponize FOMO with RSVP timers, spot limits, and ratio controls.</p>

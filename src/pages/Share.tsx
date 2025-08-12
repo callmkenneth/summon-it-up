@@ -32,6 +32,7 @@ const Share = () => {
       return;
     }
     const fetchEvent = async () => {
+      // Include host_email for Share page since creator needs it for sending email
       const {
         data,
         error

@@ -37,10 +37,14 @@ const Invite = () => {
 
   const loadEventData = async () => {
     try {
-      // Load event data
+      // Load event data - exclude host_email for security
       const { data: eventData, error: eventError } = await supabase
         .from('events')
-        .select('*')
+        .select(`
+          id, title, description, image_url, event_date, start_time, end_time,
+          location, guest_limit, unlimited_guests, male_ratio, female_ratio,
+          use_ratio_control, rsvp_deadline, status, created_at, updated_at
+        `)
         .eq('id', id)
         .single();
 

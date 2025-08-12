@@ -42,7 +42,7 @@ const Manage = () => {
 
   const loadEventData = async () => {
     try {
-      // Load event data
+      // Load event data - include host_email for manage page only
       const { data: eventData, error: eventError } = await supabase
         .from('events')
         .select('*')

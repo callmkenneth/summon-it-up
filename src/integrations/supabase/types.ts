@@ -188,7 +188,41 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      rsvps_public: {
+        Row: {
+          attendee_name: string | null
+          created_at: string | null
+          event_id: string | null
+          gender: string | null
+          id: string | null
+          status: string | null
+        }
+        Insert: {
+          attendee_name?: string | null
+          created_at?: string | null
+          event_id?: string | null
+          gender?: string | null
+          id?: string | null
+          status?: string | null
+        }
+        Update: {
+          attendee_name?: string | null
+          created_at?: string | null
+          event_id?: string | null
+          gender?: string | null
+          id?: string | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rsvps_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       get_event_rsvps_for_host: {

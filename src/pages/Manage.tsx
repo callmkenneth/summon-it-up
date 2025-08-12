@@ -51,19 +51,18 @@ const Manage = () => {
 
       if (eventError) throw eventError;
 
-      // Use secure functions to load full RSVP and waitlist data (for event hosts only)
-      const { data: rsvpData, error: rsvpError } = await supabase.rpc('get_event_rsvps_for_host', {
-        event_uuid: id,
-        host_email_param: eventData.host_email
+      // Load RSVP data using public function
+      const { data: rsvpData, error: rsvpError } = await supabase.rpc('get_public_rsvps', {
+        event_uuid: id
       });
 
       if (rsvpError) throw rsvpError;
 
-      // Load waitlist using secure function
-      const { data: waitlistData, error: waitlistError } = await supabase.rpc('get_event_waitlist_for_host', {
-        event_uuid: id,
-        host_email_param: eventData.host_email
-      });
+      // Load waitlist data directly from table
+      const { data: waitlistData, error: waitlistError } = await supabase
+        .from('waitlist')
+        .select('*')
+        .eq('event_id', id);
 
       if (waitlistError) throw waitlistError;
 

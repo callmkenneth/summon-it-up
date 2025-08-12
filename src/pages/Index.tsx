@@ -36,7 +36,7 @@ const Index = () => {
               </div>
 
               {/* Feature Cards */}
-              <StaggeredReveal delay={200}>
+              <StaggeredReveal delay={200} className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card className="shadow-primary hover:shadow-accent hover-lift glow reveal-on-scroll">
                   <CardContent className="pt-8 pb-8 text-center">
                     <img src="/lovable-uploads/9aa0cac8-3d5b-4dfd-b53f-30c71180282e.png" 

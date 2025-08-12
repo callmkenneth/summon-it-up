@@ -262,7 +262,7 @@ const Manage = () => {
           {/* Event Details Module */}
           <Card className="">
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-primary">Event Details</CardTitle>
+              <CardTitle className="text-primary">EVENT DETAILS</CardTitle>
               <div className="flex items-center gap-2">
                 <Button 
                   variant="outline" 
@@ -296,7 +296,7 @@ const Manage = () => {
                   <div className="flex items-center gap-3">
                     <img src="/lovable-uploads/36ab1d6e-1bf7-4a10-a658-8050f82f824b.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                     <div>
-                      <p className="font-semibold">Date</p>
+                      <p className="font-semibold">DATE</p>
                       <p className="text-muted-foreground">{new Date(event.event_date).toLocaleDateString()}</p>
                     </div>
                   </div>
@@ -304,7 +304,7 @@ const Manage = () => {
                   <div className="flex items-center gap-3">
                      <img src="/lovable-uploads/ea8aa2c3-0089-4a80-892e-5cc91a31da51.png" alt="Time" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                      <div>
-                       <p className="font-semibold">Time</p>
+                       <p className="font-semibold">TIME</p>
                        <p className="text-muted-foreground">{to12Hour(event.start_time)} - {to12Hour(event.end_time)}</p>
                      </div>
                    </div>
@@ -312,7 +312,7 @@ const Manage = () => {
                   <div className="flex items-center gap-3">
                     <img src="/lovable-uploads/927ce1ff-849a-4f82-a7e5-3e9a3dc0b71a.png" alt="Where" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                     <div>
-                      <p className="font-semibold">Location</p>
+                      <p className="font-semibold">LOCATION</p>
                       <p className="text-muted-foreground">{event.location}</p>
                     </div>
                   </div>
@@ -320,7 +320,7 @@ const Manage = () => {
                   <div className="flex items-center gap-3">
                     <img src="/lovable-uploads/d09121b9-a6e2-4381-8721-dc359cbbbbd9.png" alt="Spots" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                    <div>
-                     <p className="font-semibold">Capacity</p>
+                     <p className="font-semibold">CAPACITY</p>
                      <p className="text-muted-foreground">
                        {event.unlimited_guests ? 'Unlimited' : `${event.guest_limit} guests`}
                      </p>
@@ -356,7 +356,7 @@ const Manage = () => {
                  <div className="text-left">
                   <div className="flex items-center justify-start gap-2 mb-2">
                     <img src="/lovable-uploads/9bfd1ec4-0049-4b8b-95dd-37cc98ebbd92.png" alt="What" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
-                    <p className="font-semibold">What</p>
+                    <p className="font-semibold">WHAT</p>
                   </div>
                 <p className="text-muted-foreground">{event.description}</p>
               </div>
@@ -470,7 +470,7 @@ const Manage = () => {
           {waitlist.length > 0 && (
             <Card className="">
               <CardHeader>
-                <CardTitle className="text-primary">Waitlist</CardTitle>
+                <CardTitle className="text-primary">WAITLIST</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-2">
@@ -499,7 +499,7 @@ const Manage = () => {
 
           {/* Bottom CTA */}
           <div className="bg-gradient-primary rounded-lg p-6 text-center">
-            <h5 className="text-white mb-4">Start planning the next one</h5>
+            <h5 className="text-white mb-4">START PLANNING THE NEXT ONE</h5>
             <Button variant="secondary" size="lg" onClick={() => navigate('/newevent')}>
               New Event
             </Button>

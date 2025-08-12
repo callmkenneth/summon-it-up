@@ -126,7 +126,7 @@ const Details = () => {
                 <div className="text-left">
                   <div className="flex items-center justify-start gap-2 mb-3">
                     <img src="/lovable-uploads/2a28bf9e-ab8c-4ff3-9da2-ef509b9b9aa0.png" alt="Where" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
-                    <h5>Where</h5>
+                    <h5>WHERE</h5>
                   </div>
                   <p className="text-muted-foreground">{event?.location}</p>
                   <p className="text-sm text-muted-foreground mt-1">
@@ -137,7 +137,7 @@ const Details = () => {
                 <div className="text-left">
                   <div className="flex items-center justify-start gap-2 mb-3">
                     <img src="/lovable-uploads/01bfb213-3e0c-49f5-8d84-6e6d4c10b80f.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
-                    <h5>When</h5>
+                    <h5>WHEN</h5>
                   </div>
                   <p className="text-muted-foreground">
                     {event?.event_date ? new Date(event.event_date).toLocaleDateString('en-US', { 
@@ -157,7 +157,7 @@ const Details = () => {
               <div className="text-left">
                 <div className="flex items-center justify-start gap-2 mb-3">
                   <img src="/lovable-uploads/0d84518d-7d5f-481e-9c32-65317c29037b.png" alt="What" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
-                  <h5>What</h5>
+                  <h5>WHAT</h5>
                 </div>
                 <p className="text-muted-foreground text-sm">
                   {event?.description}
@@ -172,7 +172,7 @@ const Details = () => {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <img src="/lovable-uploads/03d31a51-1d83-4589-a9d3-899022efdd3e.png" alt="Spots" className="w-12 h-12" onError={(e) => e.currentTarget.style.display = 'none'} />
-                  <h5 className="font-semibold text-lg">Spots remaining</h5>
+                  <h5 className="font-semibold text-lg">SPOTS REMAINING</h5>
                 </div>
                 <div className="text-center">
                   <SpotCounter 
@@ -187,7 +187,7 @@ const Details = () => {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <img src="/lovable-uploads/6453c430-5a5d-46ca-86b5-e46c3ac971ce.png" alt="Confirmed" className="w-12 h-12" onError={(e) => e.currentTarget.style.display = 'none'} />
-                  <h5 className="font-semibold text-lg">You're confirmed!</h5>
+                  <h5 className="font-semibold text-lg">YOU'RE CONFIRMED!</h5>
                 </div>
                 <div className="text-center">
                   <div className="bg-light-pink border-2 border-pink rounded-[30px] px-3 py-1 inline-block">
@@ -201,7 +201,7 @@ const Details = () => {
           {/* Who's Coming */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-primary">Who's coming so far</CardTitle>
+              <CardTitle className="text-primary">WHO'S COMING SO FAR</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid gap-2 md:grid-cols-2">
@@ -246,7 +246,7 @@ const Details = () => {
           {/* Waitlist */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-primary">Waitlist ({waitlist.length})</CardTitle>
+              <CardTitle className="text-primary">WAITLIST ({waitlist.length})</CardTitle>
             </CardHeader>
             <CardContent>
               {waitlist.length > 0 ? (
@@ -268,7 +268,7 @@ const Details = () => {
           <Card className="bg-light-pink border-pink">
             <CardContent className="pt-6">
               <div className="text-center">
-                <h5 className="text-primary mb-3">📝 Important Notes</h5>
+                <h5 className="text-primary mb-3">📝 IMPORTANT NOTES</h5>
                 <div className="space-y-2 text-sm text-muted-foreground">
                   <p>• Save the event location in your calendar</p>
                   <p>• Contact the host if you need to change your RSVP</p>
@@ -280,7 +280,7 @@ const Details = () => {
 
           {/* Bottom CTA */}
           <div className="bg-gradient-primary rounded-lg p-6 text-center">
-            <h5 className="text-white mb-4">Want to make your own?</h5>
+            <h5 className="text-white mb-4">WANT TO MAKE YOUR OWN?</h5>
             <Button variant="secondary" size="lg" onClick={() => navigate('/newevent')}>
               New Event
             </Button>

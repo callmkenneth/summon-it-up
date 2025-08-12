@@ -12,13 +12,13 @@ const Contact = () => {
           <div className="space-y-6">
             <Card className="bg-white shadow-lg">
               <CardHeader>
-                <CardTitle className="text-primary flex items-center gap-2">
+                <CardTitle className="text-primary text-2xl flex items-center gap-2">
                   <Mail className="h-6 w-6" />
                   Email Support
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   Have questions, feedback, or need help with your event? We'd love to hear from you!
                 </p>
                 <div className="bg-gradient-primary rounded-lg p-6 text-center">
@@ -36,13 +36,13 @@ const Contact = () => {
             <div className="grid gap-6 md:grid-cols-2">
               <Card className="bg-white shadow-lg">
                 <CardHeader>
-                  <CardTitle className="text-primary flex items-center gap-2">
+                  <CardTitle className="text-primary text-xl flex items-center gap-2">
                     <MessageSquare className="h-6 w-6" />
                     What we can help with
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <ul className="space-y-3 text-muted-foreground">
+                  <ul className="space-y-3 text-muted-foreground text-sm">
                     <li className="flex items-start gap-2">
                       <span className="text-primary">•</span>
                       Technical support and troubleshooting
@@ -69,13 +69,13 @@ const Contact = () => {
 
               <Card className="bg-white shadow-lg">
                 <CardHeader>
-                  <CardTitle className="text-primary flex items-center gap-2">
+                  <CardTitle className="text-primary text-xl flex items-center gap-2">
                     <Clock className="h-6 w-6" />
                     Response Time
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     We typically respond to emails within 24-48 hours during business days.
                   </p>
                   <div className="bg-light-pink rounded-lg p-4">
@@ -89,24 +89,24 @@ const Contact = () => {
 
             <Card className="bg-white shadow-lg">
               <CardHeader>
-                <CardTitle className="text-primary">Frequently Asked Questions</CardTitle>
+                <CardTitle className="text-primary text-2xl">Frequently Asked Questions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <h4 className="font-semibold mb-2">How do I create my first event?</h4>
-                  <p className="text-muted-foreground text-sm">
+                  <h4 className="text-lg font-semibold mb-2">How do I create my first event?</h4>
+                  <p className="text-muted-foreground text-xs">
                     Click "New Event" from the homepage and follow our guided setup process. You'll have your event ready to share in minutes!
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">Can I edit my event after publishing?</h4>
-                  <p className="text-muted-foreground text-sm">
+                  <h4 className="text-lg font-semibold mb-2">Can I edit my event after publishing?</h4>
+                  <p className="text-muted-foreground text-xs">
                     Yes! Use your management link to edit event details, manage RSVPs, and even cancel the event if needed.
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold mb-2">What happens when my event is full?</h4>
-                  <p className="text-muted-foreground text-sm">
+                  <h4 className="text-lg font-semibold mb-2">What happens when my event is full?</h4>
+                  <p className="text-muted-foreground text-xs">
                     New visitors will see a waitlist option instead of RSVP buttons. When someone cancels, the first person on the waitlist is automatically promoted.
                   </p>
                 </div>

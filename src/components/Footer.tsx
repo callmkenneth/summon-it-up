@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 export function Footer() {
   return <footer className="bg-dark-purple text-white py-12">
       <div className="container mx-auto px-6">
-        <div className="grid gap-6 md:grid-cols-4">
-          <div className="flex flex-col items-center md:items-start">
-          </div>
+        <div className="grid gap-6 md:grid-cols-3">
           
           <div>
             <h4 className="text-xl font-bold mb-4">Summons</h4>

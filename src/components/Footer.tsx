@@ -5,7 +5,7 @@ export function Footer() {
         <div className="grid gap-6 md:grid-cols-4">
           <div className="flex flex-col items-center md:items-start">
             <img 
-              src="/lovable-uploads/976480e4-6d3e-4e05-b1ec-001a157bba1c.png" 
+              src="/Summons-logo.png" 
               alt="Summons Logo" 
               className="w-24 h-24 mb-4"
             />

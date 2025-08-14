@@ -116,6 +116,24 @@ const NameCapture = () => {
         }
       }
 
+      // Send confirmation email if email was provided and user RSVP'd yes
+      if (email && !email.includes('placeholder-') && (response === 'yes' || response === 'waitlist')) {
+        try {
+          await supabase.functions.invoke('send-rsvp-confirmation', {
+            body: {
+              eventId: id,
+              email: email,
+              attendeeName: name,
+              status: response
+            }
+          });
+          console.log('RSVP confirmation email sent successfully');
+        } catch (emailError) {
+          console.error('Failed to send RSVP confirmation email:', emailError);
+          // Don't block the user flow if email fails
+        }
+      }
+
       if (response === 'yes' || response === 'waitlist') {
         navigate(`/details/${id}?name=${encodeURIComponent(name)}`);
       } else {

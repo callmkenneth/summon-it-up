@@ -19,6 +19,7 @@ const Share = () => {
   const [copied, setCopied] = useState<string | null>(null);
   const [event, setEvent] = useState<any>(null);
   const eventId = searchParams.get('id');
+  const emailAlreadySent = searchParams.get('emailSent') === 'true';
   const inviteLink = eventId ? `${window.location.origin}/invite/${eventId}` : '';
   const manageLink = eventId ? `${window.location.origin}/manage/${eventId}` : '';
   useEffect(() => {
@@ -150,11 +151,23 @@ const Share = () => {
             <CardHeader>
               <CardTitle className="text-primary flex items-center gap-2 justify-center">
                 <img src="/lovable-uploads/b5763a95-016c-48dc-810e-bb5e756a5149.png" alt="Mail icon" className="w-10 h-10" />
-                WANT THESE DETAILS IN YOUR INBOX?
+                {emailAlreadySent ? "EMAIL SENT TO YOUR INBOX!" : "WANT THESE DETAILS IN YOUR INBOX?"}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {!emailSent ? <>
+              {emailAlreadySent ? 
+                <div className="text-center">
+                  <div className="text-green-600 mb-2">✅ Email already sent to your inbox!</div>
+                  <p className="text-sm text-muted-foreground">Check your email for the complete event details and links</p>
+                  <p className="text-xs text-muted-foreground mt-2">Want to send to another email address?</p>
+                  <div className="flex gap-2 max-w-md mx-auto mt-3">
+                    <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="another@email.com" className="flex-1" />
+                    <Button onClick={sendEmail} variant="outline" disabled={!email} className="rounded-[30px] text-primary">
+                      Send
+                    </Button>
+                  </div>
+                </div>
+              : (!emailSent ? <>
                   <div className="flex gap-2 max-w-md mx-auto">
                     <Input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="your@email.com" className="flex-1" />
                     <Button onClick={sendEmail} variant="rsvp" disabled={!email} className="rounded-[30px]">
@@ -164,7 +177,7 @@ const Share = () => {
                 </> : <div className="text-center">
                   <div className="text-green-600 mb-2">✅ Email sent successfully!</div>
                   <p className="text-sm text-muted-foreground">Check your inbox for the event details</p>
-                </div>}
+                </div>)}
             </CardContent>
           </Card>
 

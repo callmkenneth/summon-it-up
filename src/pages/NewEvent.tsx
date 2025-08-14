@@ -83,13 +83,36 @@ const NewEvent = () => {
         error
       } = await supabase.from('events').insert(eventData).select().single();
       if (error) throw error;
-      toast({
-        title: "Event created successfully!",
-        description: "Your event is ready to be shared."
-      });
 
-      // Navigate to share page with event ID
-      navigate(`/share?id=${data.id}`);
+      // If host email is provided, automatically send event details
+      if (formData.hostEmail) {
+        try {
+          await supabase.functions.invoke('send-event-details', {
+            body: {
+              eventId: data.id,
+              email: formData.hostEmail
+            }
+          });
+          toast({
+            title: "Event created successfully!",
+            description: "Your event is ready and details have been sent to your email."
+          });
+        } catch (emailError) {
+          console.error("Failed to send email:", emailError);
+          toast({
+            title: "Event created successfully!",
+            description: "Event created but email failed to send. You can send it from the share page."
+          });
+        }
+      } else {
+        toast({
+          title: "Event created successfully!",
+          description: "Your event is ready to be shared."
+        });
+      }
+
+      // Navigate to share page with event ID and email status
+      navigate(`/share?id=${data.id}&emailSent=${formData.hostEmail ? 'true' : 'false'}`);
     } catch (error: any) {
       toast({
         title: "Error creating event",

@@ -23,14 +23,10 @@ const Details = () => {
 
   const loadEventData = async () => {
     try {
-      // Select all fields except host_email for security
+      // Use public_events view for secure access (excludes host_email)
       const { data: eventData, error } = await supabase
-        .from('events')
-        .select(`
-          id, title, description, image_url, event_date, start_time, end_time,
-          location, guest_limit, unlimited_guests, male_ratio, female_ratio,
-          use_ratio_control, rsvp_deadline, status, created_at, updated_at
-        `)
+        .from('public_events')
+        .select('*')
         .eq('id', id)
         .single();
 

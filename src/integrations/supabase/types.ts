@@ -149,6 +149,13 @@ export type Database = {
             referencedRelation: "events"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "rsvps_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "public_events"
+            referencedColumns: ["id"]
+          },
         ]
       }
       waitlist: {
@@ -187,11 +194,80 @@ export type Database = {
             referencedRelation: "events"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "waitlist_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "public_events"
+            referencedColumns: ["id"]
+          },
         ]
       }
     }
     Views: {
-      [_ in never]: never
+      public_events: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          end_time: string | null
+          event_date: string | null
+          female_ratio: number | null
+          guest_limit: number | null
+          hide_location_until_rsvp: boolean | null
+          id: string | null
+          image_url: string | null
+          location: string | null
+          male_ratio: number | null
+          rsvp_deadline: string | null
+          start_time: string | null
+          status: string | null
+          title: string | null
+          unlimited_guests: boolean | null
+          updated_at: string | null
+          use_ratio_control: boolean | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          end_time?: string | null
+          event_date?: string | null
+          female_ratio?: number | null
+          guest_limit?: number | null
+          hide_location_until_rsvp?: boolean | null
+          id?: string | null
+          image_url?: string | null
+          location?: never
+          male_ratio?: number | null
+          rsvp_deadline?: string | null
+          start_time?: string | null
+          status?: string | null
+          title?: string | null
+          unlimited_guests?: boolean | null
+          updated_at?: string | null
+          use_ratio_control?: boolean | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          end_time?: string | null
+          event_date?: string | null
+          female_ratio?: number | null
+          guest_limit?: number | null
+          hide_location_until_rsvp?: boolean | null
+          id?: string | null
+          image_url?: string | null
+          location?: never
+          male_ratio?: number | null
+          rsvp_deadline?: string | null
+          start_time?: string | null
+          status?: string | null
+          title?: string | null
+          unlimited_guests?: boolean | null
+          updated_at?: string | null
+          use_ratio_control?: boolean | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_event_rsvps_for_host: {

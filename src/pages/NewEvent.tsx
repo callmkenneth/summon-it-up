@@ -24,6 +24,7 @@ const NewEvent = () => {
     startTime: '',
     endTime: '',
     location: '',
+    hideLocationUntilRsvp: false,
     guestLimit: '',
     unlimited: false,
     useRatioControl: false,
@@ -67,6 +68,7 @@ const NewEvent = () => {
         start_time: formData.startTime,
         end_time: formData.endTime,
         location: formData.location,
+        hide_location_until_rsvp: formData.hideLocationUntilRsvp,
         guest_limit: formData.unlimited ? null : parseInt(formData.guestLimit),
         unlimited_guests: formData.unlimited,
         use_ratio_control: formData.useRatioControl,
@@ -180,6 +182,15 @@ const NewEvent = () => {
                   ...prev,
                   location: e.target.value
                 }))} className="mt-2" placeholder="Where will this happen?" />
+                </div>
+
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="hideLocation" checked={formData.hideLocationUntilRsvp} onCheckedChange={checked => setFormData(prev => ({
+                  ...prev,
+                  hideLocationUntilRsvp: !!checked
+                }))} />
+                  <Label htmlFor="hideLocation">Hide location until RSVP</Label>
+                  <p className="text-sm text-muted-foreground ml-2">(Only show location to guests who RSVP "yes")</p>
                 </div>
 
                 <div className="flex items-center space-x-2">

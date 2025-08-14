@@ -7,7 +7,7 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instanciate createClient with right options
+  // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "13.0.4"
@@ -55,6 +55,7 @@ export type Database = {
           event_date: string
           female_ratio: number | null
           guest_limit: number | null
+          hide_location_until_rsvp: boolean | null
           host_email: string | null
           id: string
           image_url: string | null
@@ -75,6 +76,7 @@ export type Database = {
           event_date: string
           female_ratio?: number | null
           guest_limit?: number | null
+          hide_location_until_rsvp?: boolean | null
           host_email?: string | null
           id?: string
           image_url?: string | null
@@ -95,6 +97,7 @@ export type Database = {
           event_date?: string
           female_ratio?: number | null
           guest_limit?: number | null
+          hide_location_until_rsvp?: boolean | null
           host_email?: string | null
           id?: string
           image_url?: string | null
@@ -194,24 +197,24 @@ export type Database = {
       get_event_rsvps_for_host: {
         Args: { event_uuid: string; host_email_param: string }
         Returns: {
-          id: string
-          event_id: string
-          attendee_name: string
           attendee_email: string
-          gender: string
-          status: string
+          attendee_name: string
           created_at: string
+          event_id: string
+          gender: string
+          id: string
+          status: string
         }[]
       }
       get_event_waitlist_for_host: {
         Args: { event_uuid: string; host_email_param: string }
         Returns: {
-          id: string
-          event_id: string
-          attendee_name: string
           attendee_email: string
-          gender: string
+          attendee_name: string
           created_at: string
+          event_id: string
+          gender: string
+          id: string
           updated_at: string
         }[]
       }
@@ -222,12 +225,12 @@ export type Database = {
       get_public_rsvps: {
         Args: { event_uuid: string }
         Returns: {
-          id: string
-          event_id: string
           attendee_name: string
-          gender: string
-          status: string
           created_at: string
+          event_id: string
+          gender: string
+          id: string
+          status: string
         }[]
       }
       get_spots_remaining: {

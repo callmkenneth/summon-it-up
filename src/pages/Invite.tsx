@@ -42,7 +42,7 @@ const Invite = () => {
         .from('events')
         .select(`
           id, title, description, image_url, event_date, start_time, end_time,
-          location, guest_limit, unlimited_guests, male_ratio, female_ratio,
+          location, hide_location_until_rsvp, guest_limit, unlimited_guests, male_ratio, female_ratio,
           use_ratio_control, rsvp_deadline, status, created_at, updated_at
         `)
         .eq('id', id)
@@ -156,9 +156,9 @@ const Invite = () => {
                       <img src="/lovable-uploads/9fe89a1a-df3d-424a-b9ac-17da9974b862.png" alt="Where" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                       <h5>WHERE</h5>
                     </div>
-                    <p className="text-muted-foreground">
-                      RSVP to find out
-                    </p>
+                     <p className="text-muted-foreground">
+                       {event?.hide_location_until_rsvp ? "RSVP to find out" : event?.location}
+                     </p>
                   </div>
 
                   <div className="text-left">

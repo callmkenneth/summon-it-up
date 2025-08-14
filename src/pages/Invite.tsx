@@ -106,12 +106,13 @@ const Invite = () => {
   const spotsRemaining = event.unlimited_guests 
     ? '∞' 
     : Math.max(0, (event.guest_limit || 0) - rsvps.yes.length);
-    
+     
   const timeLeft = event.rsvp_deadline 
     ? Math.ceil((new Date(event.rsvp_deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
     : null;
-    
+     
   const isFull = !event.unlimited_guests && typeof spotsRemaining === 'number' && spotsRemaining <= 0;
+  const isRsvpClosed = event.rsvp_deadline && new Date() > new Date(event.rsvp_deadline);
 
   const handleRSVP = (response: 'yes' | 'no') => {
     navigate(`/name/${id}?response=${response}`);
@@ -126,7 +127,9 @@ const Invite = () => {
       <div className="container mx-auto px-6 py-12">
         <div className="max-w-3xl mx-auto space-y-2">
           <h1 className="text-white mb-4 text-center">
-            {event?.status === 'cancelled' ? 'Event Cancelled' : (isFull ? "Event Full" : "You're invited")}
+            {event?.status === 'cancelled' ? 'Event Cancelled' : 
+             isRsvpClosed ? 'RSVP Closed' :
+             isFull ? "Event Full" : "You're invited"}
           </h1>
 
           {event?.status === 'cancelled' && (
@@ -198,7 +201,7 @@ const Invite = () => {
                   </div>
                   <div className="text-center">
                     <SpotCounter 
-                      spotsClaimed={rsvps.yes.length} 
+                      spotsRemaining={spotsRemaining} 
                       totalSpots={event.unlimited_guests ? null : event.guest_limit} 
                     />
                   </div>
@@ -290,7 +293,12 @@ const Invite = () => {
 
               {/* RSVP Buttons */}
               <div className="">
-                {!isFull ? (
+                {isRsvpClosed ? (
+                  <div className="text-center">
+                    <p className="text-white/80 text-lg mb-4">The RSVP deadline has passed.</p>
+                    <p className="text-white/60">You can no longer respond to this event.</p>
+                  </div>
+                ) : !isFull ? (
                   <div className="grid gap-2 md:grid-cols-2">
                     <Button 
                       variant="rsvp" 

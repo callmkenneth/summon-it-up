@@ -260,14 +260,14 @@ const Manage = () => {
 
           {/* Event Details Module */}
           <Card className="">
-            <CardHeader className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+            <CardHeader className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
               <CardTitle className="text-primary">EVENT DETAILS</CardTitle>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-y-0 sm:gap-2">
                 <Button 
                   variant="outline" 
                   size="sm" 
                   onClick={() => setShowEditDialog(true)}
-                  className="flex items-center gap-2 border-primary"
+                  className="flex items-center gap-2 border-primary w-full sm:w-auto"
                 >
                   <Edit className="h-4 w-4 text-dark-purple" />
                   <span className="text-dark-purple">Edit Event</span>
@@ -277,7 +277,7 @@ const Manage = () => {
                   size="sm" 
                   onClick={() => setShowCancelDialog(true)}
                   disabled={event.status === 'cancelled'}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 w-full sm:w-auto"
                 >
                   <AlertTriangle className="h-4 w-4" />
                   {event.status === 'cancelled' ? 'Cancelled' : 'Cancel Event'}
@@ -372,7 +372,7 @@ const Manage = () => {
                 </div>
                 <div className="text-center">
                   <SpotCounter 
-                    spotsClaimed={rsvps.yes.length} 
+                    spotsRemaining={spotsRemaining} 
                     totalSpots={event.unlimited_guests ? null : event.guest_limit} 
                   />
                 </div>

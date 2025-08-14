@@ -180,7 +180,7 @@ const Details = () => {
                 </div>
                 <div className="text-center">
                   <SpotCounter 
-                    spotsClaimed={rsvps.yes.length} 
+                    spotsRemaining={spotsRemaining} 
                     totalSpots={event.unlimited_guests ? null : event.guest_limit} 
                   />
                 </div>

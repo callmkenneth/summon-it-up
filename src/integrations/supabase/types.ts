@@ -313,6 +313,10 @@ export type Database = {
         Args: { event_uuid: string }
         Returns: number
       }
+      validate_text_input: {
+        Args: { input_text: string; max_length?: number }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never

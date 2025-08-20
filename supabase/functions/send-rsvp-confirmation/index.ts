@@ -29,20 +29,55 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { eventId, email, attendeeName, status }: RSVPConfirmationRequest = await req.json();
+    const body = await req.json();
+    const { eventId, email, attendeeName, status }: RSVPConfirmationRequest = body;
+
+    // Input validation
+    if (!eventId || typeof eventId !== 'string' || eventId.trim().length === 0) {
+      return new Response(
+        JSON.stringify({ error: "Invalid or missing eventId" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    if (!email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      return new Response(
+        JSON.stringify({ error: "Invalid or missing email address" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    if (!attendeeName || typeof attendeeName !== 'string' || attendeeName.trim().length === 0) {
+      return new Response(
+        JSON.stringify({ error: "Invalid or missing attendee name" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    if (!status || !['yes', 'no', 'waitlist'].includes(status)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid status. Must be 'yes', 'no', or 'waitlist'" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Sanitize inputs
+    const sanitizedEventId = eventId.trim();
+    const sanitizedEmail = email.trim();
+    const sanitizedAttendeeName = attendeeName.trim().substring(0, 100); // Limit name length
 
     // Fetch event details from database
     const { data: event, error: eventError } = await supabase
       .from('events')
       .select('*')
-      .eq('id', eventId)
+      .eq('id', sanitizedEventId)
       .single();
 
     if (eventError || !event) {
       throw new Error('Event not found');
     }
 
-    const inviteLink = `${Deno.env.get('SITE_URL')}/invite/${eventId}`;
+    const inviteLink = `${Deno.env.get('SITE_URL')}/invite/${sanitizedEventId}`;
 
     // Format date and time for display
     const eventDate = new Date(event.event_date).toLocaleDateString('en-US', {
@@ -105,13 +140,13 @@ const handler = async (req: Request): Promise<Response> => {
 
     const emailResponse = await resend.emails.send({
       from: "Summons <onboarding@resend.dev>",
-      to: [email],
+      to: [sanitizedEmail],
       subject: `RSVP Confirmed for "${event.title}" - Summons`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
           <div style="background: linear-gradient(135deg, #661D98, #B12F83); padding: 40px 20px; text-align: center; border-radius: 12px 12px 0 0;">
             <h1 style="color: #ffffff; margin: 0; font-size: 28px; font-weight: bold;">RSVP Confirmed!</h1>
-            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 16px;">Thanks for responding, ${attendeeName}!</p>
+            <p style="color: #ffffff; margin: 10px 0 0 0; font-size: 16px;">Thanks for responding, ${sanitizedAttendeeName}!</p>
           </div>
           
           <div style="padding: 30px 20px;">

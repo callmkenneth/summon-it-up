@@ -8,6 +8,7 @@ import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { Footer } from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useInputValidation, commonValidationRules } from "@/hooks/useInputValidation";
 
 const NameCapture = () => {
   const { id } = useParams();
@@ -20,10 +21,26 @@ const NameCapture = () => {
   const [email, setEmail] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const { toast } = useToast();
+  const { errors, validateForm, clearFieldError } = useInputValidation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !gender) return;
+    
+    // Validate form inputs
+    const formData = { name: name.trim(), email: email.trim() };
+    const validationRules = {
+      name: commonValidationRules.name,
+      ...(email ? { email: commonValidationRules.email } : {})
+    };
+    
+    if (!validateForm(formData, validationRules) || !gender) {
+      toast({
+        title: "Invalid input",
+        description: "Please check your information and try again.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setSubmitting(true);
     try {
@@ -177,12 +194,16 @@ const NameCapture = () => {
                     <Input
                       id="name"
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="mt-2"
+                      onChange={(e) => {
+                        setName(e.target.value);
+                        if (errors.name) clearFieldError('name');
+                      }}
+                      className={`mt-2 ${errors.name ? 'border-red-500' : ''}`}
                       placeholder="Enter your full name"
                       autoFocus
                       disabled={submitting}
                     />
+                    {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                   </div>
 
                   <div>
@@ -191,11 +212,15 @@ const NameCapture = () => {
                       id="email"
                       type="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="mt-2"
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (errors.email) clearFieldError('email');
+                      }}
+                      className={`mt-2 ${errors.email ? 'border-red-500' : ''}`}
                       placeholder="Enter your email address (optional)"
                       disabled={submitting}
                     />
+                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                   </div>
 
                   <div>

@@ -27,21 +27,41 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { eventId, email }: EmailRequest = await req.json();
+    const body = await req.json();
+    const { eventId, email }: EmailRequest = body;
+
+    // Input validation
+    if (!eventId || typeof eventId !== 'string' || eventId.trim().length === 0) {
+      return new Response(
+        JSON.stringify({ error: "Invalid or missing eventId" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    if (!email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      return new Response(
+        JSON.stringify({ error: "Invalid or missing email address" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Sanitize inputs
+    const sanitizedEventId = eventId.trim();
+    const sanitizedEmail = email.trim();
 
     // Fetch event details from database
     const { data: event, error: eventError } = await supabase
       .from('events')
       .select('*')
-      .eq('id', eventId)
+      .eq('id', sanitizedEventId)
       .single();
 
     if (eventError || !event) {
       throw new Error('Event not found');
     }
 
-    const inviteLink = `${Deno.env.get('SITE_URL')}/invite/${eventId}`;
-    const manageLink = `${Deno.env.get('SITE_URL')}/manage/${eventId}`;
+    const inviteLink = `${Deno.env.get('SITE_URL')}/invite/${sanitizedEventId}`;
+    const manageLink = `${Deno.env.get('SITE_URL')}/manage/${sanitizedEventId}`;
 
     // Format date and time for display
     const eventDate = new Date(event.event_date).toLocaleDateString('en-US', {
@@ -81,7 +101,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     const emailResponse = await resend.emails.send({
       from: "Summons <onboarding@resend.dev>",
-      to: [email],
+      to: [sanitizedEmail],
       subject: `Your Event "${event.title}" is Ready! - Summons`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">

@@ -11,11 +11,11 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Footer } from "@/components/Footer";
+import { useInputValidation, commonValidationRules } from "@/hooks/useInputValidation";
 const NewEvent = () => {
   const navigate = useNavigate();
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
+  const { errors, validateForm, clearFieldError } = useInputValidation();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -40,6 +40,31 @@ const NewEvent = () => {
   }, [imagePreview]);
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate form inputs
+    const validationData = {
+      title: formData.title.trim(),
+      description: formData.description.trim(),
+      location: formData.location.trim(),
+      ...(formData.hostEmail ? { hostEmail: formData.hostEmail.trim() } : {})
+    };
+    
+    const validationRules = {
+      title: commonValidationRules.eventTitle,
+      description: commonValidationRules.eventDescription,
+      location: commonValidationRules.location,
+      ...(formData.hostEmail ? { hostEmail: commonValidationRules.email } : {})
+    };
+    
+    if (!validateForm(validationData, validationRules)) {
+      toast({
+        title: "Invalid input",
+        description: "Please check your information and try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     try {
       let imageUrl = null;
 

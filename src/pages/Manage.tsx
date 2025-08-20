@@ -51,20 +51,41 @@ const Manage = () => {
 
       if (eventError) throw eventError;
 
-      // Load RSVP data using public function
-      const { data: rsvpData, error: rsvpError } = await supabase.rpc('get_public_rsvps', {
-        event_uuid: id
+      // Load RSVP data using secure function that requires host verification
+      const { data: rsvpData, error: rsvpError } = await supabase.rpc('get_event_rsvps_for_host', {
+        event_uuid: id,
+        host_email_param: eventData.host_email || 'no-host@example.com'
       });
 
-      if (rsvpError) throw rsvpError;
+      if (rsvpError) {
+        // If we can't access RSVPs as host, try public function as fallback
+        const { data: publicRsvpData, error: publicRsvpError } = await supabase.rpc('get_public_rsvps', {
+          event_uuid: id
+        });
+        if (publicRsvpError) throw publicRsvpError;
+        
+        // Use public data (no emails exposed)
+        setRsvps({
+          yes: publicRsvpData?.filter(r => r.status === 'yes') || [],
+          no: publicRsvpData?.filter(r => r.status === 'no') || []
+        });
+        setWaitlist([]); // No waitlist access without host verification
+        setEvent(eventData);
+        return;
+      }
 
-      // Load waitlist data directly from table
-      const { data: waitlistData, error: waitlistError } = await supabase
-        .from('waitlist')
-        .select('*')
-        .eq('event_id', id);
+      // Load waitlist data using secure function that requires host verification
+      const { data: waitlistData, error: waitlistError } = await supabase.rpc('get_event_waitlist_for_host', {
+        event_uuid: id,
+        host_email_param: eventData.host_email || 'no-host@example.com'
+      });
 
-      if (waitlistError) throw waitlistError;
+      if (waitlistError) {
+        console.warn('Could not load waitlist data:', waitlistError);
+        setWaitlist([]); // No waitlist access without host verification
+      } else {
+        setWaitlist(waitlistData || []);
+      }
 
       setEvent(eventData);
       

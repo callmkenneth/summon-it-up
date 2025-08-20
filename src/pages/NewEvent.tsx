@@ -12,10 +12,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Footer } from "@/components/Footer";
 import { useInputValidation, commonValidationRules } from "@/hooks/useInputValidation";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 const NewEvent = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { errors, validateForm, clearFieldError } = useInputValidation();
+  const { errors, validateForm, validateField, clearFieldError } = useInputValidation();
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -58,8 +59,8 @@ const NewEvent = () => {
     
     if (!validateForm(validationData, validationRules)) {
       toast({
-        title: "Invalid input",
-        description: "Please check your information and try again.",
+        title: "Please fix the errors below",
+        description: "Check the highlighted fields and try again.",
         variant: "destructive",
       });
       return;
@@ -163,19 +164,44 @@ const NewEvent = () => {
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <Label htmlFor="title">Event Title *</Label>
-                  <Input id="title" value={formData.title} onChange={e => setFormData(prev => ({
-                  ...prev,
-                  title: e.target.value
-                }))} className="mt-2" placeholder="What's the occasion?" />
+                  <Label htmlFor="title">Event Title * <span className="text-xs text-muted-foreground">(min 3 characters)</span></Label>
+                  <Input 
+                    id="title" 
+                    value={formData.title} 
+                    onChange={e => {
+                      setFormData(prev => ({...prev, title: e.target.value}));
+                      if (errors.title) clearFieldError('title');
+                    }}
+                    onBlur={e => validateField(e.target.value.trim(), commonValidationRules.eventTitle, 'title')}
+                    className={`mt-2 ${errors.title ? 'border-destructive' : ''}`} 
+                    placeholder="What's the occasion?" 
+                  />
+                  {errors.title && (
+                    <Alert variant="destructive" className="mt-2">
+                      <AlertDescription className="text-sm">{errors.title}</AlertDescription>
+                    </Alert>
+                  )}
                 </div>
 
                 <div>
-                  <Label htmlFor="description">Description *</Label>
-                  <Textarea id="description" value={formData.description} onChange={e => setFormData(prev => ({
-                  ...prev,
-                  description: e.target.value
-                }))} className="mt-2" placeholder="Tell guests what to expect..." rows={4} />
+                  <Label htmlFor="description">Description * <span className="text-xs text-muted-foreground">(min 10 characters)</span></Label>
+                  <Textarea 
+                    id="description" 
+                    value={formData.description} 
+                    onChange={e => {
+                      setFormData(prev => ({...prev, description: e.target.value}));
+                      if (errors.description) clearFieldError('description');
+                    }}
+                    onBlur={e => validateField(e.target.value.trim(), commonValidationRules.eventDescription, 'description')}
+                    className={`mt-2 ${errors.description ? 'border-destructive' : ''}`} 
+                    placeholder="Tell guests what to expect..." 
+                    rows={4} 
+                  />
+                  {errors.description && (
+                    <Alert variant="destructive" className="mt-2">
+                      <AlertDescription className="text-sm">{errors.description}</AlertDescription>
+                    </Alert>
+                  )}
                 </div>
 
                 <div>
@@ -225,11 +251,23 @@ const NewEvent = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="location">Location Address *</Label>
-                  <Input id="location" value={formData.location} onChange={e => setFormData(prev => ({
-                  ...prev,
-                  location: e.target.value
-                }))} className="mt-2" placeholder="Where will this happen?" />
+                  <Label htmlFor="location">Location Address * <span className="text-xs text-muted-foreground">(min 5 characters)</span></Label>
+                  <Input 
+                    id="location" 
+                    value={formData.location} 
+                    onChange={e => {
+                      setFormData(prev => ({...prev, location: e.target.value}));
+                      if (errors.location) clearFieldError('location');
+                    }}
+                    onBlur={e => validateField(e.target.value.trim(), commonValidationRules.location, 'location')}
+                    className={`mt-2 ${errors.location ? 'border-destructive' : ''}`} 
+                    placeholder="Where will this happen?" 
+                  />
+                  {errors.location && (
+                    <Alert variant="destructive" className="mt-2">
+                      <AlertDescription className="text-sm">{errors.location}</AlertDescription>
+                    </Alert>
+                  )}
                 </div>
 
                 <div className="flex items-center space-x-2">
@@ -307,10 +345,27 @@ const NewEvent = () => {
 
                 <div>
                   <Label htmlFor="hostEmail">Your Email Address (Optional)</Label>
-                  <Input id="hostEmail" type="email" value={formData.hostEmail} onChange={e => setFormData(prev => ({
-                  ...prev,
-                  hostEmail: e.target.value
-                }))} className="mt-2" placeholder="To receive event details" />
+                  <Input 
+                    id="hostEmail" 
+                    type="email" 
+                    value={formData.hostEmail} 
+                    onChange={e => {
+                      setFormData(prev => ({...prev, hostEmail: e.target.value}));
+                      if (errors.hostEmail) clearFieldError('hostEmail');
+                    }}
+                    onBlur={e => {
+                      if (e.target.value.trim()) {
+                        validateField(e.target.value.trim(), commonValidationRules.email, 'hostEmail');
+                      }
+                    }}
+                    className={`mt-2 ${errors.hostEmail ? 'border-destructive' : ''}`} 
+                    placeholder="To receive event details" 
+                  />
+                  {errors.hostEmail && (
+                    <Alert variant="destructive" className="mt-2">
+                      <AlertDescription className="text-sm">{errors.hostEmail}</AlertDescription>
+                    </Alert>
+                  )}
                 </div>
 
                 <Button type="submit" variant="hero" size="lg" className="w-full rounded-[50px]" disabled={!isFormComplete}>

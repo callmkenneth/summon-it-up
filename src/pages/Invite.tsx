@@ -37,20 +37,37 @@ const Invite = () => {
 
   const loadEventData = async () => {
     try {
-      // Use public_events view for secure access (excludes host_email)
-      const { data: eventData, error: eventError } = await supabase
+      console.log('Loading event data for ID:', id);
+      
+      // First try public_events view
+      let { data: eventData, error: eventError } = await supabase
         .from('public_events')
         .select('*')
         .eq('id', id)
         .maybeSingle();
 
+      // If public_events fails, try direct events table access
+      if (eventError || !eventData) {
+        console.log('public_events failed, trying events table:', eventError);
+        const { data: directEventData, error: directEventError } = await supabase
+          .from('events')
+          .select('id, created_at, updated_at, title, description, location, event_date, start_time, end_time, guest_limit, unlimited_guests, male_ratio, female_ratio, use_ratio_control, rsvp_deadline, hide_location_until_rsvp, image_url, status')
+          .eq('id', id)
+          .eq('status', 'open')
+          .maybeSingle();
+        
+        eventData = directEventData;
+        eventError = directEventError;
+      }
+
       if (eventError) {
-        console.error('Error fetching event:', eventError);
-        throw eventError;
+        console.error('Database error fetching event:', eventError);
+        throw new Error(`Database error: ${eventError.message}`);
       }
       
       if (!eventData) {
-        throw new Error('Event not found or may have been deleted');
+        console.log('No event found with ID:', id);
+        throw new Error('Event not found, may have been deleted, or is not available');
       }
 
       // Load RSVPs using secure function (excludes email addresses)
@@ -80,12 +97,14 @@ const Invite = () => {
       setWaitlist(waitlistData || []);
       
     } catch (error: any) {
+      console.error('Failed to load event data:', error);
       toast({
-        title: "Error loading event",
-        description: error.message,
+        title: "Unable to load invitation",
+        description: error.message || "This invitation link may be invalid or the event may no longer be available",
         variant: "destructive",
       });
-      navigate('/');
+      // Navigate to home page instead of empty page
+      setTimeout(() => navigate('/'), 3000);
     } finally {
       setLoading(false);
     }

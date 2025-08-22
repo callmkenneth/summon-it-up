@@ -21,12 +21,17 @@ const Share = () => {
   const eventId = searchParams.get('id');
   const emailAlreadySent = searchParams.get('emailSent') === 'true';
   
-  // Reliable link construction with fallback
+  // Reliable base URL construction with proper environment detection
   const getBaseUrl = () => {
     if (typeof window !== 'undefined') {
-      return window.location.origin;
+      const origin = window.location.origin;
+      console.log('Base URL detected:', origin);
+      return origin;
     }
-    return 'https://your-app.lovableproject.com'; // Fallback for SSR
+    // Production URL - replace with your actual deployed URL
+    const fallbackUrl = 'https://lsbaijtsrkvrnkjyioza.lovableproject.com';
+    console.log('Using fallback URL:', fallbackUrl);
+    return fallbackUrl;
   };
   
   const inviteLink = eventId ? `${getBaseUrl()}/invite/${eventId}` : '';
@@ -53,36 +58,55 @@ const Share = () => {
     }
     const fetchEvent = async () => {
       try {
-        // Use public_events view for secure access (excludes host_email)
-        const { data, error } = await supabase
+        console.log('Fetching event with ID:', eventId);
+        
+        // First try public_events view
+        let { data, error } = await supabase
           .from('public_events')
           .select('*')
           .eq('id', eventId)
           .maybeSingle();
         
+        // If public_events fails, try direct events table access
+        if (error || !data) {
+          console.log('public_events failed, trying events table:', error);
+          const { data: eventData, error: eventError } = await supabase
+            .from('events')
+            .select('id, created_at, updated_at, title, description, location, event_date, start_time, end_time, guest_limit, unlimited_guests, male_ratio, female_ratio, use_ratio_control, rsvp_deadline, hide_location_until_rsvp, image_url, status')
+            .eq('id', eventId)
+            .eq('status', 'open')
+            .maybeSingle();
+          
+          data = eventData;
+          error = eventError;
+        }
+        
         if (error) {
-          console.error('Error fetching event:', error);
-          throw error;
+          console.error('Database error fetching event:', error);
+          throw new Error(`Database error: ${error.message}`);
         }
         
         if (!data) {
+          console.log('No event found with ID:', eventId);
           toast({
             title: "Event not found",
-            description: "This event may have been deleted or is not available",
+            description: "This event may have been deleted, cancelled, or is not available for sharing",
             variant: "destructive"
           });
-          navigate('/newevent');
+          navigate('/');
           return;
         }
         
+        console.log('Event loaded successfully:', data);
         setEvent(data);
       } catch (error: any) {
-        console.error('Failed to load event:', error);
+        console.error('Failed to load event details:', error);
         toast({
-          title: "Error loading event",
-          description: error.message || "Failed to load event details",
+          title: "Unable to load event",
+          description: error.message || "Please check your connection and try again",
           variant: "destructive"
         });
+        // Don't navigate away immediately, let user retry
       }
     };
     fetchEvent();

@@ -136,8 +136,23 @@ const NewEvent = () => {
         status: 'open'
       };
 
+      console.log('=== DEBUGGING EVENT INSERT ===');
+      console.log('Event data being inserted:', JSON.stringify(eventData, null, 2));
+      
       const { data, error } = await supabase.from('events').insert(eventData).select().single();
-      if (error) throw error;
+      
+      console.log('Insert result - data:', data);
+      console.log('Insert result - error:', error);
+      
+      if (error) {
+        console.error('=== DETAILED ERROR INFO ===');
+        console.error('Error code:', error.code);
+        console.error('Error message:', error.message);
+        console.error('Error details:', error.details);
+        console.error('Error hint:', error.hint);
+        console.error('Full error object:', JSON.stringify(error, null, 2));
+        throw error;
+      }
 
       // If host email is provided, automatically send event details
       if (formData.hostEmail) {

@@ -336,6 +336,17 @@ export type Database = {
         Args: { event_uuid: string }
         Returns: number
       }
+      validate_event_data: {
+        Args: {
+          p_description: string
+          p_end_time: string
+          p_event_date: string
+          p_location: string
+          p_start_time: string
+          p_title: string
+        }
+        Returns: boolean
+      }
       validate_text_input: {
         Args: { input_text: string; max_length?: number }
         Returns: boolean

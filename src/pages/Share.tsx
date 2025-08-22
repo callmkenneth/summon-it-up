@@ -21,17 +21,12 @@ const Share = () => {
   const eventId = searchParams.get('id');
   const emailAlreadySent = searchParams.get('emailSent') === 'true';
   
-  // Reliable base URL construction with proper environment detection
   const getBaseUrl = () => {
-    if (typeof window !== 'undefined') {
-      const origin = window.location.origin;
-      console.log('Base URL detected:', origin);
-      return origin;
+    if (window.location.origin) {
+      return window.location.origin;
     }
-    // Production URL - replace with your actual deployed URL
-    const fallbackUrl = 'https://lsbaijtsrkvrnkjyioza.lovableproject.com';
-    console.log('Using fallback URL:', fallbackUrl);
-    return fallbackUrl;
+    // Production fallback
+    return 'https://summons-app.lovable.app';
   };
   
   const inviteLink = eventId ? `${getBaseUrl()}/invite/${eventId}` : '';

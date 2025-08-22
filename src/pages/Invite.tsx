@@ -98,13 +98,12 @@ const Invite = () => {
       
     } catch (error: any) {
       console.error('Failed to load event data:', error);
+      setEvent(null);
       toast({
-        title: "Unable to load invitation",
-        description: error.message || "This invitation link may be invalid or the event may no longer be available",
+        title: "Event Not Found",
+        description: "This event doesn't exist or has been removed.",
         variant: "destructive",
       });
-      // Navigate to home page instead of empty page
-      setTimeout(() => navigate('/'), 3000);
     } finally {
       setLoading(false);
     }
@@ -122,7 +121,17 @@ const Invite = () => {
   }
 
   if (!event) {
-    return null;
+    return (
+      <div className="min-h-screen page-scrim flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-white mb-4">Event Not Found</h1>
+          <p className="text-white/80 mb-8">This event doesn't exist or has been removed.</p>
+          <Button variant="secondary" onClick={() => navigate('/')}>
+            Go Home
+          </Button>
+        </div>
+      </div>
+    );
   }
 
   const spotsRemaining = event.unlimited_guests 

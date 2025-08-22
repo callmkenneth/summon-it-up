@@ -298,6 +298,29 @@ export type Database = {
         Args: { event_uuid: string; target_gender: string }
         Returns: number
       }
+      get_public_events: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          created_at: string
+          description: string
+          end_time: string
+          event_date: string
+          female_ratio: number
+          guest_limit: number
+          hide_location_until_rsvp: boolean
+          id: string
+          image_url: string
+          location: string
+          male_ratio: number
+          rsvp_deadline: string
+          start_time: string
+          status: string
+          title: string
+          unlimited_guests: boolean
+          updated_at: string
+          use_ratio_control: boolean
+        }[]
+      }
       get_public_rsvps: {
         Args: { event_uuid: string }
         Returns: {

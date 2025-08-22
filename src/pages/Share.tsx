@@ -33,11 +33,11 @@ const Share = () => {
       return;
     }
     const fetchEvent = async () => {
-      // Include host_email for Share page since creator needs it for sending email
+      // Use public_events view for secure access (excludes host_email)
       const {
         data,
         error
-      } = await supabase.from('events').select('*').eq('id', eventId).single();
+      } = await supabase.from('public_events').select('*').eq('id', eventId).single();
       if (!error) setEvent(data);
     };
     fetchEvent();

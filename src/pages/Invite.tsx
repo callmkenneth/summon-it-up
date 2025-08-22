@@ -42,9 +42,16 @@ const Invite = () => {
         .from('public_events')
         .select('*')
         .eq('id', id)
-        .single();
+        .maybeSingle();
 
-      if (eventError) throw eventError;
+      if (eventError) {
+        console.error('Error fetching event:', eventError);
+        throw eventError;
+      }
+      
+      if (!eventData) {
+        throw new Error('Event not found or may have been deleted');
+      }
 
       // Load RSVPs using secure function (excludes email addresses)
       const { data: rsvpData, error: rsvpError } = await supabase.rpc('get_public_rsvps', {

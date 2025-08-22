@@ -20,8 +20,27 @@ const Share = () => {
   const [event, setEvent] = useState<any>(null);
   const eventId = searchParams.get('id');
   const emailAlreadySent = searchParams.get('emailSent') === 'true';
-  const inviteLink = eventId ? `${window.location.origin}/invite/${eventId}` : '';
-  const manageLink = eventId ? `${window.location.origin}/manage/${eventId}` : '';
+  
+  // Reliable link construction with fallback
+  const getBaseUrl = () => {
+    if (typeof window !== 'undefined') {
+      return window.location.origin;
+    }
+    return 'https://your-app.lovableproject.com'; // Fallback for SSR
+  };
+  
+  const inviteLink = eventId ? `${getBaseUrl()}/invite/${eventId}` : '';
+  const manageLink = eventId ? `${getBaseUrl()}/manage/${eventId}` : '';
+  
+  // Validate links
+  const validateLink = (link: string) => {
+    try {
+      new URL(link);
+      return link.includes('/invite/') || link.includes('/manage/');
+    } catch {
+      return false;
+    }
+  };
   useEffect(() => {
     if (!eventId) {
       toast({
@@ -33,16 +52,52 @@ const Share = () => {
       return;
     }
     const fetchEvent = async () => {
-      // Use public_events view for secure access (excludes host_email)
-      const {
-        data,
-        error
-      } = await supabase.from('public_events').select('*').eq('id', eventId).single();
-      if (!error) setEvent(data);
+      try {
+        // Use public_events view for secure access (excludes host_email)
+        const { data, error } = await supabase
+          .from('public_events')
+          .select('*')
+          .eq('id', eventId)
+          .maybeSingle();
+        
+        if (error) {
+          console.error('Error fetching event:', error);
+          throw error;
+        }
+        
+        if (!data) {
+          toast({
+            title: "Event not found",
+            description: "This event may have been deleted or is not available",
+            variant: "destructive"
+          });
+          navigate('/newevent');
+          return;
+        }
+        
+        setEvent(data);
+      } catch (error: any) {
+        console.error('Failed to load event:', error);
+        toast({
+          title: "Error loading event",
+          description: error.message || "Failed to load event details",
+          variant: "destructive"
+        });
+      }
     };
     fetchEvent();
   }, [eventId, navigate, toast]);
   const copyToClipboard = async (text: string, type: string) => {
+    // Validate link before copying
+    if (!validateLink(text)) {
+      toast({
+        title: "Invalid link",
+        description: "The link appears to be malformed. Please refresh the page.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
     try {
       await navigator.clipboard.writeText(text);
       setCopied(type);
@@ -52,11 +107,27 @@ const Share = () => {
       });
       setTimeout(() => setCopied(null), 2000);
     } catch (err) {
-      toast({
-        title: "Failed to copy",
-        description: "Please copy the link manually",
-        variant: "destructive"
-      });
+      // Fallback for browsers that don't support clipboard API
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        setCopied(type);
+        toast({
+          title: "Copied!",
+          description: "Link copied to clipboard"
+        });
+        setTimeout(() => setCopied(null), 2000);
+      } catch (fallbackErr) {
+        toast({
+          title: "Failed to copy",
+          description: "Please copy the link manually",
+          variant: "destructive"
+        });
+      }
+      document.body.removeChild(textArea);
     }
   };
   const sendEmail = async () => {
@@ -104,13 +175,27 @@ const Share = () => {
               <CardContent className="space-y-4">
                 <p className="text-sm text-muted-foreground">Copy this link and send to attendees</p>
                 <div className="flex gap-2">
-                  <Input value={inviteLink} readOnly className="flex-1" />
-                  <Button variant="outline" size="icon" onClick={() => copyToClipboard(inviteLink, 'invite')} className="h-10 w-10 shadow-none border-input">
+                  <Input 
+                    value={inviteLink} 
+                    readOnly 
+                    className="flex-1" 
+                    style={{ backgroundColor: validateLink(inviteLink) ? undefined : '#fef2f2' }}
+                  />
+                  <Button 
+                    variant="outline" 
+                    size="icon" 
+                    onClick={() => copyToClipboard(inviteLink, 'invite')} 
+                    className="h-10 w-10 shadow-none border-input"
+                    disabled={!validateLink(inviteLink)}
+                  >
                     {copied === 'invite' ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" style={{
                     color: '#3D2051'
                   }} />}
                   </Button>
                 </div>
+                {!validateLink(inviteLink) && (
+                  <p className="text-sm text-red-600">⚠️ Link validation failed - please refresh the page</p>
+                )}
               </CardContent>
             </Card>
 
@@ -123,13 +208,27 @@ const Share = () => {
               <CardContent className="space-y-4">
                 <p className="text-sm text-muted-foreground">Save this link to view and edit RSVPs</p>
                 <div className="flex gap-2">
-                  <Input value={manageLink} readOnly className="flex-1" />
-                  <Button variant="outline" size="icon" onClick={() => copyToClipboard(manageLink, 'manage')} className="h-10 w-10 shadow-none border-input">
+                  <Input 
+                    value={manageLink} 
+                    readOnly 
+                    className="flex-1"
+                    style={{ backgroundColor: validateLink(manageLink) ? undefined : '#fef2f2' }}
+                  />
+                  <Button 
+                    variant="outline" 
+                    size="icon" 
+                    onClick={() => copyToClipboard(manageLink, 'manage')} 
+                    className="h-10 w-10 shadow-none border-input"
+                    disabled={!validateLink(manageLink)}
+                  >
                     {copied === 'manage' ? <Check className="h-4 w-4 text-green-600" /> : <Copy className="h-4 w-4" style={{
                     color: '#3D2051'
                   }} />}
                   </Button>
                 </div>
+                {!validateLink(manageLink) && (
+                  <p className="text-sm text-red-600">⚠️ Link validation failed - please refresh the page</p>
+                )}
               </CardContent>
             </Card>
           </div>

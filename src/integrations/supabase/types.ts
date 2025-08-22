@@ -236,7 +236,7 @@ export type Database = {
           hide_location_until_rsvp?: boolean | null
           id?: string | null
           image_url?: string | null
-          location?: never
+          location?: string | null
           male_ratio?: number | null
           rsvp_deadline?: string | null
           start_time?: string | null
@@ -256,7 +256,7 @@ export type Database = {
           hide_location_until_rsvp?: boolean | null
           id?: string | null
           image_url?: string | null
-          location?: never
+          location?: string | null
           male_ratio?: number | null
           rsvp_deadline?: string | null
           start_time?: string | null

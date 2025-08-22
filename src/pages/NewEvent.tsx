@@ -136,20 +136,8 @@ const NewEvent = () => {
         status: 'open'
       };
 
-      console.log('Event data being inserted:', eventData);
-      console.log('Field validation check:');
-      console.log('- title:', formData.title, 'length:', formData.title.length, 'trimmed:', formData.title.trim().length);
-      console.log('- description:', formData.description, 'length:', formData.description.length, 'trimmed:', formData.description.trim().length);
-      console.log('- location:', formData.location, 'length:', formData.location.length, 'trimmed:', formData.location.trim().length);
-      console.log('- event_date:', formData.eventDate);
-      console.log('- start_time:', formData.startTime);
-      console.log('- end_time:', formData.endTime);
-
       const { data, error } = await supabase.from('events').insert(eventData).select().single();
-      if (error) {
-        console.error('Database insert error:', error);
-        throw error;
-      }
+      if (error) throw error;
 
       // If host email is provided, automatically send event details
       if (formData.hostEmail) {

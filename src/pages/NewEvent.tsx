@@ -68,23 +68,54 @@ const NewEvent = () => {
     
     try {
       let imageUrl = null;
+      let imageUploadFailed = false;
 
       // Upload image if provided
       if (formData.image) {
-        const fileExt = formData.image.name.split('.').pop();
-        const fileName = `${Math.random()}.${fileExt}`;
-        const {
-          error: uploadError
-        } = await supabase.storage.from('event-images').upload(fileName, formData.image);
-        if (uploadError) throw uploadError;
+        console.log('Starting image upload...', formData.image.name, 'Size:', formData.image.size);
+        
+        // Validate file size (5MB limit)
+        if (formData.image.size > 5 * 1024 * 1024) {
+          toast({
+            title: "Image too large",
+            description: "Please select an image smaller than 5MB. Your event will be created without an image.",
+            variant: "destructive",
+          });
+          imageUploadFailed = true;
+        } else {
+          try {
+            const fileExt = formData.image.name.split('.').pop();
+            const fileName = `${Math.random()}.${fileExt}`;
+            
+            console.log('Uploading to storage:', fileName);
+            const { data: uploadData, error: uploadError } = await supabase.storage
+              .from('event-images')
+              .upload(fileName, formData.image);
+            
+            if (uploadError) {
+              console.error('Storage upload error:', uploadError);
+              throw uploadError;
+            }
+            
+            console.log('Upload successful:', uploadData);
 
-        // Get public URL
-        const {
-          data: {
-            publicUrl
+            // Get public URL
+            const { data: { publicUrl } } = supabase.storage
+              .from('event-images')
+              .getPublicUrl(fileName);
+            
+            imageUrl = publicUrl;
+            console.log('Public URL generated:', imageUrl);
+          } catch (uploadError: any) {
+            console.error('Image upload failed:', uploadError);
+            imageUploadFailed = true;
+            toast({
+              title: "Image upload failed",
+              description: "Your event will be created without an image. You can add one later.",
+              variant: "destructive",
+            });
           }
-        } = supabase.storage.from('event-images').getPublicUrl(fileName);
-        imageUrl = publicUrl;
+        }
       }
       const eventData = {
         title: formData.title,
@@ -121,19 +152,25 @@ const NewEvent = () => {
           });
           toast({
             title: "Event created successfully!",
-            description: "Your event is ready and details have been sent to your email."
+            description: imageUploadFailed 
+              ? "Your event is ready and details have been sent to your email. Note: Image upload failed but you can add one later."
+              : "Your event is ready and details have been sent to your email."
           });
         } catch (emailError) {
           console.error("Failed to send email:", emailError);
           toast({
             title: "Event created successfully!",
-            description: "Event created but email failed to send. You can send it from the share page."
+            description: imageUploadFailed
+              ? "Event created but email failed to send. Note: Image upload also failed but you can add both later from the share page."
+              : "Event created but email failed to send. You can send it from the share page."
           });
         }
       } else {
         toast({
           title: "Event created successfully!",
-          description: "Your event is ready to be shared."
+          description: imageUploadFailed
+            ? "Your event is ready to be shared. Note: Image upload failed but you can add one later."
+            : "Your event is ready to be shared."
         });
       }
 

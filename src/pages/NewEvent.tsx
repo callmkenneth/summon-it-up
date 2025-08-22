@@ -136,23 +136,26 @@ const NewEvent = () => {
         status: 'open'
       };
 
-      console.log('=== DEBUGGING EVENT INSERT ===');
-      console.log('Event data being inserted:', JSON.stringify(eventData, null, 2));
+      // Use the secure public event creation function that bypasses RLS
+      const { data, error } = await supabase.rpc('create_public_event', {
+        p_title: eventData.title,
+        p_description: eventData.description,
+        p_location: eventData.location,
+        p_event_date: eventData.event_date,
+        p_start_time: eventData.start_time,
+        p_end_time: eventData.end_time,
+        p_guest_limit: eventData.guest_limit,
+        p_unlimited_guests: eventData.unlimited_guests,
+        p_male_ratio: eventData.male_ratio,
+        p_female_ratio: eventData.female_ratio,
+        p_use_ratio_control: eventData.use_ratio_control,
+        p_rsvp_deadline: eventData.rsvp_deadline,
+        p_hide_location_until_rsvp: eventData.hide_location_until_rsvp,
+        p_image_url: eventData.image_url,
+        p_host_email: eventData.host_email
+      }).select().single();
       
-      const { data, error } = await supabase.from('events').insert(eventData).select().single();
-      
-      console.log('Insert result - data:', data);
-      console.log('Insert result - error:', error);
-      
-      if (error) {
-        console.error('=== DETAILED ERROR INFO ===');
-        console.error('Error code:', error.code);
-        console.error('Error message:', error.message);
-        console.error('Error details:', error.details);
-        console.error('Error hint:', error.hint);
-        console.error('Full error object:', JSON.stringify(error, null, 2));
-        throw error;
-      }
+      if (error) throw error;
 
       // If host email is provided, automatically send event details
       if (formData.hostEmail) {

@@ -270,6 +270,46 @@ export type Database = {
       }
     }
     Functions: {
+      create_public_event: {
+        Args: {
+          p_description: string
+          p_end_time: string
+          p_event_date: string
+          p_female_ratio?: number
+          p_guest_limit?: number
+          p_hide_location_until_rsvp?: boolean
+          p_host_email?: string
+          p_image_url?: string
+          p_location: string
+          p_male_ratio?: number
+          p_rsvp_deadline?: string
+          p_start_time: string
+          p_title: string
+          p_unlimited_guests?: boolean
+          p_use_ratio_control?: boolean
+        }
+        Returns: {
+          created_at: string
+          description: string
+          end_time: string
+          event_date: string
+          female_ratio: number
+          guest_limit: number
+          hide_location_until_rsvp: boolean
+          host_email: string
+          id: string
+          image_url: string
+          location: string
+          male_ratio: number
+          rsvp_deadline: string
+          start_time: string
+          status: string
+          title: string
+          unlimited_guests: boolean
+          updated_at: string
+          use_ratio_control: boolean
+        }[]
+      }
       get_event_rsvps_for_host: {
         Args: { event_uuid: string; host_email_param: string }
         Returns: {

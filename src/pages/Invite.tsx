@@ -35,6 +35,18 @@ const Invite = () => {
     loadEventData();
   }, [id]);
 
+  // Refresh data when page becomes visible (user returns from manage page)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden && id) {
+        loadEventData();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [id]);
+
   const loadEventData = async () => {
     try {
       console.log('Loading event data for ID:', id);
@@ -142,7 +154,7 @@ const Invite = () => {
     ? Math.ceil((new Date(event.rsvp_deadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
     : null;
      
-  const isFull = !event.unlimited_guests && typeof spotsRemaining === 'number' && spotsRemaining <= 0;
+  const isFull = !event.unlimited_guests && spotsRemaining !== '∞' && typeof spotsRemaining === 'number' && spotsRemaining <= 0;
   const isRsvpClosed = event.rsvp_deadline && new Date() > new Date(event.rsvp_deadline);
 
   const handleRSVP = (response: 'yes' | 'no') => {
@@ -200,9 +212,9 @@ const Invite = () => {
                        <img src="/lovable-uploads/5af563b1-4cd0-4019-afcd-dcf542c9cad3.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                        <h5>WHEN</h5>
                     </div>
-                    <p className="text-muted-foreground">
-                      {event?.event_date ? new Date(event.event_date).toLocaleDateString() : ''}
-                    </p>
+                     <p className="text-muted-foreground">
+                       {event?.event_date ? new Date(event.event_date + 'T00:00:00').toLocaleDateString() : ''}
+                     </p>
                       <p className="text-sm text-muted-foreground">
                         {to12Hour(event?.start_time)} - {to12Hour(event?.end_time)}
                       </p>

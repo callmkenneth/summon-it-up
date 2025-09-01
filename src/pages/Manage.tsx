@@ -317,7 +317,7 @@ const Manage = () => {
                     <img src="/lovable-uploads/36ab1d6e-1bf7-4a10-a658-8050f82f824b.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                     <div>
                       <p className="font-semibold">DATE</p>
-                      <p className="text-muted-foreground">{new Date(event.event_date).toLocaleDateString()}</p>
+                      <p className="text-muted-foreground">{new Date(event.event_date + 'T00:00:00').toLocaleDateString()}</p>
                     </div>
                   </div>
                   

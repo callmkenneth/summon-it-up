@@ -139,13 +139,13 @@ const Details = () => {
                     <img src="/lovable-uploads/01bfb213-3e0c-49f5-8d84-6e6d4c10b80f.png" alt="When" className="w-10 h-10" onError={(e) => e.currentTarget.style.display = 'none'} />
                     <h5>WHEN</h5>
                   </div>
-                  <p className="text-muted-foreground">
-                    {event?.event_date ? new Date(event.event_date).toLocaleDateString('en-US', { 
-                      weekday: 'long', 
-                      year: 'numeric', 
-                      month: 'long', 
-                      day: 'numeric' 
-                    }) : ''}
+                   <p className="text-muted-foreground">
+                     {event?.event_date ? new Date(event.event_date + 'T00:00:00').toLocaleDateString('en-US', { 
+                       weekday: 'long', 
+                       year: 'numeric', 
+                       month: 'long', 
+                       day: 'numeric' 
+                     }) : ''}
                   </p>
                   <p className="text-sm text-muted-foreground">
                     {to12Hour(event?.start_time)} - {to12Hour(event?.end_time)}
